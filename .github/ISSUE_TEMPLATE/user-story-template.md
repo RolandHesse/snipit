@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ## Value proposition
-As a <user/role>
+As an efficiency-driven web developer
 I want to <feature/goal>
 In order to <benefit/purpose>
 ## Description
@@ -19,4 +19,5 @@ In order to <benefit/purpose>
 - [ ] How should something behave?
 - [ ] What is the text of an alert?
 ## Tasks
+- [ ] create a new branch
 - [ ] List the tasks that need to be performed within the dev team
