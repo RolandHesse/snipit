@@ -5,15 +5,17 @@ export default function SnippetCardList({ data }) {
   return (
     <>
       <ListHeading>List of Snippets</ListHeading>
+       <ul>
       {data.map((snippet) => (
-        <p key={snippet._id}>
+        <li key={snippet._id}>
           <SnippetCard
             snippetData={snippet}
             name={snippet.name}
             description={snippet.description}
           />
-        </p>
+        </li>
       ))}
+     </ul>
     </>
   );
 }
