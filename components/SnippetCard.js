@@ -10,7 +10,7 @@ export default function SnippetCard({ snippetData, name, description }) {
   );
 }
 
-const StyledCard = styled.div`
+const StyledCard = styled.section`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
