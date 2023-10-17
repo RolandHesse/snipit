@@ -1,7 +1,9 @@
-export default function HomePage() {
+import SnippetCardList from "@/components/SnippetCardList";
+
+export default function HomePage({ data }) {
   return (
     <div>
-      <h1>Hello from Next.js</h1>
+      <SnippetCardList data={data} />
     </div>
   );
 }
