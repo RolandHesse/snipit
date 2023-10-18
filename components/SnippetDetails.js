@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+// const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function SnippetDetails() {
   console.log("test");
@@ -11,13 +11,12 @@ function SnippetDetails() {
   const { id } = router.query;
   console.log("ID: ", { id });
 
-  const { data, isLoading } = useSWR(`/pages/api/snippets/${id}`, fetcher);
-  //   console.log("Mutate:", mutate);
+  const { data, isLoading, error } = useSWR(`@/pages/api/snippets/${id}`);
 
   console.log("useSWR: ", useSWR());
-  //   console.log("Error:", error);
+
   console.log(data);
-  //   if (error) return <div>failed to load Details View 🥺</div>;
+  if (error) return <div>failed to load Details View 🥺</div>;
   if (isLoading) {
     return <h1>Loading Details View 🤓</h1>;
   }
