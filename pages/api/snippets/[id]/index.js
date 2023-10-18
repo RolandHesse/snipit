@@ -9,7 +9,7 @@ export default async function handler(request, response) {
     if (!id) {
       return;
     }
-    if (request.methode === "GET") {
+    if (request.method === "GET") {
       const snippet = await Snippet.findById(id);
       if (!snippet) {
         return response.status(404).json({ status: "Snippet not found 😔" });
