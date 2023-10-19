@@ -12,11 +12,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <SWRConfig value={{ fetcher, refreshInterval: 3000 }}>
-      <>
-        <GlobalStyle />
-        <Header />
-        <Component {...pageProps} data={data} />
-      </>
+      <GlobalStyle />
+      <Header />
+      <Component {...pageProps} data={data} />
     </SWRConfig>
   );
 }

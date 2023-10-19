@@ -9,25 +9,23 @@ function SnippetDetails() {
 
   const { data, isLoading, error } = useSWR(`/api/snippets/${id}`);
 
-  if (error) return <div>failed to load Details View 🥺</div>;
+  if (error) return <div>Failed to load Details View 🥺</div>;
   if (isLoading) {
-    return <h1>Loading Details View 🤓</h1>;
+    return <div>Loading Details View 🤓</div>;
   }
-  if (!data) {
-    return <div>cant find the data yet</div>;
-  }
+
   const { name, code, description, link, tags } = data;
 
   return (
     <section>
-      <h1>{name}</h1>
-      <h2>Code</h2>
-      <div>{code}</div>
-      <h2>Description</h2>
+      <h2>{name}</h2>
+      <h3>Code</h3>
+      <code>{code}</code>
+      <h3>Description</h3>
       <p>{description}</p>
-      <h2>Link</h2>
+      <h3>Link</h3>
       <Link href={link}>Further information</Link>
-      <h2>Tag</h2>
+      <h3>Tag</h3>
       <p>{tags}</p>
     </section>
   );

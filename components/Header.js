@@ -3,11 +3,9 @@ import styled from "styled-components";
 
 function Header() {
   return (
-    <>
-      <Link href={`/`}>
-        <Logo>/ˈsnɪp.ɪt/</Logo>
-      </Link>
-    </>
+    <Link href={`/`}>
+      <Logo>/ˈsnɪp.ɪt/</Logo>
+    </Link>
   );
 }
 
