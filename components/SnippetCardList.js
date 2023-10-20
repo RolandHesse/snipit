@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SnippetCard from "./SnippetCard";
+import Link from "next/link";
 
 export default function SnippetCardList({ data }) {
   return (
@@ -8,11 +9,13 @@ export default function SnippetCardList({ data }) {
       <StyledSnippetList>
         {data.map((snippet) => (
           <li key={snippet._id}>
-            <SnippetCard
-              snippetData={snippet}
-              name={snippet.name}
-              description={snippet.description}
-            />
+            <Link href={`/${snippet._id}`}>
+              <SnippetCard
+                snippetData={snippet}
+                name={snippet.name}
+                description={snippet.description}
+              />
+            </Link>
           </li>
         ))}
       </StyledSnippetList>
