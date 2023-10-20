@@ -16,6 +16,6 @@ export default async function handler(request, response) {
     }
   } catch (error) {
     console.error("An error occurred:", error);
-    response.status(500).json({ error: "Internal Server Error" });
+    response.status(500).json({ error: "Something went wrong" });
   }
 }
