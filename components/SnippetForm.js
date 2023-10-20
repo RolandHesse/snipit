@@ -21,7 +21,8 @@ function SnippetForm() {
       },
       body: JSON.stringify(snippetData),
     });
-
+    event.target.reset();
+    event.target.elements.name.focus();
     if (response.ok) {
       setSubmitted(true);
       setError(null);
@@ -77,7 +78,7 @@ function SnippetForm() {
         </select>
 
         <button type="submit">Submit</button>
-        <button type="button">cancel</button>
+        <button type="reset">Reset</button>
       </StyledForm>
       {submitted && (
         <>
