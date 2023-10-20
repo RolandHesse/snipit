@@ -22,7 +22,7 @@ export default function SnippetCardList({ data }) {
 
 const ListHeading = styled.h1`
   font-size: 2rem;
-  color: #005f6a;
+  color: var(--teal);
   display: flex;
   justify-content: center;
 `;
