@@ -81,16 +81,12 @@ function SnippetForm() {
         <button type="reset">Reset</button>
       </StyledForm>
       {submitted && (
-        <>
-          <div>
-            <span role="img" aria-label="check">
-              ✅
-            </span>
-            Added Snippet successfully!
-          </div>
-          <button type="button">back to homepage</button>
-          <button type="button">add another snippet</button>
-        </>
+        <div>
+          <span role="img" aria-label="check">
+            ✅
+          </span>
+          Added Snippet successfully!
+        </div>
       )}
       {error && (
         <div>
