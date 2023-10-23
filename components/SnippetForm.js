@@ -61,7 +61,7 @@ function SnippetForm() {
           rows="5"
           placeholder="description of the code"
         ></textarea>
-        <label for="link">Link:</label>
+        <label htmlFor="link">Link:</label>
         <input
           type="text"
           id="link"
