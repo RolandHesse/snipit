@@ -53,7 +53,7 @@ function SnippetForm() {
           placeholder="your code"
         ></textarea>
 
-        <label for="description">Description:</label>
+        <label htmlFor="description">Description:</label>
         <textarea
           type="text"
           id="description"
