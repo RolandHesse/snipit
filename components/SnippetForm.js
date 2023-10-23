@@ -44,7 +44,7 @@ function SnippetForm() {
           name="name"
           placeholder="Code name"
         ></input>
-        <label for="code">Code:</label>
+        <label htmlFor="code">Code:</label>
         <textarea
           type="text"
           id="code"
