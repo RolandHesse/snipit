@@ -18,7 +18,7 @@ const StyledCard = styled.section`
   margin: 1.5rem;
   padding: 2rem 1.5rem;
   border-radius: 0.5rem;
-  background-color: var(--teal);
+  background-color: var(--primary-color);
   color: var(--white);
 `;
 const CardHeading = styled.h2`

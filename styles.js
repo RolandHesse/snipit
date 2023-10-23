@@ -1,4 +1,7 @@
+import { Montserrat } from "@next/font/google";
 import { createGlobalStyle } from "styled-components";
+
+const montserratFont = Montserrat({ subsets: ["latin"] });
 
 export default createGlobalStyle`
   *,
@@ -8,13 +11,13 @@ export default createGlobalStyle`
   }
 
   :root {
-    --teal: #00586a;
-    --light-grey: #EEEEF6;
+    --primary-color: #0B4C5F;
     --white: white;
   }
 
   body {
     margin: 4rem 0 0 0;
-    font-family:  Arial, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif, system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: ${montserratFont.style.fontFamily};
+    padding: 2rem;
   }
 `;

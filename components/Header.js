@@ -15,7 +15,7 @@ const Logo = styled.h1`
   display: flex;
   position: fixed;
   color: var(--white);
-  background-color: var(--teal);
+  background-color: var(--primary-color);
   justify-content: center;
   margin: 0 0 1rem 0;
   padding: 0.5rem;

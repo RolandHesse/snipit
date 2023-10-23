@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import styled from "styled-components";
 
 function SnippetDetails() {
   const router = useRouter();
@@ -18,17 +19,26 @@ function SnippetDetails() {
 
   return (
     <section>
-      <h2>{name}</h2>
-      <h3>Code</h3>
+      <Title>{name}</Title>
+      <Heading>Code</Heading>
       <code>{code}</code>
-      <h3>Description</h3>
+      <Heading>Description</Heading>
       <p>{description}</p>
-      <h3>Link</h3>
+      <Heading>Link</Heading>
       <Link href={link}>Further information</Link>
-      <h3>Tag</h3>
+      <Heading>Tag</Heading>
       <p>{tags}</p>
     </section>
   );
 }
+
+const Title = styled.h2`
+  font-size: 1.5rem;
+  color: var(--primary-color);
+`;
+
+const Heading = styled.h3`
+  color: var(--primary-color);
+`;
 
 export default SnippetDetails;
