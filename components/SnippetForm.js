@@ -37,7 +37,7 @@ function SnippetForm() {
     <>
       <StyledForm onSubmit={handleSubmit}>
         <h2>Add new Snippet</h2>
-        <label for="name">Name:</label>
+        <label htmlFor="name">Name:</label>
         <input
           type="text"
           id="name"
