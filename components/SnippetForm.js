@@ -38,12 +38,7 @@ function SnippetForm() {
       <StyledForm onSubmit={handleSubmit}>
         <h2>Add new Snippet</h2>
         <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Code name"
-        ></input>
+        <input type="text" id="name" name="name" placeholder="Code name" />
         <label htmlFor="code">Code:</label>
         <textarea
           type="text"
@@ -67,8 +62,7 @@ function SnippetForm() {
           id="link"
           name="link"
           placeholder="type your link here"
-        ></input>
-
+        />
         <label htmlFor="tag">Tag:</label>
         <select id="tag" name="tag" placeholder="tag">
           <option value=""></option>

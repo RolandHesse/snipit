@@ -5,7 +5,7 @@ function BackButton() {
 
   return (
     <button type="button" onClick={() => router.back()}>
-      ⬅️Click here to go back
+      <span aria-hidden="true">⬅️ </span>Click here to go back
     </button>
   );
 }
