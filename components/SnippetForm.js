@@ -69,7 +69,7 @@ function SnippetForm() {
           placeholder="type your link here"
         ></input>
 
-        <label for="tag">Tag:</label>
+        <label htmlFor="tag">Tag:</label>
         <select id="tag" name="tag" placeholder="tag">
           <option value=""></option>
           <option value="html">html</option>
