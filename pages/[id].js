@@ -1,10 +1,10 @@
-import BackButton from "@/components/BackButton";
+import BackLink from "@/components/BackLink";
 import SnippetDetails from "@/components/SnippetDetails";
 
 function SnippetDetailsPage() {
   return (
     <>
-      <BackButton />
+      <BackLink url={"/"} />
       <SnippetDetails />
     </>
   );

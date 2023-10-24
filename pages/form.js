@@ -1,10 +1,10 @@
-import BackButton from "@/components/BackButton";
+import BackLink from "@/components/BackLink";
 import SnippetForm from "@/components/SnippetForm";
 
 function FormPage() {
   return (
     <>
-      <BackButton />
+      <BackLink url={"/"} />
       <SnippetForm />
     </>
   );

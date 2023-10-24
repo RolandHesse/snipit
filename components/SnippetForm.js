@@ -21,12 +21,11 @@ function SnippetForm() {
       },
       body: JSON.stringify(snippetData),
     });
-    event.target.reset();
-    event.target.elements.name.focus();
     if (response.ok) {
       setSubmitted(true);
       setError(null);
-      mutate();
+      event.target.reset();
+      event.target.elements.name.focus();
     } else {
       const data = await response.json();
       setError(data.error);
