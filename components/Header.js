@@ -1,7 +1,12 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 function Header() {
-  return <Logo>/ˈsnɪp.ɪt/</Logo>;
+  return (
+    <Link href={`/`}>
+      <Logo>/ˈsnɪp.ɪt/</Logo>
+    </Link>
+  );
 }
 
 export default Header;
