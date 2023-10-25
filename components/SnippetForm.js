@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 
-function SnippetForm() {
+function SnippetForm({ onSubmit, formName, defaultData }) {
   const { mutate } = useSWR(`api/snippets`);
 
   const [submitted, setSubmitted] = useState(false);
@@ -13,7 +13,7 @@ function SnippetForm() {
 
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
-
+    onSubmit(snippetData);
     const response = await fetch("/api/snippets", {
       method: "POST",
       headers: {
@@ -35,10 +35,16 @@ function SnippetForm() {
 
   return (
     <>
-      <StyledForm onSubmit={handleSubmit}>
-        <h2>Add new Snippet</h2>
+      <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
+        <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
         <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Code name" />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Code name"
+          defaultValue={defaultData?.name}
+        />
         <label htmlFor="code">Code:</label>
         <textarea
           type="text"
@@ -46,6 +52,7 @@ function SnippetForm() {
           name="code"
           rows="5"
           placeholder="your code"
+          defaultValue={defaultData?.code}
         ></textarea>
 
         <label htmlFor="description">Description:</label>
@@ -55,6 +62,7 @@ function SnippetForm() {
           name="description"
           rows="5"
           placeholder="description of the code"
+          defaultValue={defaultData?.description}
         ></textarea>
         <label htmlFor="link">Link:</label>
         <input
@@ -62,16 +70,24 @@ function SnippetForm() {
           id="link"
           name="link"
           placeholder="type your link here"
+          defaultValue={defaultData?.link}
         />
         <label htmlFor="tag">Tag:</label>
-        <select id="tag" name="tag" placeholder="tag">
+        <select
+          id="tag"
+          name="tag"
+          placeholder="tag"
+          defaultValue={defaultData?.tag}
+        >
           <option value=""></option>
           <option value="html">html</option>
           <option value="javaScript">javaScript</option>
           <option value="next">next</option>
         </select>
 
-        <button type="submit">Submit</button>
+        <button type="submit">
+          {defaultData ? "Update snippet" : "Add snippet"}
+        </button>
         <button type="reset">Reset</button>
       </StyledForm>
       {submitted && (

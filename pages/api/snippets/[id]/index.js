@@ -16,6 +16,13 @@ export default async function handler(request, response) {
       }
       return response.status(200).json(snippet);
     }
+    if (request.method === "PUT") {
+      const snippetData = request.body;
+      await Snippet.findByIdAndUpdate(id, snippetData);
+
+      response.status(200).json({ status: "Snippet updated!" });
+    }
+
     if (request.method === "DELETE") {
       await Snippet.findByIdAndDelete(id);
       response.status(200).json({ status: "Snippet deleted" });

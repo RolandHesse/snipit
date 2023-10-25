@@ -2,6 +2,7 @@ import BackLink from "@/components/BackLink";
 import SnippetDetails from "@/components/SnippetDetails";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
+
 function SnippetDetailsPage() {
   const router = useRouter();
   // const { isReady } = router;
