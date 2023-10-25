@@ -10,7 +10,7 @@ const StyledLink = styled(Link)`
   justify-content: center;
   position: fixed;
   color: white;
-  background-color: #005f6a;
+  background-color: var(--primary-color);
   bottom: 0;
   padding: 0.5rem 0.7rem 0.7rem 0.7rem;
   height: 3rem;
