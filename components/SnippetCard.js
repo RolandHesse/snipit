@@ -18,8 +18,8 @@ const StyledCard = styled.section`
   margin: 1.5rem;
   padding: 2rem 1.5rem;
   border-radius: 0.5rem;
-  background-color: #005f6a;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--white);
 `;
 const CardHeading = styled.h2`
   font-size: 1.5rem;
