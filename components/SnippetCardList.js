@@ -7,7 +7,7 @@ export default function SnippetCardList({ data }) {
     <>
       <ListHeading>List of Snippets</ListHeading>
       <StyledSnippetList>
-        {data.map((snippet) => (
+        {data?.map((snippet) => (
           <li key={snippet._id}>
             <Link href={`/${snippet._id}`}>
               <SnippetCard

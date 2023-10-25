@@ -26,6 +26,7 @@ function SnippetForm() {
       setError(null);
       event.target.reset();
       event.target.elements.name.focus();
+      mutate();
     } else {
       const data = await response.json();
       setError(data.error);
