@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import GlobalStyle from "../styles";
 import useSWR, { SWRConfig } from "swr";
 
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Header />
       <Component {...pageProps} data={data} />
+      <Footer />
     </SWRConfig>
   );
 }

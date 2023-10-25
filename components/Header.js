@@ -18,7 +18,8 @@ const Logo = styled.h1`
   background-color: var(--primary-color);
   justify-content: center;
   margin: 0 0 1rem 0;
-  padding: 0.5rem;
+  padding: 0.5rem 0.7rem 0.7rem 0.7rem;
+  border-bottom: solid white 0.1rem;
   top: 0;
   left: 0;
   right: 0;
