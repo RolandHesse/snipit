@@ -3,7 +3,7 @@ import SnippetDetails from "@/components/SnippetDetails";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
 
-function SnippetDetailsPage() {
+function SnippetDetailsPage({ editState }) {
   const router = useRouter();
   // const { isReady } = router;
   const { id } = router.query;
@@ -17,6 +17,7 @@ function SnippetDetailsPage() {
   return (
     <>
       <BackLink url={"/"} />
+      {editState && <p>Editted successfully</p>}
       <SnippetDetails onDelete={handleDelete} />
     </>
   );

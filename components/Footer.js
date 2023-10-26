@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export default function Footer() {
-  return <StyledLink href="/form">+ Add new</StyledLink>;
+  return <StyledLink href="/create">+ Add new</StyledLink>;
 }
 
 const StyledLink = styled(Link)`
