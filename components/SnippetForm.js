@@ -1,36 +1,13 @@
-import { useState } from "react";
 import styled from "styled-components";
-import useSWR from "swr";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
-  const { mutate } = useSWR(`api/snippets`);
-
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(null);
-
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
-    onSubmit(snippetData);
-    const response = await fetch("/api/snippets", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(snippetData),
-    });
-    if (response.ok) {
-      setSubmitted(true);
-      setError(null);
-      event.target.reset();
-      event.target.elements.name.focus();
-      mutate();
-    } else {
-      const data = await response.json();
-      setError(data.error);
-    }
+
+    onSubmit(event, snippetData);
   }
 
   return (
@@ -90,22 +67,6 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         </button>
         <button type="reset">Reset</button>
       </StyledForm>
-      {submitted && (
-        <div>
-          <span role="img" aria-label="check">
-            ✅
-          </span>
-          Added Snippet successfully!
-        </div>
-      )}
-      {error && (
-        <div>
-          <span role="img" aria-label="oh no!">
-            😵‍💫
-          </span>
-          Something went wrong ...
-        </div>
-      )}
     </>
   );
 }
