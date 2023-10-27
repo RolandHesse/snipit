@@ -4,8 +4,8 @@ import useSWR from "swr";
 export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
 
-  if (error) return <div>failed to load🥶😵‍💫😨😩😢</div>;
-  if (isLoading) return <div>wait....wait...wait... still loading...🤓</div>;
+  if (error) return <p>failed to load🥶😵‍💫😨😩😢</p>;
+  if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
   return (
     <div>
