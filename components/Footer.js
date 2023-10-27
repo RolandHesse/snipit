@@ -11,6 +11,8 @@ const StyledLink = styled(Link)`
   position: fixed;
   color: white;
   background-color: var(--primary-color);
+  left: 0;
+  right: 0;
   bottom: 0;
   padding: 0.5rem 0.7rem 0.7rem 0.7rem;
   height: 3rem;
