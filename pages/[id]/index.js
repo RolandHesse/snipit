@@ -9,9 +9,14 @@ function SnippetDetailsPage() {
   const { id } = router.query;
 
   async function handleDelete() {
-    await fetch(`/api/snippets/${id}`, { method: "DELETE" });
-    mutate(`/api/snippets`);
-    router.push("/");
+    try {
+      await fetch(`/api/snippets/${id}`, { method: "DELETE" });
+      mutate(`/api/snippets`);
+      router.push("/");
+    } catch (error) {
+      console.error("An error occurred:", error);
+      response.status(500).json({ error: "Something went wrong" });
+    }
   }
 
   return (

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import styled from "styled-components";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 
 function SnippetDetails({ onDelete }) {
   const router = useRouter();
@@ -10,11 +10,6 @@ function SnippetDetails({ onDelete }) {
   const { id } = router.query;
 
   const { data, isLoading, error } = useSWR(`/api/snippets/${id}`);
-  const response = {};
-
-  if (response.ok) {
-    mutate();
-  }
 
   if (error) {
     return <div>Failed to load Details View 🥺</div>;

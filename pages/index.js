@@ -7,9 +7,5 @@ export default function HomePage() {
   if (error) return <p>failed to load🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
-  return (
-    <div>
-      <SnippetCardList data={data} />
-    </div>
-  );
+  return <SnippetCardList data={data} />;
 }

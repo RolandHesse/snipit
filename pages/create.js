@@ -6,22 +6,27 @@ function FormPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
 
-  async function createSnippet(event, krautsalat) {
-    const response = await fetch("/api/snippets", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(krautsalat),
-    });
-    if (response.ok) {
-      setSubmitted(true);
-      setError(null);
-      event.target.reset();
-      event.target.elements.name.focus();
-    } else {
-      const data = await response.json();
-      setError(data.error);
+  async function createSnippet(event, snippetData) {
+    try {
+      const response = await fetch("/api/snippets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(snippetData),
+      });
+      if (response.ok) {
+        setSubmitted(true);
+        setError(null);
+        event.target.reset();
+        event.target.elements.name.focus();
+      } else {
+        const data = await response.json();
+        setError(data.error);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      response.status(500).json({ error: "Something went wrong" });
     }
   }
 

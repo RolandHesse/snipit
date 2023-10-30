@@ -12,7 +12,7 @@ export default async function handler(request, response) {
     if (request.method === "POST") {
       const snippetData = request.body;
       await Snippet.create(snippetData);
-      response.status(201).json({ status: "new Snippet created!" });
+      response.status(201).json({ status: "New Snippet created!" });
     }
   } catch (error) {
     console.error("An error occurred:", error);
