@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ## Value proposition
-As an efficiency-driven web developer
+As a user
 I want to <feature/goal>
 In order to <benefit/purpose>
 ## Description
