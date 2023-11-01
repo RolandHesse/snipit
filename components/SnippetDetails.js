@@ -33,11 +33,17 @@ function SnippetDetails({ onDelete }) {
       <p>{tags}</p>
 
       <Link href={`/${id}/edit`}>
-        <span aria-label="hidden">✏️ </span> Edit
+        <span role="img" aria-label="hidden">
+          ✏️{" "}
+        </span>{" "}
+        Edit
       </Link>
 
       <button onClick={onDelete}>
-        <span aria-label="hidden">❌ </span>Delete
+        <span role="img" aria-label="hidden">
+          ❌{" "}
+        </span>
+        Delete
       </button>
     </section>
   );
