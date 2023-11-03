@@ -20,6 +20,6 @@ export default createGlobalStyle`
   body {
     margin: 4rem 0 0 0;
     font-family: ${montserratFont.style.fontFamily};
-    padding: 0.5rem;
+    padding: 0.5rem; 
   }
 `;
