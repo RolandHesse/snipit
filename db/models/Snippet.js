@@ -9,6 +9,11 @@ const snippetSchema = new Schema(
     description: { type: String },
     link: { type: String },
     tag: { type: String },
+    links: [
+      {
+        url: { type: String },
+      },
+    ],
   },
   { timestamps: true }
 );

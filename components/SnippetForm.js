@@ -1,14 +1,35 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
+  const [links, setLinks] = useState([""]);
+
   function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
 
-    onSubmit(event, snippetData);
+    onSubmit(event, { ...snippetData, links });
   }
+
+  function addLink() {
+    setLinks([...links, ""]);
+  }
+
+  function handleLinkChange(index, value) {
+    const updatedLinks = [...links];
+    updatedLinks[index] = value;
+    setLinks(updatedLinks);
+  }
+
+  function handleDelete(index) {
+    const rectifiedLinks = [...links];
+    rectifiedLinks.splice(index, 1);
+    setLinks(rectifiedLinks);
+  }
+
+  console.log("links: ", links);
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
@@ -40,14 +61,47 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         placeholder="description of the code"
         defaultValue={defaultData?.description}
       ></textarea>
-      <label htmlFor="link">Link:</label>
-      <input
-        type="text"
-        id="link"
-        name="link"
-        placeholder="type your link here"
-        defaultValue={defaultData?.link}
-      />
+
+      {links.length <= 1 ? (
+        <div>
+          <label htmlFor="link">Link:</label>
+          <input
+            type="text"
+            id="link"
+            name="link"
+            placeholder="type your link here"
+            defaultValue={defaultData?.link}
+            value={links[0]}
+            onChange={(event) => handleLinkChange(0, event.target.value)}
+          />
+          <button type="button" onClick={addLink}>
+            ⨁ Add another link
+          </button>
+        </div>
+      ) : (
+        <div>
+          {links.map((link, index) => (
+            <div key={index}>
+              <label htmlFor={index}>Link:</label>
+              <input
+                type="text"
+                id={index}
+                name="link"
+                placeholder="type your link here"
+                defaultValue={defaultData?.link}
+                value={link}
+                onChange={(event) =>
+                  handleLinkChange(index, event.target.value)
+                }
+              />
+              <button onClick={() => handleDelete(index)}>🚮</button>
+            </div>
+          ))}
+          <button type="button" onClick={addLink}>
+            ⨁ Add another link
+          </button>
+        </div>
+      )}
       <label htmlFor="tag">Tag:</label>
       <select
         id="tag"

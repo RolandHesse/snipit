@@ -18,7 +18,8 @@ function SnippetDetails({ onDelete }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, link, tags } = data;
+  const { name, code, description, link, tags, links } = data;
+  console.log("data: ", data);
 
   return (
     <section>
@@ -27,8 +28,12 @@ function SnippetDetails({ onDelete }) {
       <code>{code}</code>
       <Heading>Description</Heading>
       <p>{description}</p>
-      <Heading>Link</Heading>
-      <Link href={link}>Further information</Link>
+      {links?.map((link, index) => (
+        <div key={index}>
+          <Heading>Link</Heading>
+          <Link href={link}>Further information</Link>
+        </div>
+      ))}
       <Heading>Tag</Heading>
       <p>{tags}</p>
 
