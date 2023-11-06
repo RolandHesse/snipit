@@ -1,10 +1,16 @@
 import styled from "styled-components";
+import { Icon } from "@iconify/react";
 
-function Button({ onDelete, buttonName, buttonEmoji }) {
+function Button({ onDelete, buttonName, buttonIcon }) {
   return (
     <StyledButton onClick={onDelete}>
       <span role="img" aria-label="hidden">
-        {buttonEmoji}
+        <Icon
+          icon={buttonIcon}
+          style={{ fontSize: "1.7rem" }}
+          className="button-icon"
+        />{" "}
+        ⠀
       </span>
       {buttonName}
     </StyledButton>
@@ -25,8 +31,16 @@ const StyledButton = styled.button`
   border-bottom: 2px solid var(--primary-color);
   border-left: 2px solid #cccccc;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
   &:hover {
     background-color: var(--primary-color);
     color: white;
+
+    .button-icon {
+      color: white;
+    }
   }
 `;

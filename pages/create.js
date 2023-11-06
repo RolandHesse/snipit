@@ -33,7 +33,7 @@ function FormPage() {
 
   return (
     <StyledCreatePage>
-      <BackLink url={"/"} linkName={"Go Back"} linkEmoji="⬅️ " />
+      <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
       <SnippetForm onSubmit={createSnippet} />
       {submitted && (
         <div>

@@ -46,8 +46,16 @@ function SnippetDetails({ onDelete }) {
         <p>{tags}</p>
       </StyledCard>
       <StyledButtonDiv>
-        <LinkLayout url={`/${id}/edit`} linkName="Edit" linkEmoji="✏️ " />
-        <Button onDelete={onDelete} buttonName="Delete" buttonEmoji="❌ " />
+        <LinkLayout
+          url={`/${id}/edit`}
+          linkName="Edit"
+          linkIcon="line-md:edit"
+        />
+        <Button
+          onDelete={onDelete}
+          buttonName="Delete"
+          buttonIcon="line-md:remove"
+        />
       </StyledButtonDiv>
     </StyledSection>
   );

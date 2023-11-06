@@ -1,12 +1,18 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { Icon } from "@iconify/react";
 
-function LinkLayout({ url, linkName, linkEmoji }) {
+function LinkLayout({ url, linkName, linkIcon }) {
   return (
     <StyledLink href={url}>
       <span role="img" aria-hidden="true">
-        {linkEmoji}
-      </span>{" "}
+        <Icon
+          icon={linkIcon}
+          style={{ fontSize: "1.7rem" }}
+          className="link-icon"
+        />
+        ⠀
+      </span>
       {linkName}
     </StyledLink>
   );
@@ -26,28 +32,16 @@ const StyledLink = styled(Link)`
   border-bottom: 2px solid var(--primary-color);
   border-left: 2px solid #cccccc;
   font-size: large;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
   &:hover {
     background-color: var(--primary-color);
     color: white;
+
+    .link-icon {
+      color: white;
+    }
   }
 `;
-
-// function ArrowLeft() {
-//   return (
-//     <svg
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="1em"
-//       height="1em"
-//       viewBox="0 0 16 16"
-//       // {...props}
-//     >
-//       <path
-//         fill="none"
-//         stroke="#04151b"
-//         strokeLinecap="round"
-//         strokeLinejoin="round"
-//         strokeWidth="1.5"
-//         d="m7.25 3.75l-4.5 4.5l4.5 4.5m6-4.5H2.75"
-//       ></path>
-//     </svg>
-//   );}

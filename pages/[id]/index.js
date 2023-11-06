@@ -22,7 +22,11 @@ function SnippetDetailsPage() {
 
   return (
     <StlyedDetailsPage>
-      <LinkLayout url={"/"} linkName={"Go Back"} linkEmoji="⬅️ " />
+      <LinkLayout
+        url={"/"}
+        linkName={"Go Back"}
+        linkIcon="line-md:arrow-left"
+      />
       <SnippetDetails onDelete={handleDelete} />
     </StlyedDetailsPage>
   );
