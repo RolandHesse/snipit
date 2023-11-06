@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import LinkLayout from "@/components/LinkLayout";
 import SnippetDetails from "@/components/SnippetDetails";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
@@ -21,7 +21,7 @@ function SnippetDetailsPage() {
 
   return (
     <>
-      <BackLink url={"/"} />
+      <LinkLayout url={"/"} />
       <SnippetDetails onDelete={handleDelete} />
     </>
   );

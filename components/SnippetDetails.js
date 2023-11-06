@@ -51,7 +51,7 @@ function SnippetDetails({ onDelete }) {
           </span>{" "}
           Edit
         </Link>
-        <Button onDelete={onDelete} buttonname="Delete" buttonemoji="❌ " />
+        <Button onDelete={onDelete} buttonName="Delete" buttonEmoji="❌ " />
       </StyledButtonDiv>
     </StyledSection>
   );

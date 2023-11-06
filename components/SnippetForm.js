@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "./Button";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
   function handleSubmit(event) {
@@ -62,10 +63,8 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         <option value="next">next</option>
       </StyledTag>
       <StyledButtonContainer>
-        <StyledButton type="submit">
-          {defaultData ? "Update snippet" : "Add snippet"}
-        </StyledButton>
-        <StyledButton type="reset">Reset</StyledButton>
+        <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
+        <Button type="reset" buttonName="Reset" />
       </StyledButtonContainer>
     </StyledForm>
   );
@@ -116,10 +115,4 @@ const StyledButtonContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
-`;
-const StyledButton = styled.button`
-  background-color: #c1d2d7;
-  border: none;
-  border-radius: 0.3rem;
-  width: 10%;
 `;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-function BackLink({ url }) {
+function LinkLayout({ url }) {
   return (
     <StyledLink href={url}>
       <span role="img" aria-hidden="true">
@@ -12,7 +12,7 @@ function BackLink({ url }) {
   );
 }
 
-export default BackLink;
+export default LinkLayout;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
