@@ -1,7 +1,22 @@
 import styled from "styled-components";
 import Button from "./Button";
+import { useState } from "react";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
+  const [inputValue, setInputValue] = useState("");
+  const [valueLength, setValueLength] = useState(false);
+
+  function checkRequiredFields(event) {
+    const value = event.target.value;
+    setInputValue(value);
+
+    if (value.length > 0) {
+      setValueLength(true);
+    } else {
+      setValueLength(false);
+    }
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -14,6 +29,10 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
+
+      <Warning>
+        {valueLength ? "‼️ Please fill in the required field" : ""}
+      </Warning>
       <p>ℹ️ Fields marked with an * are required</p>
       <label htmlFor="name">Name*</label>
       <StyledInputName
@@ -24,7 +43,10 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         defaultValue={defaultData?.name}
       />
       <label htmlFor="code">Code*</label>
+
       <StyledCode
+        // value={inputValue}
+        onChange={checkRequiredFields}
         type="text"
         id="code"
         name="code"
@@ -81,33 +103,34 @@ const StyledForm = styled.form`
 const StyledInputName = styled.input`
   height: 2rem;
   border-radius: 0.3rem;
-  background-color: #c1d2d7;
+  background-color: var(--light-color);
   border: none;
 `;
 const StyledCode = styled.textarea`
   height: 10rem;
   border-radius: 0.3rem;
-  background-color: #0b4c5f;
+  background-color: var(--primary-color);
   border: none;
+  color: var(--white);
 `;
 
 const StyledDescription = styled.textarea`
   height: 2rem;
   border-radius: 0.3rem;
-  background-color: #c1d2d7;
+  background-color: var(--light-color);
   border: none;
 `;
 const StyledInputLink = styled.input`
   height: 2rem;
   border-radius: 0.3rem;
-  background-color: #c1d2d7;
+  background-color: var(--light-color);
   border: none;
 `;
 
 const StyledTag = styled.select`
   height: 2rem;
   border-radius: 0.3rem;
-  background-color: #c1d2d7;
+  background-color: var(--light-color);
   border: none;
 `;
 const StyledButtonContainer = styled.div`
@@ -115,4 +138,8 @@ const StyledButtonContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
+`;
+
+const Warning = styled.p`
+  color: red;
 `;
