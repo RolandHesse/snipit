@@ -1,6 +1,7 @@
 import BackLink from "@/components/LinkLayout";
 import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
+import styled from "styled-components";
 
 function FormPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -31,8 +32,8 @@ function FormPage() {
   }
 
   return (
-    <>
-      <BackLink url={"/"} />
+    <StyledCreatePage>
+      <BackLink url={"/"} linkName={"Go Back"} linkEmoji="⬅️ " />
       <SnippetForm onSubmit={createSnippet} />
       {submitted && (
         <div>
@@ -50,8 +51,12 @@ function FormPage() {
           Something went wrong ...
         </div>
       )}
-    </>
+    </StyledCreatePage>
   );
 }
 
 export default FormPage;
+
+const StyledCreatePage = styled.div`
+  margin: 4rem 0 0 0;
+`;

@@ -75,7 +75,7 @@ export default SnippetForm;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 3rem;
+  padding: 0.5rem 2rem 3rem 2rem;
 `;
 
 const StyledInputName = styled.input`

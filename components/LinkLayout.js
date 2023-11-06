@@ -1,13 +1,13 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-function LinkLayout({ url }) {
+function LinkLayout({ url, linkName, linkEmoji }) {
   return (
     <StyledLink href={url}>
       <span role="img" aria-hidden="true">
-        ⬅️ {ArrowLeft}
+        {linkEmoji}
       </span>{" "}
-      go back
+      {linkName}
     </StyledLink>
   );
 }
@@ -17,37 +17,37 @@ export default LinkLayout;
 const StyledLink = styled(Link)`
   text-decoration: none;
   font-weight: 600;
-  font-variant: small-caps;
-  color: var(--text-color);
+  color: var(--primary-color);
   background-color: var(--light-color);
   padding: 0.3rem 0.6rem;
   border-radius: 0.5rem;
-  border-top: 1px solid #cccccc;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #cccccc;
-  visited: {
-    color: "purple";
+  border-top: 2px solid #cccccc;
+  border-right: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  border-left: 2px solid #cccccc;
+  font-size: large;
+  &:hover {
+    background-color: var(--primary-color);
+    color: white;
   }
 `;
 
-function ArrowLeft() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      // {...props}
-    >
-      <path
-        fill="none"
-        stroke="#04151b"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-        d="m7.25 3.75l-4.5 4.5l4.5 4.5m6-4.5H2.75"
-      ></path>
-    </svg>
-  );
-}
+// function ArrowLeft() {
+//   return (
+//     <svg
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="1em"
+//       height="1em"
+//       viewBox="0 0 16 16"
+//       // {...props}
+//     >
+//       <path
+//         fill="none"
+//         stroke="#04151b"
+//         strokeLinecap="round"
+//         strokeLinejoin="round"
+//         strokeWidth="1.5"
+//         d="m7.25 3.75l-4.5 4.5l4.5 4.5m6-4.5H2.75"
+//       ></path>
+//     </svg>
+//   );}
