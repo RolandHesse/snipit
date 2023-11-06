@@ -19,7 +19,10 @@ function SnippetDetails({ onDelete }) {
   }
 
   const { name, code, description, link, tags, links } = data;
+
   console.log("data: ", data);
+  console.log("link: ", link);
+  console.log("links: ", links);
 
   return (
     <section>

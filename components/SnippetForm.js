@@ -10,7 +10,9 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
 
-    onSubmit(event, { ...snippetData, links });
+    const snippetDataPlusLinks = { ...snippetData, links };
+
+    onSubmit(event, snippetDataPlusLinks);
   }
 
   function addLink() {
@@ -28,8 +30,6 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     rectifiedLinks.splice(index, 1);
     setLinks(rectifiedLinks);
   }
-
-  console.log("links: ", links);
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
