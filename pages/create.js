@@ -27,7 +27,7 @@ function FormPage() {
       }
     } catch (error) {
       console.error("An error occurred:", error);
-      response.status(500).json({ error: "Something went wrong" });
+      response.status(500).json({ error: "😵‍💫 Something went wrong" });
     }
   }
 
@@ -36,20 +36,12 @@ function FormPage() {
       <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
       <SnippetForm onSubmit={createSnippet} />
       {submitted && (
-        <div>
-          <span role="img" aria-label="check">
+        <StyledSuccessfullyMessage>
+          <StyledEmoji role="img" aria-label="check">
             ✅
-          </span>
+          </StyledEmoji>
           Added Snippet successfully!
-        </div>
-      )}
-      {error && (
-        <div>
-          <span role="img" aria-label="oh no!">
-            😵‍💫
-          </span>
-          Something went wrong ...
-        </div>
+        </StyledSuccessfullyMessage>
       )}
     </StyledCreatePage>
   );
@@ -57,6 +49,20 @@ function FormPage() {
 
 export default FormPage;
 
+const StyledSuccessfullyMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  font-size: large;
+  margin-bottom: 1rem;
+`;
+
+const StyledEmoji = styled.span`
+  display: flex;
+  justify-content: center;
+  font-size: 5rem;
+`;
 const StyledCreatePage = styled.div`
-  margin: 4rem 0 0 0;
+  margin: 4rem 0 4rem 0;
 `;
