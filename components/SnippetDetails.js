@@ -31,10 +31,12 @@ function SnippetDetails({ onDelete }) {
       <code>{code}</code>
       <Heading>Description</Heading>
       <p>{description}</p>
+      <Heading>Further Resources</Heading>
       {links?.map((link, index) => (
         <div key={index}>
-          <Heading>Link</Heading>
-          <Link href={link}>Further information</Link>
+          <a href={link} target="_blank">
+            {link}
+          </a>
         </div>
       ))}
       <Heading>Tag</Heading>

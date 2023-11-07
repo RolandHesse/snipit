@@ -31,6 +31,8 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     setLinks(rectifiedLinks);
   }
 
+  console.log("links: ", links);
+
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
