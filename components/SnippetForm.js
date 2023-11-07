@@ -105,7 +105,7 @@ export default SnippetForm;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 3rem;
+  padding: 0.75rem;
 `;
 
 const StyledInputName = styled.input`
@@ -146,7 +146,7 @@ const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 `;
 
 const Warning = styled.p`

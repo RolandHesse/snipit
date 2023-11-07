@@ -1,6 +1,7 @@
 import BackLink from "@/components/LinkLayout";
 import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
+import styled from "styled-components";
 
 function FormPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -26,32 +27,42 @@ function FormPage() {
       }
     } catch (error) {
       console.error("An error occurred:", error);
-      response.status(500).json({ error: "Something went wrong" });
+      response.status(500).json({ error: "😵‍💫 Something went wrong" });
     }
   }
 
   return (
-    <>
+    <StyledCreatePage>
       <BackLink url={"/"} />
       <SnippetForm onSubmit={createSnippet} />
       {submitted && (
-        <div>
-          <span role="img" aria-label="check">
+        <StyledSuccessfullyMessage>
+          <StyledEmoji role="img" aria-label="check">
             ✅
-          </span>
+          </StyledEmoji>
           Added Snippet successfully!
-        </div>
+        </StyledSuccessfullyMessage>
       )}
-      {error && (
-        <div>
-          <span role="img" aria-label="oh no!">
-            😵‍💫
-          </span>
-          Something went wrong ...
-        </div>
-      )}
-    </>
+    </StyledCreatePage>
   );
 }
 
 export default FormPage;
+
+const StyledSuccessfullyMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* flex-flow: column wrap; */
+  align-items: center;
+  font-size: large;
+  margin-bottom: 4rem;
+`;
+
+const StyledEmoji = styled.span`
+  display: flex;
+  justify-content: center;
+  font-size: 5rem;
+`;
+const StyledCreatePage = styled.div`
+  margin: 4rem 0 4 0;
+`;
