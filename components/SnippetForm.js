@@ -71,7 +71,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
             type="text"
             id="link"
             name="link"
-            placeholder="type your link here"
+            placeholder="www."
             defaultValue={defaultData?.link}
             value={links[0]}
             onChange={(event) => handleLinkChange(0, event.target.value)}
@@ -89,7 +89,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
                 type="text"
                 id={index}
                 name="link"
-                placeholder="type your link here"
+                placeholder="www."
                 defaultValue={defaultData?.link}
                 value={link}
                 onChange={(event) =>
