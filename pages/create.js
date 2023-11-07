@@ -33,7 +33,7 @@ function FormPage() {
 
   return (
     <StyledCreatePage>
-      <BackLink url={"/"} />
+      <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
       <SnippetForm onSubmit={createSnippet} />
       {submitted && (
         <StyledSuccessfullyMessage>
@@ -52,10 +52,10 @@ export default FormPage;
 const StyledSuccessfullyMessage = styled.div`
   display: flex;
   flex-direction: column;
-  /* flex-flow: column wrap; */
+
   align-items: center;
   font-size: large;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 `;
 
 const StyledEmoji = styled.span`
@@ -64,5 +64,5 @@ const StyledEmoji = styled.span`
   font-size: 5rem;
 `;
 const StyledCreatePage = styled.div`
-  margin: 4rem 0 4 0;
+  margin: 4rem 0 4rem 0;
 `;

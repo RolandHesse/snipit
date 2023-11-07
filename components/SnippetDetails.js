@@ -5,6 +5,7 @@ import useSWR from "swr";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Button from "./Button";
+import LinkLayout from "./LinkLayout";
 
 function SnippetDetails({ onDelete }) {
   const router = useRouter();
@@ -45,13 +46,16 @@ function SnippetDetails({ onDelete }) {
         <p>{tags}</p>
       </StyledCard>
       <StyledButtonDiv>
-        <Link href={`/${id}/edit`}>
-          <span role="img" aria-label="hidden">
-            ✏️{" "}
-          </span>{" "}
-          Edit
-        </Link>
-        <Button onDelete={onDelete} buttonName="Delete" buttonEmoji="❌ " />
+        <LinkLayout
+          url={`/${id}/edit`}
+          linkName="Edit"
+          linkIcon="line-md:edit"
+        />
+        <Button
+          onDelete={onDelete}
+          buttonName="Delete"
+          buttonIcon="line-md:remove"
+        />
       </StyledButtonDiv>
     </StyledSection>
   );
