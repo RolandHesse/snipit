@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import SmallButton from "./SmallButton";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
   const [links, setLinks] = useState([""]);
@@ -76,9 +77,15 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
             value={links[0]}
             onChange={(event) => handleLinkChange(0, event.target.value)}
           />
-          <button type="button" onClick={addLink}>
+          <SmallButton
+            type="button"
+            handleClick={addLink}
+            buttonIcon={"ei:plus"}
+            buttonName={"Add another link"}
+          />
+          {/* <button type="button" onClick={addLink}>
             ⨁ Add another link
-          </button>
+          </button> */}
         </div>
       ) : (
         <div>
@@ -96,12 +103,24 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
                   handleLinkChange(index, event.target.value)
                 }
               />
-              <button onClick={() => handleDelete(index)}>🚮</button>
+              <SmallButton
+                type="button"
+                handleClick={() => handleDelete(index)}
+                buttonIcon={"mynaui:trash"}
+              />
+              {/* <button onClick={() => handleDelete(index)}>🚮</button> */}
             </div>
           ))}
-          <button type="button" onClick={addLink}>
+          <SmallButton
+            type="button"
+            handleClick={addLink}
+            buttonIcon={"simple-line-icons:plus"}
+            buttonName={"Add another link"}
+          />
+
+          {/* <button type="button" onClick={addLink}>
             ⨁ Add another link
-          </button>
+          </button> */}
         </div>
       )}
       <label htmlFor="tag">Tag:</label>
