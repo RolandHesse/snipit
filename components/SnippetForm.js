@@ -72,7 +72,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
             id="link"
             name="link"
             placeholder="www."
-            defaultValue={defaultData?.link}
+            defaultValue={defaultData?.links[0]}
             value={links[0]}
             onChange={(event) => handleLinkChange(0, event.target.value)}
           />
@@ -82,7 +82,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         </div>
       ) : (
         <div>
-          {links.map((link, index) => (
+          {links.map((linkEntry, index) => (
             <div key={index}>
               <label htmlFor={index}>Link:</label>
               <input
@@ -90,8 +90,8 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
                 id={index}
                 name="link"
                 placeholder="www."
-                defaultValue={defaultData?.link}
-                value={link}
+                defaultValue={defaultData?.links[index]}
+                value={linkEntry}
                 onChange={(event) =>
                   handleLinkChange(index, event.target.value)
                 }
