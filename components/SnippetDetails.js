@@ -18,10 +18,9 @@ function SnippetDetails({ onDelete }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, link, tags, links } = data;
+  const { name, code, description, tags, links } = data;
 
   console.log("data: ", data);
-  console.log("link: ", link);
   console.log("links: ", links);
 
   return (
@@ -32,14 +31,14 @@ function SnippetDetails({ onDelete }) {
       <Heading>Description</Heading>
       <p>{description}</p>
       <Heading>Further Resources</Heading>
-      {links?.map((horst, index) => (
+      {links?.map((linkEntry, index) => (
         <div key={index}>
           <a
-            href={`https://${horst}`}
+            href={`https://${linkEntry}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {horst}
+            {linkEntry}
           </a>
         </div>
       ))}
