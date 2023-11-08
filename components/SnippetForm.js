@@ -16,8 +16,11 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     onSubmit(event, snippetDataPlusLinks);
   }
 
-  function addLink() {
-    setLinks([...links, ""]);
+  async function addLink() {
+    const newLinks = [...links, ""];
+    await setLinks(newLinks);
+    const lastIndex = newLinks.length - 1;
+    document.getElementById(lastIndex).focus();
   }
 
   function handleLinkChange(index, value) {
@@ -77,14 +80,12 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
             onChange={(event) => handleLinkChange(0, event.target.value)}
           />
           <SmallButton
-            type="button"
-            handleClick={addLink}
-            buttonIcon={"ei:plus"}
+            type={"button"}
+            onClick={addLink}
+            buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
+            ariaLabel={"hidden"}
           />
-          {/* <button type="button" onClick={addLink}>
-            ⨁ Add another link
-          </button> */}
         </div>
       ) : (
         <div>
@@ -102,23 +103,20 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
                 }
               />
               <SmallButton
-                type="button"
-                handleClick={() => handleDelete(index)}
+                type={"button"}
+                onClick={() => handleDelete(index)}
                 buttonIcon={"mynaui:trash"}
+                ariaLabel={"delete"}
               />
-              {/* <button onClick={() => handleDelete(index)}>🚮</button> */}
             </div>
           ))}
           <SmallButton
-            type="button"
-            handleClick={addLink}
+            type={"button"}
+            onClick={addLink}
             buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
+            ariaLabel={"hidden"}
           />
-
-          {/* <button type="button" onClick={addLink}>
-            ⨁ Add another link
-          </button> */}
         </div>
       )}
       <label htmlFor="tag">Tag:</label>

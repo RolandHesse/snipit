@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
-function SmallButton({ handleClick, buttonName, buttonIcon, ariaLabel }) {
+function SmallButton({ type, onClick, buttonName, buttonIcon, ariaLabel }) {
   return (
-    <StyledButton onClick={handleClick}>
+    <StyledButton type={type} onClick={onClick}>
       <span role="img" aria-label={ariaLabel}>
         <Icon
           icon={buttonIcon}
