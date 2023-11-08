@@ -3,7 +3,7 @@ import { useState } from "react";
 import SmallButton from "./SmallButton";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
-  const [links, setLinks] = useState([""]);
+  const [links, setLinks] = useState(defaultData ? defaultData.links : [""]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -73,8 +73,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
             id="link"
             name="link"
             placeholder="www."
-            defaultValue={defaultData?.links[0]}
-            value={links[0]}
+            defaultValue={links[0]}
             onChange={(event) => handleLinkChange(0, event.target.value)}
           />
           <SmallButton
@@ -97,8 +96,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
                 id={index}
                 name="link"
                 placeholder="www."
-                defaultValue={defaultData?.links[index]}
-                value={linkEntry}
+                defaultValue={linkEntry}
                 onChange={(event) =>
                   handleLinkChange(index, event.target.value)
                 }

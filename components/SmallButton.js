@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
-function SmallButton({ handleClick, buttonName, buttonIcon }) {
+function SmallButton({ handleClick, buttonName, buttonIcon, ariaLabel }) {
   return (
     <StyledButton onClick={handleClick}>
-      <span role="img" aria-label="hidden">
+      <span role="img" aria-label={ariaLabel}>
         <Icon
           icon={buttonIcon}
           // style={{ fontSize: "1.5rem" }}
