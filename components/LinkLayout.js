@@ -11,7 +11,6 @@ function LinkLayout({ url, linkName, linkIcon }) {
           style={{ fontSize: "1.7rem" }}
           className="link-icon"
         />
-        ⠀
       </span>
       {linkName}
     </StyledLink>
@@ -32,10 +31,12 @@ const StyledLink = styled(Link)`
   border-bottom: 2px solid var(--primary-color);
   border-left: 2px solid #cccccc;
   font-size: large;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   transition: background-color 0.3s ease, color 0.3s ease;
-
+  .link-icon {
+    margin-right: 0.5rem;
+  }
   &:hover {
     background-color: var(--primary-color);
     color: white;

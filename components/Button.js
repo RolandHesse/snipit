@@ -10,7 +10,6 @@ function Button({ onDelete, buttonName, buttonIcon }) {
           style={{ fontSize: "1.7rem" }}
           className="button-icon"
         />{" "}
-        ⠀
       </span>
       {buttonName}
     </StyledButton>
@@ -32,9 +31,12 @@ const StyledButton = styled.button`
   border-left: 2px solid #cccccc;
   cursor: pointer;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   transition: background-color 0.3s ease, color 0.3s ease;
+  .button-icon {
+    margin-right: 0.5rem;
+  }
   &:hover {
     background-color: var(--primary-color);
     color: white;

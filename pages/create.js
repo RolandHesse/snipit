@@ -2,6 +2,7 @@ import BackLink from "@/components/LinkLayout";
 import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
 import styled from "styled-components";
+import { Icon } from "@iconify/react";
 
 function FormPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -37,9 +38,11 @@ function FormPage() {
       <SnippetForm onSubmit={createSnippet} />
       {submitted && (
         <StyledSuccessfullyMessage>
-          <StyledEmoji role="img" aria-label="check">
-            ✅
-          </StyledEmoji>
+          <Icon
+            icon="line-md:confirm-circle-twotone"
+            height="5rem"
+            strokeWidth="1rem"
+          />
           Added Snippet successfully!
         </StyledSuccessfullyMessage>
       )}
@@ -50,6 +53,7 @@ function FormPage() {
 export default FormPage;
 
 const StyledSuccessfullyMessage = styled.div`
+  color: var(--primary-color);
   display: flex;
   flex-direction: column;
 
@@ -58,11 +62,7 @@ const StyledSuccessfullyMessage = styled.div`
   margin-bottom: 1rem;
 `;
 
-const StyledEmoji = styled.span`
-  display: flex;
-  justify-content: center;
-  font-size: 5rem;
-`;
 const StyledCreatePage = styled.div`
   margin: 4rem 0 4rem 0;
+  color: var(--text-color);
 `;

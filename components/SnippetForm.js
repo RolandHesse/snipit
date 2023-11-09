@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
 import { useState } from "react";
+import { Icon } from "@iconify/react";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
   const [inputName, setInputName] = useState("");
@@ -22,7 +23,12 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     event.preventDefault();
 
     if (inputName === "" || inputCode === "") {
-      setWarningMessage("‼️ Please fill in the required field");
+      setWarningMessage(
+        <span>
+          <Icon icon="tabler:alert-circle-filled" height="2rem" /> Please fill
+          in the required field
+        </span>
+      );
       setFormValidated(true);
     } else {
       setWarningMessage("");
@@ -37,7 +43,11 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
       <Warning>{warningMessage}</Warning>
-      <p>ℹ️ Fields marked with an * are required</p>
+
+      <p>
+        <Icon icon="tabler:alert-circle" height="2rem" />
+        &nbsp;Fields marked with an * are required
+      </p>
       <label htmlFor="name">Name*</label>
       <StyledInputName
         value={inputName}
