@@ -115,7 +115,7 @@ export default SnippetForm;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  /* padding: 0.5rem 2rem 3rem 2rem; */
+  font-weight: 500;
 `;
 
 const StyledInputName = styled.input`

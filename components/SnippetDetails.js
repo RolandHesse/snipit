@@ -21,7 +21,7 @@ function SnippetDetails({ onDelete }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, links, tags } = data;
+  const { name, code, description, link, tags } = data;
 
   return (
     <StyledSection>
@@ -41,7 +41,7 @@ function SnippetDetails({ onDelete }) {
         <Heading>Description</Heading>
         <p>{description}</p>
         <Heading>Link</Heading>
-        <Link href={links}>Further information</Link>
+        <Link href={link}>Further information</Link>
         <Heading>Tag</Heading>
         <p>{tags}</p>
       </StyledCard>

@@ -5,9 +5,9 @@ import useSWR from "swr";
 export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
 
-  if (error) return <StyledText>failed to load🥶😵‍💫😨😩😢</StyledText>;
+  if (error) return <StyledText>Failed to load...🥶 😵‍💫 😨 😩 😢</StyledText>;
   if (isLoading)
-    return <StyledText>wait....wait...wait... still loading...🤓</StyledText>;
+    return <StyledText>Wait....wait...wait... still loading...🤓</StyledText>;
 
   return (
     <StyledHomePage>
@@ -22,5 +22,6 @@ const StyledHomePage = styled.div`
 
 const StyledText = styled.p`
   color: var(--primary-color);
-  font-size: 3rem;
+  font-size: 2rem;
+  padding: 3rem 2rem;
 `;
