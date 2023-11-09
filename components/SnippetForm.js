@@ -17,6 +17,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     const snippetDataPlusLinks = { ...snippetData, links };
 
     onSubmit(event, snippetDataPlusLinks);
+    setLinks([{ id: "0", value: "" }]);
   }
 
   function handleAddLink() {
