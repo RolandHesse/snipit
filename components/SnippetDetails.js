@@ -31,14 +31,14 @@ function SnippetDetails({ onDelete }) {
       <Heading>Description</Heading>
       <p>{description}</p>
       <Heading>Further Resources</Heading>
-      {links?.map((linkEntry, index) => (
-        <div key={index}>
+      {links?.map((linkObject) => (
+        <div key={linkObject.id}>
           <a
-            href={`https://${linkEntry}`}
+            href={`https://${linkObject.value}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {linkEntry}
+            {linkObject.value}
           </a>
         </div>
       ))}

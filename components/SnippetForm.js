@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
 import SmallButton from "./SmallButton";
+import { nanoid } from "nanoid";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
-  const [links, setLinks] = useState(defaultData ? defaultData.links : [""]);
+  const [links, setLinks] = useState(
+    defaultData ? defaultData.links : [{ id: "0", value: "" }]
+  );
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -16,23 +19,16 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     onSubmit(event, snippetDataPlusLinks);
   }
 
-  async function addLink() {
-    const newLinks = [...links, ""];
-    await setLinks(newLinks);
-    const lastIndex = newLinks.length - 1;
-    document.getElementById(lastIndex).focus();
+  function handleAddLink() {
+    setLinks([...links, { id: nanoid(), value: "" }]);
   }
 
-  function handleLinkChange(index, value) {
-    const updatedLinks = [...links];
-    updatedLinks[index] = value;
-    setLinks(updatedLinks);
+  function handleLinkChange(id, value) {
+    setLinks(links.map((link) => (link.id === id ? { ...link, value } : link)));
   }
 
-  function handleDelete(index) {
-    const rectifiedLinks = [...links];
-    rectifiedLinks.splice(index, 1);
-    setLinks(rectifiedLinks);
+  function handleDelete(id) {
+    setLinks(links.filter((link) => link.id !== id));
   }
 
   console.log("links: ", links);
@@ -70,18 +66,24 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
 
       {links.length <= 1 ? (
         <div>
-          <label htmlFor="link">Link:</label>
-          <input
-            type="text"
-            id="link"
-            name="link"
-            placeholder="www."
-            defaultValue={links[0]}
-            onChange={(event) => handleLinkChange(0, event.target.value)}
-          />
+          {links.map((linkObject) => (
+            <div key={linkObject.id}>
+              <label htmlFor={linkObject.id}>Link:</label>
+              <input
+                type="text"
+                id={linkObject.id}
+                placeholder="www."
+                defaultValue={linkObject.value}
+                onChange={(event) =>
+                  handleLinkChange(linkObject.id, event.target.value)
+                }
+              />
+            </div>
+          ))}
+
           <SmallButton
             type={"button"}
-            onClick={addLink}
+            onClick={handleAddLink}
             buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
             ariaLabel={"hidden"}
@@ -89,22 +91,22 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         </div>
       ) : (
         <div>
-          {links.map((linkEntry, index) => (
-            <div key={index}>
-              <label htmlFor={index}>Link:</label>
+          {links.map((linkObject) => (
+            <div key={linkObject.id}>
+              <label htmlFor={linkObject.id}>Link: </label>
               <input
+                autoFocus
                 type="text"
-                id={index}
-                name="link"
+                id={linkObject.id}
                 placeholder="www."
-                defaultValue={linkEntry}
+                defaultValue={linkObject.value}
                 onChange={(event) =>
-                  handleLinkChange(index, event.target.value)
+                  handleLinkChange(linkObject.id, event.target.value)
                 }
               />
               <SmallButton
                 type={"button"}
-                onClick={() => handleDelete(index)}
+                onClick={() => handleDelete(linkObject.id)}
                 buttonIcon={"mynaui:trash"}
                 ariaLabel={"delete"}
               />
@@ -112,7 +114,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
           ))}
           <SmallButton
             type={"button"}
-            onClick={addLink}
+            onClick={handleAddLink}
             buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
             ariaLabel={"hidden"}
