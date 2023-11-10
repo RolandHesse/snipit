@@ -32,8 +32,6 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     setLinks(links.filter((link) => link.id !== id));
   }
 
-  console.log("links: ", links);
-
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
@@ -66,22 +64,23 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
       ></textarea>
 
       {links.length <= 1 ? (
-        <div>
-          {links.map((linkObject) => (
-            <div key={linkObject.id}>
-              <label htmlFor={linkObject.id}>Link:</label>
-              <input
-                type="text"
-                id={linkObject.id}
-                placeholder="www."
-                defaultValue={linkObject.value}
-                onChange={(event) =>
-                  handleLinkChange(linkObject.id, event.target.value)
-                }
-              />
-            </div>
-          ))}
-
+        <>
+          <StyledList>
+            {links.map((linkObject) => (
+              <li key={linkObject.id}>
+                <label htmlFor={linkObject.id}>Link: </label>
+                <input
+                  type="text"
+                  id={linkObject.id}
+                  placeholder="www."
+                  defaultValue={linkObject.value}
+                  onChange={(event) =>
+                    handleLinkChange(linkObject.id, event.target.value)
+                  }
+                />
+              </li>
+            ))}
+          </StyledList>
           <SmallButton
             type={"button"}
             onClick={handleAddLink}
@@ -89,30 +88,33 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
             buttonName={"Add another link"}
             ariaLabel={"hidden"}
           />
-        </div>
+        </>
       ) : (
-        <div>
-          {links.map((linkObject) => (
-            <div key={linkObject.id}>
-              <label htmlFor={linkObject.id}>Link: </label>
-              <input
-                autoFocus
-                type="text"
-                id={linkObject.id}
-                placeholder="www."
-                defaultValue={linkObject.value}
-                onChange={(event) =>
-                  handleLinkChange(linkObject.id, event.target.value)
-                }
-              />
-              <SmallButton
-                type={"button"}
-                onClick={() => handleDelete(linkObject.id)}
-                buttonIcon={"mynaui:trash"}
-                ariaLabel={"delete"}
-              />
-            </div>
-          ))}
+        <>
+          <StyledList>
+            {links.map((linkObject) => (
+              <li key={linkObject.id}>
+                <label htmlFor={linkObject.id}>Link: </label>
+                <input
+                  required
+                  autoFocus
+                  type="text"
+                  id={linkObject.id}
+                  placeholder="www."
+                  defaultValue={linkObject.value}
+                  onChange={(event) =>
+                    handleLinkChange(linkObject.id, event.target.value)
+                  }
+                />
+                <SmallButton
+                  type={"button"}
+                  onClick={() => handleDelete(linkObject.id)}
+                  buttonIcon={"mynaui:trash"}
+                  ariaLabel={"delete"}
+                />
+              </li>
+            ))}
+          </StyledList>
           <SmallButton
             type={"button"}
             onClick={handleAddLink}
@@ -120,7 +122,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
             buttonName={"Add another link"}
             ariaLabel={"hidden"}
           />
-        </div>
+        </>
       )}
       <label htmlFor="tag">Tag:</label>
       <select
@@ -148,4 +150,8 @@ export default SnippetForm;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+`;
+
+const StyledList = styled.ul`
+  list-style: none;
 `;

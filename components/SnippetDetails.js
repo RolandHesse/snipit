@@ -20,9 +20,6 @@ function SnippetDetails({ onDelete }) {
 
   const { name, code, description, tags, links } = data;
 
-  console.log("data: ", data);
-  console.log("links: ", links);
-
   return (
     <section>
       <Title>{name}</Title>
@@ -33,13 +30,13 @@ function SnippetDetails({ onDelete }) {
       <Heading>Further Resources</Heading>
       {links?.map((linkObject) => (
         <div key={linkObject.id}>
-          <a
+          <Link
             href={`https://${linkObject.value}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             {linkObject.value}
-          </a>
+          </Link>
         </div>
       ))}
       <Heading>Tag</Heading>

@@ -5,11 +5,7 @@ function SmallButton({ type, onClick, buttonName, buttonIcon, ariaLabel }) {
   return (
     <StyledButton type={type} onClick={onClick}>
       <span role="img" aria-label={ariaLabel}>
-        <Icon
-          icon={buttonIcon}
-          // style={{ fontSize: "1.5rem" }}
-          className="button-icon"
-        />{" "}
+        <Icon icon={buttonIcon} className="button-icon" />{" "}
       </span>
       {buttonName}
     </StyledButton>
@@ -30,9 +26,6 @@ const StyledButton = styled.button`
   border-bottom: 2px solid var(--primary-color);
   border-left: 2px solid #cccccc;
   cursor: pointer;
-  /* 
-  display: flex;
-  align-items: center; */
   transition: background-color 0.3s ease, color 0.3s ease;
   &:hover {
     background-color: var(--primary-color);
