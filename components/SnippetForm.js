@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
-  const [inputName, setInputName] = useState("");
-  const [inputCode, setInputCode] = useState("");
+  const [inputName, setInputName] = useState(defaultData?.name || "");
+  const [inputCode, setInputCode] = useState(defaultData?.code || "");
   const [warningMessage, setWarningMessage] = useState("");
-  const [formValidated, setFormValidated] = useState(false);
+  const [isFormValidated, setIsFormValidated] = useState(false);
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -29,7 +29,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
           in the required field
         </span>
       );
-      setFormValidated(true);
+      setIsFormValidated(true);
     } else {
       setWarningMessage("");
     }
@@ -56,8 +56,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         id="name"
         name="name"
         placeholder="Code name"
-        defaultValue={defaultData?.name}
-        error={formValidated && inputName === ""}
+        error={isFormValidated && inputName === ""}
       />
       <label htmlFor="code">Code*</label>
 
@@ -68,30 +67,31 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         id="code"
         name="code"
         rows="5"
-        placeholder="your code"
-        defaultValue={defaultData?.code}
-        error={formValidated && inputCode === ""}
+        placeholder="Your code"
+        error={isFormValidated && inputCode === ""}
       ></StyledCode>
 
       <label htmlFor="description">Description</label>
-      <StyledDescription
+      <StyledFormElementOfCrime
         type="text"
         id="description"
         name="description"
         rows="5"
-        placeholder="description of the code"
+        placeholder="Description of the code"
         defaultValue={defaultData?.description}
-      ></StyledDescription>
+      ></StyledFormElementOfCrime>
       <label htmlFor="link">Link</label>
-      <StyledInputLink
+      <StyledFormElementOfCrime
+        as="input"
         type="text"
         id="link"
         name="link"
-        placeholder="type your link here"
+        placeholder="Type your link here"
         defaultValue={defaultData?.link}
       />
       <label htmlFor="tag">Tag</label>
-      <StyledTag
+      <StyledFormElementOfCrime
+        as="select"
         id="tag"
         name="tag"
         placeholder="tag"
@@ -101,7 +101,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         <option value="html">html</option>
         <option value="javaScript">javaScript</option>
         <option value="next">next</option>
-      </StyledTag>
+      </StyledFormElementOfCrime>
       <StyledButtonContainer>
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
         <Button type="reset" buttonName="Reset" />
@@ -133,25 +133,13 @@ const StyledCode = styled.textarea`
   color: var(--white);
 `;
 
-const StyledDescription = styled.textarea`
-  height: 2rem;
-  border-radius: 0.3rem;
-  background-color: var(--light-color);
-  border: none;
-`;
-const StyledInputLink = styled.input`
+const StyledFormElementOfCrime = styled.textarea`
   height: 2rem;
   border-radius: 0.3rem;
   background-color: var(--light-color);
   border: none;
 `;
 
-const StyledTag = styled.select`
-  height: 2rem;
-  border-radius: 0.3rem;
-  background-color: var(--light-color);
-  border: none;
-`;
 const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: center;
