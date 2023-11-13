@@ -3,7 +3,7 @@ import SnippetCard from "./SnippetCard";
 import Link from "next/link";
 
 function ShortDescription(description, maxLength) {
-  if (description.length > maxLength) {
+  if (description?.length > maxLength) {
     return `${description.slice(0, maxLength)}...`;
   }
   return description;
