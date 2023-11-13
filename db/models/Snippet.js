@@ -7,7 +7,7 @@ const snippetSchema = new Schema(
     name: { type: String, required: true },
     code: { type: String, required: true },
     description: { type: String },
-    link: { type: String },
+    links: [Object],
     tag: { type: String },
   },
   { timestamps: true }

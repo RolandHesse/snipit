@@ -21,7 +21,7 @@ function SnippetDetails({ onDelete }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, link, tags } = data;
+  const { name, code, description, tags, links } = data;
 
   return (
     <StyledSection>
@@ -40,8 +40,20 @@ function SnippetDetails({ onDelete }) {
         </CodeContainer>
         <Heading>Description</Heading>
         <p>{description}</p>
-        <Heading>Link</Heading>
-        <Link href={link}>Further information</Link>
+
+        <Heading>Further Resources</Heading>
+        {links?.map((linkObject) => (
+          <div key={linkObject.id}>
+            <Link
+              href={`https://${linkObject.value}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {linkObject.value}
+            </Link>
+          </div>
+        ))}
+
         <Heading>Tag</Heading>
         <p>{tags}</p>
       </StyledCard>

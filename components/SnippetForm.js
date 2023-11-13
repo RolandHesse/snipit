@@ -2,12 +2,17 @@ import styled from "styled-components";
 import Button from "./Button";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
+import SmallButton from "./SmallButton";
+import { nanoid } from "nanoid";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
   const [inputCode, setInputCode] = useState(defaultData?.code || "");
   const [warningMessage, setWarningMessage] = useState("");
   const [isFormValidated, setIsFormValidated] = useState(false);
+  const [links, setLinks] = useState(
+    defaultData ? defaultData.links : [{ id: "0", value: "" }]
+  );
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -36,7 +41,22 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
 
-    onSubmit(event, snippetData);
+    const snippetDataPlusLinks = { ...snippetData, links };
+
+    onSubmit(event, snippetDataPlusLinks);
+    setLinks([{ id: "0", value: "" }]);
+  }
+
+  function handleAddLink() {
+    setLinks([...links, { id: nanoid(), value: "" }]);
+  }
+
+  function handleLinkChange(id, value) {
+    setLinks(links.map((link) => (link.id === id ? { ...link, value } : link)));
+  }
+
+  function handleDelete(id) {
+    setLinks(links.filter((link) => link.id !== id));
   }
 
   return (
@@ -59,7 +79,6 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         error={isFormValidated && inputName === ""}
       />
       <label htmlFor="code">Code*</label>
-
       <StyledCode
         value={inputCode}
         onChange={handleInputCode}
@@ -70,7 +89,6 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         placeholder="Your code"
         error={isFormValidated && inputCode === ""}
       ></StyledCode>
-
       <label htmlFor="description">Description</label>
       <StyledFormElementOfCrime
         type="text"
@@ -80,16 +98,72 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         placeholder="Description of the code"
         defaultValue={defaultData?.description}
       ></StyledFormElementOfCrime>
-      <label htmlFor="link">Link</label>
-      <StyledFormElementOfCrime
-        as="input"
-        type="text"
-        id="link"
-        name="link"
-        placeholder="Type your link here"
-        defaultValue={defaultData?.link}
-      />
-      <label htmlFor="tag">Tag</label>
+
+      {links.length <= 1 ? (
+        <>
+          <StyledList>
+            {links.map((linkObject) => (
+              <li key={linkObject.id}>
+                <label htmlFor={linkObject.id}>Link: </label>
+                <StyledFormElementOfCrime
+                  as="input"
+                  type="text"
+                  id={linkObject.id}
+                  placeholder="www."
+                  defaultValue={linkObject.value}
+                  onChange={(event) =>
+                    handleLinkChange(linkObject.id, event.target.value)
+                  }
+                />
+              </li>
+            ))}
+          </StyledList>
+          <SmallButton
+            type={"button"}
+            onClick={handleAddLink}
+            buttonIcon={"simple-line-icons:plus"}
+            buttonName={"Add another link"}
+            ariaLabel={"hidden"}
+          />
+        </>
+      ) : (
+        <>
+          <StyledList>
+            {links.map((linkObject) => (
+              <li key={linkObject.id}>
+                <label htmlFor={linkObject.id}>Link: </label>
+                <StyledFormElementOfCrime
+                  as="input"
+                  required
+                  autoFocus
+                  type="text"
+                  id={linkObject.id}
+                  placeholder="www."
+                  defaultValue={linkObject.value}
+                  onChange={(event) =>
+                    handleLinkChange(linkObject.id, event.target.value)
+                  }
+                />
+                <SmallButton
+                  type={"button"}
+                  onClick={() => handleDelete(linkObject.id)}
+                  buttonIcon={"mynaui:trash"}
+                  ariaLabel={"delete"}
+                />
+              </li>
+            ))}
+          </StyledList>
+          <SmallButton
+            type={"button"}
+            onClick={handleAddLink}
+            buttonIcon={"simple-line-icons:plus"}
+            buttonName={"Add another link"}
+            ariaLabel={"hidden"}
+          />
+        </>
+      )}
+      <label htmlFor="tag">Tag:</label>
+
       <StyledFormElementOfCrime
         as="select"
         id="tag"
@@ -149,4 +223,8 @@ const StyledButtonContainer = styled.div`
 
 const Warning = styled.p`
   color: red;
+`;
+
+const StyledList = styled.ul`
+  list-style: none;
 `;
