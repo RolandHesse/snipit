@@ -26,7 +26,7 @@ function SnippetDetails({ onDelete }) {
       <Heading>Code</Heading>
       <CodeContainer>
         {code}
-        <StyledCopyWithOneClick hasIconText codeData={code} />
+        <CopyWithOneClick hasIconText codeData={code} />
       </CodeContainer>
       <Heading>Description</Heading>
       <p>{description}</p>
@@ -70,16 +70,18 @@ const Heading = styled.h3`
   color: var(--primary-color);
 `;
 
-const StyledCopyWithOneClick = styled(CopyWithOneClick)`
-  right: 0.25rem;
-  top: 0.25rem;
-`;
+// const StyledCopyWithOneClick = styled(CopyWithOneClick)`
+//   right: 0.25rem;
+//   top: 0.25rem;
+//   bottom: 0;
+// `;
 
 const CodeContainer = styled.div`
   overflow-y: scroll;
   max-height: 200px;
   position: relative;
   min-height: 3rem;
+  /* border: solid red 1px; */
 `;
 
 export default SnippetDetails;
