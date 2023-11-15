@@ -71,7 +71,6 @@ const Heading = styled.h3`
 `;
 
 const StyledCopyWithOneClick = styled(CopyWithOneClick)`
-  position: absolute;
   right: 0.25rem;
   top: 0.25rem;
 `;
