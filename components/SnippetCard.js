@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState } from "react";
+import { Icon } from "@iconify/react";
 
 export default function SnippetCard({ snippetData, name, description }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -11,7 +11,6 @@ export default function SnippetCard({ snippetData, name, description }) {
       setIsCopied(false);
     }, 3000);
     await navigator.clipboard.writeText(snippetData.code);
-    // window.alert("Code succesfully copied!");
   }
 
   if (!snippetData) return <div>No snippets yet 😭</div>;
@@ -26,7 +25,11 @@ export default function SnippetCard({ snippetData, name, description }) {
       </StyledLinkComponent>
 
       <StyledButton type="button" onClick={handleClick}>
-        {isCopied === true ? "🙏" : "Copy code"}
+        <Icon
+          icon={isCopied === true ? "mingcute:check-fill" : "fa-regular:copy"}
+          color="var(--white)"
+          aria-label={isCopied === true ? "code copied" : "copy code"}
+        />
       </StyledButton>
     </StyledCard>
   );
@@ -55,6 +58,8 @@ const CardDescription = styled.p`
 
 const StyledButton = styled.button`
   position: absolute;
+  background: transparent;
+  border: none;
   right: 1rem;
   bottom: 1rem;
 `;
