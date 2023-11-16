@@ -1,7 +1,9 @@
-import BackLink from "@/components/BackLink";
+import LinkLayout from "@/components/LinkLayout";
 import SnippetDetails from "@/components/SnippetDetails";
 import { useRouter } from "next/router";
+import styled from "styled-components";
 import { mutate } from "swr";
+
 
 function SnippetDetailsPage() {
   const router = useRouter();
@@ -20,11 +22,19 @@ function SnippetDetailsPage() {
   }
 
   return (
-    <>
-      <BackLink url={"/"} />
+    <StlyedDetailsPage>
+      <LinkLayout
+        url={"/"}
+        linkName={"Go Back"}
+        linkIcon="line-md:arrow-left"
+      />
       <SnippetDetails onDelete={handleDelete} />
-    </>
+    </StlyedDetailsPage>
   );
 }
 
 export default SnippetDetailsPage;
+
+const StlyedDetailsPage = styled.div`
+  margin: 3.6rem 0 0 0;
+`;

@@ -13,11 +13,12 @@ export default createGlobalStyle`
   :root {
     --primary-color: #0B4C5F;
     --white: white;
+    --text-color: #04151B;
+    --light-color: #C1D2D7;
   }
 
   body {
-    margin: 4rem 0 0 0;
     font-family: ${montserratFont.style.fontFamily};
-    padding: 2rem;
+    padding: 0.5rem; 
   }
 `;
