@@ -86,7 +86,7 @@ const StyledSearchBarContainer = styled.div`
   background-color: #c1d2d7;
 
   &:focus-within {
-    outline: 2px solid blue;
+    outline: 2px solid var(--primary-color);
 
     transition: outline 0.3s ease;
   }
