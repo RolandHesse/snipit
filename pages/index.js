@@ -4,6 +4,7 @@ import Fuse from "fuse.js";
 import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
+import { useRef } from "react";
 
 const fuseOptions = {
   threshold: 0.3,
@@ -13,6 +14,12 @@ export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
   const [results, setResults] = useState([]);
   const fuse = new Fuse(data, fuseOptions);
+
+  const inputRef = useRef(null);
+
+  function handleClick() {
+    inputRef.current.focus();
+  }
   function handleSearch(event) {
     if (!fuse) {
       return;
@@ -24,12 +31,14 @@ export default function HomePage() {
 
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
+
   return (
     <>
-      <StyledSearchBarContainer>
+      <StyledSearchBarContainer tabIndex={0}>
         <StyledSearchBarForm>
           <label htmlFor="search"></label>
           <StyledSearchBarInput
+            ref={inputRef}
             type="text"
             id="search"
             name="search"
@@ -37,11 +46,13 @@ export default function HomePage() {
             onChange={handleSearch}
           />
         </StyledSearchBarForm>
-        <Icon
-          icon="line-md:search"
-          height="2rem"
-          color="var(--primary-color)"
-        />
+        <StyledButton onClick={handleClick}>
+          <Icon
+            icon="line-md:search"
+            height="2rem"
+            color="var(--primary-color)"
+          />
+        </StyledButton>
       </StyledSearchBarContainer>
       <SnippetCardList data={results.length > 0 ? results : data} />
     </>
@@ -53,6 +64,7 @@ const StyledSearchBarForm = styled.form`
   width: 100%;
 `;
 const StyledSearchBarInput = styled.input`
+  outline: none;
   background-color: transparent;
   border: none;
   height: 100%;
@@ -67,9 +79,20 @@ const StyledSearchBarContainer = styled.div`
   grid-template-rows: 100%;
   justify-items: center;
   align-items: center;
-  /* gap: 1rem; */
+
   margin: 1.5rem;
-  /* padding: 1rem 1.5rem; */
+
   border-radius: 0.5rem;
   background-color: #c1d2d7;
+
+  &:focus-within {
+    outline: 2px solid blue;
+
+    transition: outline 0.3s ease;
+  }
+`;
+
+const StyledButton = styled.button`
+  border: none;
+  background: transparent;
 `;
