@@ -15,9 +15,9 @@ export default function CopyWithOneClick({ iconColor, codeData, isDetail }) {
   return (
     <StyledButton $isDetail={isDetail} type="button" onClick={handleClick}>
       <Icon
-        icon={isCopied === true ? "mingcute:check-fill" : "fa-regular:copy"}
+        icon={isCopied ? "mingcute:check-fill" : "fa-regular:copy"}
         color={iconColor}
-        aria-label={isCopied === true ? "code copied" : "copy code"}
+        aria-label={isCopied ? "code copied" : "copy code"}
       />
       {isDetail && (isCopied ? "code copied" : "copy code")}
     </StyledButton>
