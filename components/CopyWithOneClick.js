@@ -39,7 +39,7 @@ const StyledButton = styled.button`
   ${({ $isDetail }) =>
     $isDetail
       ? css`
-          top: 0.3rem;
+          top: 1rem;
           right: 0.3rem;
         `
       : css`
