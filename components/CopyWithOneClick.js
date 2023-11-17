@@ -35,7 +35,7 @@ const StyledButton = styled.button`
     $isDetail
       ? css`
           top: 0.3rem;
-          right: 0.3rem;
+          right: 1rem;
           color: var(--primary-color);
         `
       : css`
