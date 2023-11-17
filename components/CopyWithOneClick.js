@@ -2,12 +2,7 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 import styled, { css } from "styled-components";
 
-export default function CopyWithOneClick({
-  hasIconText,
-  iconColor,
-  codeData,
-  isDetail,
-}) {
+export default function CopyWithOneClick({ iconColor, codeData, isDetail }) {
   const [isCopied, setIsCopied] = useState(false);
   async function handleClick() {
     setIsCopied(true);
@@ -24,7 +19,7 @@ export default function CopyWithOneClick({
         color={iconColor}
         aria-label={isCopied === true ? "code copied" : "copy code"}
       />
-      {hasIconText && (isCopied ? "code copied" : "copy code")}
+      {isDetail && (isCopied ? "code copied" : "copy code")}
     </StyledButton>
   );
 }
@@ -39,8 +34,9 @@ const StyledButton = styled.button`
   ${({ $isDetail }) =>
     $isDetail
       ? css`
-          top: 1rem;
+          top: 0.3rem;
           right: 0.3rem;
+          color: var(--primary-color);
         `
       : css`
           bottom: 1rem;

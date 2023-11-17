@@ -30,15 +30,19 @@ function SnippetDetails({ onDelete }) {
         <Title>{name}</Title>
         <Heading>Code</Heading>
         <CodeContainer>
-          <SyntaxHighlighter
+          <StyledSyntaxHighlighter
             language="javascript"
             style={a11yLight}
             wrapLongLines
             showLineNumbers
           >
             {code}
-          </SyntaxHighlighter>
-          <CopyWithOneClick isDetail hasIconText codeData={code} />
+          </StyledSyntaxHighlighter>
+          <CopyWithOneClick
+            isDetail
+            codeData={code}
+            iconColor="var(--primary-color)"
+          />
         </CodeContainer>
         <Heading>Description</Heading>
         <p>{description}</p>
@@ -89,7 +93,7 @@ const StyledSection = styled.section`
 
 const StyledCard = styled.div`
   background-color: var(--light-color);
-  margin: 1rem 0.5rem;
+  margin: 1rem 0rem;
   padding: 0.1rem 0.5rem;
   border-radius: 1rem;
 `;
@@ -100,9 +104,12 @@ const StyledButtonDiv = styled.div`
   gap: 1rem;
 `;
 const CodeContainer = styled.div`
+  position: relative;
+`;
+
+const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   overflow-y: scroll;
   max-height: 200px;
-  position: relative;
 `;
 
 export default SnippetDetails;
