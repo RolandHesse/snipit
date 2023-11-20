@@ -5,6 +5,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useRef } from "react";
+import { useEffect } from "react";
+// import useLocalStorageState from "use-local-storage-state";
 
 const fuseOptions = {
   threshold: 0.3,
@@ -14,6 +16,37 @@ export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
   const [results, setResults] = useState([]);
   const fuse = new Fuse(data, fuseOptions);
+
+  function limitLastSearchOptions(maxOptions) {
+    var dropdown = document.getElementById("lastSearchDropdown");
+
+    if (dropdown && dropdown.options.length > maxOptions) {
+      while (dropdown.options.length > maxOptions) {
+        dropdown.remove(dropdown.options.length - 1);
+      }
+    }
+  }
+  // function loadLastSearch() {
+  //   var lastSearch = localStorage.getItem("lastSearch");
+  //   if (lastSearch) {
+  //     updateLastSearchDropdown(lastSearch);
+  //   }
+  // }
+
+  function loadLastSearch() {
+    var lastSearchList =
+      JSON.parse(localStorage.getItem("lastSearchList")) || [];
+
+    lastSearchList.forEach((searchPattern) => {
+      updateLastSearchDropdown(searchPattern);
+    });
+
+    limitLastSearchOptions(5);
+  }
+
+  useEffect(() => {
+    loadLastSearch();
+  }, []);
 
   const inputRef = useRef(null);
 
@@ -27,8 +60,36 @@ export default function HomePage() {
     const searchPattern = event.target.value;
     const searchResult = fuse.search(searchPattern).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
+    saveLastSearch(searchPattern);
+    // localStorage.setItem("last search", { searchPattern });
+    updateLastSearchDropdown(searchPattern);
+    limitLastSearchOptions(5);
   }
 
+  function saveLastSearch(searchPattern) {
+    var lastSearchList =
+      JSON.parse(localStorage.getItem("lastSearchList")) || [];
+
+    lastSearchList.unshift(searchPattern);
+
+    lastSearchList = lastSearchList.slice(0, 5);
+
+    localStorage.setItem("lastSearchList", JSON.stringify(lastSearchList));
+  }
+
+  function updateLastSearchDropdown(searchPattern) {
+    var dropdown = document.getElementById("lastSearchDropdown");
+
+    if (dropdown) {
+      var option = document.createElement("option");
+      option.text = searchPattern;
+      if (
+        !Array.from(dropdown.options).some((opt) => opt.text === searchPattern)
+      ) {
+        dropdown.add(option);
+      }
+    }
+  }
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
