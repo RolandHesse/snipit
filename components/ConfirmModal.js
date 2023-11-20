@@ -5,8 +5,10 @@ import { Icon } from "@iconify/react";
 // import { StyledModal } from "@/design-system/StyledModal";
 // import { StyledIconButton } from "@/design-system/StyledIconButton";
 // import { StyledContainer } from "@/design-system/StyledContainer";
+import Button from "./Button";
+import styled from "styled-components";
 
-function ConfirmModal({ message, handleFunction, iconName, expenseId }) {
+function ConfirmModal({ message, handleFunction, iconName, snippetId }) {
   const [showModal, setShowModal] = useState(false);
 
   function handleOuterClick(event) {
@@ -32,7 +34,7 @@ function ConfirmModal({ message, handleFunction, iconName, expenseId }) {
         buttonName="Delete"
         buttonIcon="line-md:remove"
       />
-      <StyledIconButton>
+      {/* <StyledIconButton>
         <Icon
           type="button"
           onClick={handleModal}
@@ -40,28 +42,43 @@ function ConfirmModal({ message, handleFunction, iconName, expenseId }) {
           width="24"
           height="24"
         />
-      </StyledIconButton>
+      </StyledIconButton> */}
       {showModal && (
         <StyledBackdrop onClick={handleOuterClick}>
-          <StyledModal>
+          <article>
             <p>{message}</p>
-            <StyledContainer $isCenter>
-              <StyledButton
+            <div $isCenter>
+              <button
                 type="button"
-                onClick={() => handleFunction(expenseId)}
+                onClick={() => handleFunction(snippetId)}
                 $isDeleteButton
               >
                 Confirm
-              </StyledButton>
-              <StyledButton type="button" onClick={hideModal}>
+              </button>
+              <button type="button" onClick={hideModal}>
                 Cancel
-              </StyledButton>
-            </StyledContainer>
-          </StyledModal>
+              </button>
+            </div>
+          </article>
         </StyledBackdrop>
       )}
     </>
   );
 }
+
+const StyledBackdrop = styled.div`
+height: 100dvh;
+width: 100dvw;
+position: fixed;
+top: 0;
+left: 0;
+background-color: rgba(0, 0, 0, 0.4);
+backdrop-filter: blur(3px);
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 40px 80px 150px 100px rgba(0, 0, 0, 0.1) inset;
+cursor: auto;
+`;
 
 export default ConfirmModal;

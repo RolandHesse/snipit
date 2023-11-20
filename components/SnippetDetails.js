@@ -7,6 +7,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Button from "./Button";
 import LinkLayout from "./LinkLayout";
+import ConfirmModal from "./ConfirmModal";
 
 function SnippetDetails({ onDelete }) {
   const router = useRouter();
@@ -69,11 +70,12 @@ function SnippetDetails({ onDelete }) {
           linkName="Edit"
           linkIcon="line-md:edit"
         />
-        <Button
+        <ConfirmModal message="Are you sure you want to delete this snippet?" handleFunction={onDelete} snippetId={id}/>
+        {/* <Button
           onClick={onDelete}
           buttonName="Delete"
           buttonIcon="line-md:remove"
-        />
+        /> */}
       </StyledButtonDiv>
     </StyledSection>
   );
