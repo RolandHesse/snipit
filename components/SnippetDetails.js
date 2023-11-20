@@ -70,7 +70,7 @@ function SnippetDetails({ onDelete }) {
           linkIcon="line-md:edit"
         />
         <Button
-          onDelete={onDelete}
+          onClick={onDelete}
           buttonName="Delete"
           buttonIcon="line-md:remove"
         />
