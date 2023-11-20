@@ -1,11 +1,17 @@
+import Link from "next/link";
 import styled from "styled-components";
+import CopyWithOneClick from "./CopyWithOneClick";
 
 export default function SnippetCard({ snippetData, name, description }) {
   if (!snippetData) return <div>No snippets yet 😭</div>;
+
   return (
     <StyledCard>
-      <CardHeading>{name}</CardHeading>
-      <CardDescription>{description}</CardDescription>
+      <StyledLinkComponent href={`/${snippetData._id}`}>
+        <CardHeading>{name}</CardHeading>
+        <CardDescription>{description}</CardDescription>
+      </StyledLinkComponent>
+      <CopyWithOneClick codeData={snippetData.code} iconColor="var(--white)" />
     </StyledCard>
   );
 }
@@ -20,12 +26,20 @@ const StyledCard = styled.section`
   border-radius: 0.5rem;
   background-color: var(--primary-color);
   color: var(--white);
+  position: relative;
 `;
+
 const CardHeading = styled.h2`
   font-size: 1.5rem;
   margin: 0;
 `;
+
 const CardDescription = styled.p`
   font-size: 1rem;
   margin: 0;
+`;
+
+const StyledLinkComponent = styled(Link)`
+  text-decoration: none;
+  color: var(--white);
 `;

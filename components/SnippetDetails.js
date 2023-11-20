@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import useSWR from "swr";
+import CopyWithOneClick from "./CopyWithOneClick";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Button from "./Button";
@@ -29,14 +30,19 @@ function SnippetDetails({ onDelete }) {
         <Title>{name}</Title>
         <Heading>Code</Heading>
         <CodeContainer>
-          <SyntaxHighlighter
+          <StyledSyntaxHighlighter
             language="javascript"
             style={a11yLight}
             wrapLongLines
             showLineNumbers
           >
             {code}
-          </SyntaxHighlighter>
+          </StyledSyntaxHighlighter>
+          <CopyWithOneClick
+            isDetail
+            codeData={code}
+            iconColor="var(--primary-color)"
+          />
         </CodeContainer>
         <Heading>Description</Heading>
         <p>{description}</p>
@@ -87,7 +93,7 @@ const StyledSection = styled.section`
 
 const StyledCard = styled.div`
   background-color: var(--light-color);
-  margin: 1rem 0.5rem;
+  margin: 1rem 0rem;
   padding: 0.1rem 0.5rem;
   border-radius: 1rem;
 `;
@@ -98,6 +104,10 @@ const StyledButtonDiv = styled.div`
   gap: 1rem;
 `;
 const CodeContainer = styled.div`
+  position: relative;
+`;
+
+const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   overflow-y: scroll;
   max-height: 200px;
 `;

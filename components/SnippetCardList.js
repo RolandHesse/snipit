@@ -16,13 +16,11 @@ export default function SnippetCardList({ data }) {
       <StyledSnippetList>
         {data?.map((snippet) => (
           <li key={snippet._id}>
-            <Link href={`/${snippet._id}`}>
-              <SnippetCard
-                snippetData={snippet}
-                name={snippet.name}
-                description={ShortDescription(snippet.description, 70)}
-              />
-            </Link>
+            <SnippetCard
+              snippetData={snippet}
+              name={snippet.name}
+              description={snippet.description}
+            />
           </li>
         ))}
       </StyledSnippetList>
