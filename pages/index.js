@@ -18,7 +18,7 @@ export default function HomePage() {
   const fuse = new Fuse(data, fuseOptions);
 
   function limitLastSearchOptions(maxOptions) {
-    var dropdown = document.getElementById("lastSearchDropdown");
+    let dropdown = document.getElementById("lastSearchDropdown");
 
     if (dropdown && dropdown.options.length > maxOptions) {
       while (dropdown.options.length > maxOptions) {
@@ -34,7 +34,7 @@ export default function HomePage() {
   // }
 
   function loadLastSearch() {
-    var lastSearchList =
+    let lastSearchList =
       JSON.parse(localStorage.getItem("lastSearchList")) || [];
 
     lastSearchList.forEach((searchPattern) => {
@@ -67,7 +67,7 @@ export default function HomePage() {
   }
 
   function saveLastSearch(searchPattern) {
-    var lastSearchList =
+    let lastSearchList =
       JSON.parse(localStorage.getItem("lastSearchList")) || [];
 
     lastSearchList.unshift(searchPattern);
@@ -78,10 +78,10 @@ export default function HomePage() {
   }
 
   function updateLastSearchDropdown(searchPattern) {
-    var dropdown = document.getElementById("lastSearchDropdown");
+    let dropdown = document.getElementById("lastSearchDropdown");
 
     if (dropdown) {
-      var option = document.createElement("option");
+      let option = document.createElement("option");
       option.text = searchPattern;
       if (
         !Array.from(dropdown.options).some((opt) => opt.text === searchPattern)
