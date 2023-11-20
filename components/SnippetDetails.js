@@ -7,6 +7,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Button from "./Button";
 import LinkLayout from "./LinkLayout";
+import FavoriteButton from "./FavoriteButton";
 
 function SnippetDetails({ onDelete }) {
   const router = useRouter();
@@ -29,6 +30,7 @@ function SnippetDetails({ onDelete }) {
       <StyledCard>
         <Title>{name}</Title>
         <Heading>Code</Heading>
+        <FavoriteButton />
         <CodeContainer>
           <StyledSyntaxHighlighter
             language="javascript"
