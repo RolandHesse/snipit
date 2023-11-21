@@ -1,17 +1,28 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 export const StyledButtonOrLink = styled.button`
   text-decoration: ${({ $isLink }) => $isLink && "none"};
-
   cursor: pointer;
   font-weight: 600;
   font-size: large;
   color: var(--primary-color);
-  background-color: var(--light-color);
+  /* background-color: var(--light-color); */
+  background-color: ${({ $backgroundColor }) =>
+    $backgroundColor ? $backgroundColor : "var(--light-color)"};
   padding: 0.3rem 0.6rem;
   border-radius: 0.5rem;
   border-top: 2px solid #cccccc;
-  border-right: 2px solid var(--primary-color);
-  border-bottom: 2px solid var(--primary-color);
+  /* border-right: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--primary-color); */
+  ${({ $shadowColor }) =>
+    $shadowColor
+      ? css`
+          border-right: 2px solid ${$shadowColor};
+          border-bottom: 2px solid ${$shadowColor};
+        `
+      : css`
+          border-right: 2px solid var(--primary-color);
+          border-bottom: 2px solid var(--primary-color);
+        `}
   border-left: 2px solid #cccccc;
 
   display: inline-flex;

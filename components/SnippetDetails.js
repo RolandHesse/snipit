@@ -70,7 +70,11 @@ function SnippetDetails({ onDelete }) {
           linkName="Edit"
           linkIcon="line-md:edit"
         />
-        <ConfirmModal message="Are you sure you want to delete this snippet?" handleFunction={onDelete} snippetId={id}/>
+        <ConfirmModal
+          message={`Are you sure you want to delete the snippet ${name}?`}
+          handleFunction={onDelete}
+          snippetId={id}
+        />
         {/* <Button
           onClick={onDelete}
           buttonName="Delete"
