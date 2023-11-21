@@ -12,41 +12,15 @@ const fuseOptions = {
   threshold: 0.3,
   keys: ["name", "code", "description", "links", "tag"],
 };
+
 export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
   const [results, setResults] = useState([]);
   const fuse = new Fuse(data, fuseOptions);
-
-  function limitLastSearchOptions(maxOptions) {
-    let dropdown = document.getElementById("lastSearchDropdown");
-
-    if (dropdown && dropdown.options.length > maxOptions) {
-      while (dropdown.options.length > maxOptions) {
-        dropdown.remove(dropdown.options.length - 1);
-      }
-    }
+  function getLastSearches() {
+    return JSON.parse(localStorage?.getItem("lastSearchList")) || [];
   }
-  // function loadLastSearch() {
-  //   var lastSearch = localStorage.getItem("lastSearch");
-  //   if (lastSearch) {
-  //     updateLastSearchDropdown(lastSearch);
-  //   }
-  // }
-
-  function loadLastSearch() {
-    let lastSearchList =
-      JSON.parse(localStorage.getItem("lastSearchList")) || [];
-
-    lastSearchList.forEach((searchPattern) => {
-      updateLastSearchDropdown(searchPattern);
-    });
-
-    limitLastSearchOptions(5);
-  }
-
-  useEffect(() => {
-    loadLastSearch();
-  }, []);
+  const lastSearches = getLastSearches();
 
   const inputRef = useRef(null);
 
@@ -57,39 +31,24 @@ export default function HomePage() {
     if (!fuse) {
       return;
     }
+    function savelastSearch() {
+      const lastSearchList =
+        JSON.parse(localStorage.getItem("lastSearchList")) || [];
+      lastSearchList.unshift(searchPattern);
+
+      const maxLenght = 5;
+
+      const trimmedList = lastSearchList.slice(0, maxLenght);
+
+      localStorage.setItem("lastSearchList", JSON.stringify(trimmedList));
+    }
+
     const searchPattern = event.target.value;
     const searchResult = fuse.search(searchPattern).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
-    saveLastSearch(searchPattern);
-    // localStorage.setItem("last search", { searchPattern });
-    updateLastSearchDropdown(searchPattern);
-    limitLastSearchOptions(5);
+    savelastSearch(searchPattern);
   }
 
-  function saveLastSearch(searchPattern) {
-    let lastSearchList =
-      JSON.parse(localStorage.getItem("lastSearchList")) || [];
-
-    lastSearchList.unshift(searchPattern);
-
-    lastSearchList = lastSearchList.slice(0, 5);
-
-    localStorage.setItem("lastSearchList", JSON.stringify(lastSearchList));
-  }
-
-  function updateLastSearchDropdown(searchPattern) {
-    let dropdown = document.getElementById("lastSearchDropdown");
-
-    if (dropdown) {
-      let option = document.createElement("option");
-      option.text = searchPattern;
-      if (
-        !Array.from(dropdown.options).some((opt) => opt.text === searchPattern)
-      ) {
-        dropdown.add(option);
-      }
-    }
-  }
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
@@ -106,6 +65,14 @@ export default function HomePage() {
             placeholder="Search"
             onChange={handleSearch}
           />
+          <div>
+            <strong>Last Searches:</strong>
+            <ul>
+              {lastSearches.map((search, index) => (
+                <li key={index}>{search}</li>
+              ))}
+            </ul>
+          </div>
         </StyledSearchBarForm>
         <StyledButton onClick={handleClick}>
           <Icon
