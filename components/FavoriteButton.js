@@ -8,7 +8,6 @@ export default function FavoriteButton({ isList }) {
   return (
     <StyledFavoriteButton
       $isList={isList}
-      className="favorite-button"
       type="button"
       onClick={() => {
         setIsFavorite(!isFavorite);
@@ -19,8 +18,8 @@ export default function FavoriteButton({ isList }) {
         <Icon
           icon="ic:sharp-star"
           width="48"
-          stroke-width="1.5"
-          stroke="var(--white"
+          strokeWidth="1.5"
+          stroke="var(--white)"
         />
       ) : (
         <Icon
@@ -28,7 +27,7 @@ export default function FavoriteButton({ isList }) {
           width="48"
           stroke="var(--primary-color)"
           color="var(--white)"
-          stroke-width="1.5"
+          strokeWidth="1.5"
         />
       )}
     </StyledFavoriteButton>

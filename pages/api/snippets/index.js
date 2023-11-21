@@ -7,7 +7,6 @@ export default async function handler(request, response) {
 
     if (request.method === "GET") {
       const snippets = await Snippet.find();
-      // console.log("snippets: ", snippets);
       return response.status(200).json(snippets);
     }
     if (request.method === "POST") {
