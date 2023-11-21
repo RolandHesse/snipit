@@ -16,11 +16,8 @@ const fuseOptions = {
 export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
   const [results, setResults] = useState([]);
+  const [lastSearches, setLastSearches] = useState([]);
   const fuse = new Fuse(data, fuseOptions);
-  function getLastSearches() {
-    return JSON.parse(localStorage?.getItem("lastSearchList")) || [];
-  }
-  const lastSearches = getLastSearches();
 
   const inputRef = useRef(null);
 
@@ -31,24 +28,28 @@ export default function HomePage() {
     if (!fuse) {
       return;
     }
-    function savelastSearch() {
+    function saveLastSearch() {
       const lastSearchList =
         JSON.parse(localStorage.getItem("lastSearchList")) || [];
       lastSearchList.unshift(searchPattern);
 
-      const maxLenght = 5;
+      const maxLength = 5;
 
-      const trimmedList = lastSearchList.slice(0, maxLenght);
+      const trimmedList = lastSearchList.slice(0, maxLength);
 
       localStorage.setItem("lastSearchList", JSON.stringify(trimmedList));
     }
-
+    const lastSearches = getLastSearches();
+    function getLastSearches() {
+      return JSON.parse(localStorage?.getItem("lastSearchList")) || [];
+    }
     const searchPattern = event.target.value;
     const searchResult = fuse.search(searchPattern).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
-    savelastSearch(searchPattern);
-  }
 
+    setLastSearches(saveLastSearch(searchPattern));
+  }
+  console.log("LastSearches :", lastSearches);
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
@@ -68,7 +69,7 @@ export default function HomePage() {
           <div>
             <strong>Last Searches:</strong>
             <ul>
-              {lastSearches.map((search, index) => (
+              {lastSearches?.map((search, index) => (
                 <li key={index}>{search}</li>
               ))}
             </ul>
