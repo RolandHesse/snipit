@@ -5,8 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useRef } from "react";
-import { useEffect } from "react";
-// import useLocalStorageState from "use-local-storage-state";
+import useLocalStorageState from "use-local-storage-state";
 
 const fuseOptions = {
   threshold: 0.3,
@@ -16,7 +15,9 @@ const fuseOptions = {
 export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
   const [results, setResults] = useState([]);
-  const [lastSearches, setLastSearches] = useState([]);
+  const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
+    defaultValue: [],
+  });
   const fuse = new Fuse(data, fuseOptions);
 
   const inputRef = useRef(null);
@@ -24,32 +25,36 @@ export default function HomePage() {
   function handleClick() {
     inputRef.current.focus();
   }
+
   function handleSearch(event) {
     if (!fuse) {
       return;
     }
-    function saveLastSearch() {
-      const lastSearchList =
-        JSON.parse(localStorage.getItem("lastSearchList")) || [];
-      lastSearchList.unshift(searchPattern);
 
-      const maxLength = 5;
-
-      const trimmedList = lastSearchList.slice(0, maxLength);
-
-      localStorage.setItem("lastSearchList", JSON.stringify(trimmedList));
-    }
-    const lastSearches = getLastSearches();
-    function getLastSearches() {
-      return JSON.parse(localStorage?.getItem("lastSearchList")) || [];
-    }
     const searchPattern = event.target.value;
     const searchResult = fuse.search(searchPattern).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
 
-    setLastSearches(saveLastSearch(searchPattern));
+    setLastSearches((prevSearches) => {
+      const updatedSearches = [searchPattern, ...prevSearches];
+      // Keep only the last 5 searches
+      return updatedSearches.length > 5
+        ? updatedSearches.slice(0, updatedSearches.length - 1)
+        : updatedSearches;
+    });
+
+    // if (event.key === "Enter") {
+    //   setLastSearches((prevSearches) => {
+    //     const updatedSearches = [...prevSearches, event.target.value];
+    //     // Keep only the last 5 searches
+    //     return updatedSearches.slice(Math.max(updatedSearches.length - 5, 0));
+    //   });
+    // }
   }
-  console.log("LastSearches :", lastSearches);
+
+  console.log("results: ", results);
+  console.log("lastSearches:", lastSearches);
+
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
@@ -66,14 +71,6 @@ export default function HomePage() {
             placeholder="Search"
             onChange={handleSearch}
           />
-          <div>
-            <strong>Last Searches:</strong>
-            <ul>
-              {lastSearches?.map((search, index) => (
-                <li key={index}>{search}</li>
-              ))}
-            </ul>
-          </div>
         </StyledSearchBarForm>
         <StyledButton onClick={handleClick}>
           <Icon
@@ -83,6 +80,14 @@ export default function HomePage() {
           />
         </StyledButton>
       </StyledSearchBarContainer>
+      <div>
+        <strong>Last Searches:</strong>
+        <ul>
+          {lastSearches?.map((search, index) => (
+            <li key={index}>{search}</li>
+          ))}
+        </ul>
+      </div>
       <SnippetCardList data={results.length > 0 ? results : data} />
     </>
   );
