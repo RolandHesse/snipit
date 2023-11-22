@@ -26,12 +26,14 @@ export default function HomePage() {
     inputRef.current.focus();
   }
 
+  let searchPattern;
+
   function handleSearch(event) {
     if (!fuse) {
       return;
     }
 
-    const searchPattern = event.target.value;
+    searchPattern = event.target.value;
     const searchResult = fuse.search(searchPattern).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
 
@@ -51,6 +53,18 @@ export default function HomePage() {
     //   });
     // }
   }
+
+  // function handleOuterClick(event) {
+  //   if (event.target === event.currentTarget) {
+  //     setLastSearches((prevSearches) => {
+  //       const updatedSearches = [searchPattern, ...prevSearches];
+  //       // Keep only the last 5 searches
+  //       return updatedSearches.length > 5
+  //         ? updatedSearches.slice(0, updatedSearches.length - 1)
+  //         : updatedSearches;
+  //     });
+  //   }
+  // }
 
   console.log("results: ", results);
   console.log("lastSearches:", lastSearches);
