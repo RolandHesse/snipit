@@ -9,7 +9,7 @@ import Button from "./Button";
 import LinkLayout from "./LinkLayout";
 import FavoriteButton from "./FavoriteButton";
 
-function SnippetDetails({ onDelete }) {
+function SnippetDetails({ onDelete, isFavorite, onToggleFavorite }) {
   const router = useRouter();
 
   const { id } = router.query;
@@ -30,7 +30,7 @@ function SnippetDetails({ onDelete }) {
       <StyledCard>
         <Title>{name}</Title>
         <Heading>Code</Heading>
-        <FavoriteButton />
+        <FavoriteButton onClick={onToggleFavorite} isFavorite={isFavorite} />
         <CodeContainer>
           <StyledSyntaxHighlighter
             language="javascript"

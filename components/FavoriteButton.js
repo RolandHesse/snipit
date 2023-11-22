@@ -1,17 +1,13 @@
 import { Icon } from "@iconify/react";
-import { useState } from "react";
 import styled, { css } from "styled-components";
 
-export default function FavoriteButton({ isList }) {
-  const [isFavorite, setIsFavorite] = useState(false);
-
+export default function FavoriteButton({ isList, onClick, isFavorite }) {
+  console.log("Favorite Button Test", isFavorite);
   return (
     <StyledFavoriteButton
       $isList={isList}
       type="button"
-      onClick={() => {
-        setIsFavorite(!isFavorite);
-      }}
+      onClick={onClick}
       aria-label="favorite"
     >
       {isFavorite ? (
