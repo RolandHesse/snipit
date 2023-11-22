@@ -1,14 +1,8 @@
 import { useState } from "react";
-// import { StyledBackdrop } from "@/design-system/StyledBackdrop";
-import { Icon } from "@iconify/react";
-// import { StyledButton } from "@/design-system/StyledButton";
-// import { StyledModal } from "@/design-system/StyledModal";
-// import { StyledIconButton } from "@/design-system/StyledIconButton";
-// import { StyledContainer } from "@/design-system/StyledContainer";
 import Button from "./Button";
 import styled from "styled-components";
 
-function ConfirmModal({ message, handleFunction, iconName, snippetId }) {
+function ConfirmModal({ message, handleFunction, snippetId }) {
   const [showModal, setShowModal] = useState(false);
 
   function handleOuterClick(event) {
@@ -23,7 +17,7 @@ function ConfirmModal({ message, handleFunction, iconName, snippetId }) {
   }
 
   function hideModal() {
-    setShowModal(false);
+    setShowModal(!showModal);
     document.body.style.overflow = "auto";
   }
 
@@ -34,15 +28,6 @@ function ConfirmModal({ message, handleFunction, iconName, snippetId }) {
         buttonName="Delete"
         buttonIcon="line-md:remove"
       />
-      {/* <StyledIconButton>
-        <Icon
-          type="button"
-          onClick={handleModal}
-          icon={iconName}
-          width="24"
-          height="24"
-        />
-      </StyledIconButton> */}
       {showModal && (
         <StyledBackdrop onClick={handleOuterClick}>
           <StyledModal>
@@ -52,16 +37,9 @@ function ConfirmModal({ message, handleFunction, iconName, snippetId }) {
                 type="button"
                 onClick={() => handleFunction(snippetId)}
                 buttonName="Confirm"
-                // $backgroundColor="var(--white)"
-                // $shadowColor="orange"
+                $backgroundColor="red"
               />
-              <Button
-                type="button"
-                onClick={hideModal}
-                buttonName="Cancel"
-                // $backgroundColor="var(--white)"
-                // $shadowColor="grey"
-              />
+              <Button type="button" onClick={hideModal} buttonName="Cancel" />
             </SytledButtonContainer>
           </StyledModal>
         </StyledBackdrop>
@@ -82,7 +60,6 @@ const StyledBackdrop = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 40px 80px 150px 100px rgba(0, 0, 0, 0.1) inset;
-  cursor: auto;
 `;
 
 const StyledModal = styled.article`
@@ -97,16 +74,11 @@ const StyledModal = styled.article`
 const StyledModalMessage = styled.h3`
   color: var(--primary-color);
   text-align: center;
-  /* font-size: 2rem; */
 `;
 
 const SytledButtonContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-`;
-
-const StyledConfirmButton = styled(Button)`
-  background-color: var(--white);
 `;
 
 export default ConfirmModal;

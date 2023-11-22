@@ -5,7 +5,6 @@ import useSWR from "swr";
 import CopyWithOneClick from "./CopyWithOneClick";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import Button from "./Button";
 import LinkLayout from "./LinkLayout";
 import ConfirmModal from "./ConfirmModal";
 
@@ -71,15 +70,10 @@ function SnippetDetails({ onDelete }) {
           linkIcon="line-md:edit"
         />
         <ConfirmModal
-          message={`Are you sure you want to delete the snippet ${name}?`}
+          message={`Are you sure you want to delete the snippet "${name}"?`}
           handleFunction={onDelete}
           snippetId={id}
         />
-        {/* <Button
-          onClick={onDelete}
-          buttonName="Delete"
-          buttonIcon="line-md:remove"
-        /> */}
       </StyledButtonDiv>
     </StyledSection>
   );
@@ -114,7 +108,7 @@ const CodeContainer = styled.div`
 `;
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 200px;
 `;
 
