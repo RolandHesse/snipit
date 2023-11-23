@@ -15,56 +15,61 @@ const fuseOptions = {
 export default function HomePage() {
   const { data, error, isLoading } = useSWR("api/snippets");
   const [results, setResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
     defaultValue: [],
   });
+  const [isSearching, setIsSearching] = useState(false);
+
   const fuse = new Fuse(data, fuseOptions);
 
   const inputRef = useRef(null);
+
+  function globalSearch(event) {
+    handleSearchChange(event);
+    handleSearch(event);
+  }
 
   function handleClick() {
     inputRef.current.focus();
   }
 
-  let searchPattern;
+  function handleSearchChange(event) {
+    setSearchTerm(event.target.value);
+  }
+
+  function updateLastSearches(newTerm) {
+    if (newTerm !== "" && newTerm !== lastSearches[0]) {
+      setLastSearches((prevSearches) =>
+        [newTerm, ...prevSearches.filter((term) => term !== newTerm)].slice(
+          0,
+          5
+        )
+      );
+    }
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      updateLastSearches(searchTerm);
+    }
+  }
+
+  function handleBlur() {
+    updateLastSearches(searchTerm);
+  }
 
   function handleSearch(event) {
     if (!fuse) {
       return;
     }
 
-    searchPattern = event.target.value;
+    const searchPattern = event.target.value;
     const searchResult = fuse.search(searchPattern).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
 
-    setLastSearches((prevSearches) => {
-      const updatedSearches = [searchPattern, ...prevSearches];
-      // Keep only the last 5 searches
-      return updatedSearches.length > 5
-        ? updatedSearches.slice(0, updatedSearches.length - 1)
-        : updatedSearches;
-    });
-
-    // if (event.key === "Enter") {
-    //   setLastSearches((prevSearches) => {
-    //     const updatedSearches = [...prevSearches, event.target.value];
-    //     // Keep only the last 5 searches
-    //     return updatedSearches.slice(Math.max(updatedSearches.length - 5, 0));
-    //   });
-    // }
+    searchPattern !== "" ? setIsSearching(true) : setIsSearching(false);
   }
-
-  // function handleOuterClick(event) {
-  //   if (event.target === event.currentTarget) {
-  //     setLastSearches((prevSearches) => {
-  //       const updatedSearches = [searchPattern, ...prevSearches];
-  //       // Keep only the last 5 searches
-  //       return updatedSearches.length > 5
-  //         ? updatedSearches.slice(0, updatedSearches.length - 1)
-  //         : updatedSearches;
-  //     });
-  //   }
-  // }
 
   console.log("results: ", results);
   console.log("lastSearches:", lastSearches);
@@ -75,7 +80,7 @@ export default function HomePage() {
   return (
     <>
       <StyledSearchBarContainer tabIndex={0}>
-        <StyledSearchBarForm>
+        <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
           <label htmlFor="search"></label>
           <StyledSearchBarInput
             ref={inputRef}
@@ -83,7 +88,9 @@ export default function HomePage() {
             id="search"
             name="search"
             placeholder="Search"
-            onChange={handleSearch}
+            onChange={globalSearch}
+            onKeyDown={handleKeyPress}
+            onBlur={handleBlur}
           />
         </StyledSearchBarForm>
         <StyledButton onClick={handleClick}>
@@ -102,7 +109,7 @@ export default function HomePage() {
           ))}
         </ul>
       </div>
-      <SnippetCardList data={results.length > 0 ? results : data} />
+      <SnippetCardList data={isSearching ? results : data} />
     </>
   );
 }
