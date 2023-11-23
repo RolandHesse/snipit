@@ -20,6 +20,7 @@ export default function HomePage() {
     defaultValue: [],
   });
   const [isSearching, setIsSearching] = useState(false);
+  const [isDropdown, setIsDropdown] = useState(false);
 
   const fuse = new Fuse(data, fuseOptions);
 
@@ -57,6 +58,7 @@ export default function HomePage() {
 
   function handleBlur() {
     updateLastSearches(searchTerm);
+    // setIsDropdown(false);
   }
 
   function handleSearch(event) {
@@ -79,41 +81,76 @@ export default function HomePage() {
 
   return (
     <>
-      <StyledSearchBarContainer tabIndex={0}>
-        <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
-          <label htmlFor="search"></label>
-          <StyledSearchBarInput
-            ref={inputRef}
-            type="text"
-            id="search"
-            name="search"
-            placeholder="Search"
-            onChange={globalSearch}
-            onKeyDown={handleKeyPress}
-            onBlur={handleBlur}
-          />
-        </StyledSearchBarForm>
-        <StyledButton onClick={handleClick}>
-          <Icon
-            icon="line-md:search"
-            height="2rem"
-            color="var(--primary-color)"
-          />
-        </StyledButton>
-      </StyledSearchBarContainer>
-      <div>
-        <strong>Last Searches:</strong>
-        <ul>
-          {lastSearches?.map((search, index) => (
-            <li key={index}>{search}</li>
-          ))}
-        </ul>
-      </div>
+      <StyledLastSearchContainer>
+        <StyledSearchBarContainer tabIndex={0} $isDropdown={isDropdown}>
+          <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
+            <label htmlFor="search"></label>
+            <StyledSearchBarInput
+              ref={inputRef}
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Search"
+              onChange={globalSearch}
+              onKeyDown={handleKeyPress}
+              onBlur={handleBlur}
+              onFocus={() => setIsDropdown(true)}
+            />
+          </StyledSearchBarForm>
+          <StyledButton onClick={handleClick}>
+            <Icon
+              icon="line-md:search"
+              height="2rem"
+              color="var(--primary-color)"
+            />
+          </StyledButton>
+        </StyledSearchBarContainer>
+        {isDropdown && (
+          <StyledDropdown>
+            {/* <strong>Last Searches:</strong> */}
+            <StyledList>
+              {lastSearches?.map((search, index) => (
+                <li key={index}>{search}</li>
+              ))}
+            </StyledList>
+          </StyledDropdown>
+        )}
+      </StyledLastSearchContainer>
       <SnippetCardList data={isSearching ? results : data} />
     </>
   );
 }
 
+const StyledLastSearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  &:focus-within {
+    outline: 2px solid var(--primary-color);
+
+    transition: outline 0.3s ease;
+  }
+`;
+
+const StyledSearchBarContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 3rem;
+  grid-template-rows: 100%;
+  justify-items: center;
+  align-items: center;
+
+  /* border: solid red 1px; */
+
+  margin: 1.5rem 1.5rem 0 1.5rem;
+
+  border-radius: 0.5rem;
+  background-color: #c1d2d7;
+
+  /* &:focus-within {
+    outline: 2px solid var(--primary-color);
+
+    transition: outline 0.3s ease;
+  } */
+`;
 const StyledSearchBarForm = styled.form`
   height: 100%;
   width: 100%;
@@ -128,26 +165,17 @@ const StyledSearchBarInput = styled.input`
   font-size: 1.2rem;
 `;
 
-const StyledSearchBarContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3rem;
-  grid-template-rows: 100%;
-  justify-items: center;
-  align-items: center;
-
-  margin: 1.5rem;
-
-  border-radius: 0.5rem;
-  background-color: #c1d2d7;
-
-  &:focus-within {
-    outline: 2px solid var(--primary-color);
-
-    transition: outline 0.3s ease;
-  }
-`;
-
 const StyledButton = styled.button`
   border: none;
   background: transparent;
+`;
+
+const StyledDropdown = styled.div`
+  margin: 0 24px;
+  padding: 0;
+`;
+
+const StyledList = styled.ul`
+  list-style-type: none;
+  padding: 0;
 `;
