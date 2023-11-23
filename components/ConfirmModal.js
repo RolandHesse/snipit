@@ -32,7 +32,7 @@ function ConfirmModal({ message, handleFunction, snippetId }) {
         <StyledBackdrop onClick={handleOuterClick}>
           <StyledModal>
             <StyledModalMessage>{message}</StyledModalMessage>
-            <SytledButtonContainer>
+            <StyledButtonContainer>
               <Button
                 type="button"
                 onClick={() => handleFunction(snippetId)}
@@ -40,7 +40,7 @@ function ConfirmModal({ message, handleFunction, snippetId }) {
                 $backgroundColor="red"
               />
               <Button type="button" onClick={hideModal} buttonName="Cancel" />
-            </SytledButtonContainer>
+            </StyledButtonContainer>
           </StyledModal>
         </StyledBackdrop>
       )}
@@ -76,7 +76,7 @@ const StyledModalMessage = styled.h3`
   text-align: center;
 `;
 
-const SytledButtonContainer = styled.div`
+const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
 `;
