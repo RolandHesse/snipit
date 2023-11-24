@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledPage = styled.div`
-  margin: 3.5rem 0 0 0;
+  margin: 3.5rem 0;
 `;
 
 export const ListHeading = styled.h1`

@@ -22,9 +22,9 @@ function FavoritePage({ data, onToggleFavorite, favorites }) {
       <ListHeading>Favorites</ListHeading>
       <StyledSnippetList>
         {data
-          ?.filter((snippet) => {
-            snippet._id === favorites;
-          })
+          ?.filter((snippet) =>
+            favorites.some((favoriteId) => favoriteId === snippet._id)
+          )
           .map((snippet) => (
             <li key={snippet._id}>
               <SnippetCard
