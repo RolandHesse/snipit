@@ -25,20 +25,19 @@ export default function HomePage() {
   const fuse = new Fuse(data, fuseOptions);
 
   const inputRef = useRef(null);
-  // console.log("inputRef cur val: ", inputRef.current.event.target.value);
 
-  function globalSearch(event) {
-    handleSearchChange(event);
-    handleSearch(event);
-  }
+  // function globalSearch(event) {
+  //   handleSearchChange(event);
+  //   handleSearch(event);
+  // }
 
   function handleClick() {
     inputRef.current.focus();
   }
 
-  function handleSearchChange(event) {
-    setSearchTerm(event.target.value);
-  }
+  // function handleSearchChange(event) {
+  //   setSearchTerm(event.target.value);
+  // }
 
   function updateLastSearches(newTerm) {
     if (newTerm !== "" && newTerm !== lastSearches[0]) {
@@ -67,37 +66,33 @@ export default function HomePage() {
       return;
     }
 
-    const searchPattern = event.target.value;
-    const searchResult = fuse.search(searchPattern).slice(0, 10);
+    setSearchTerm(event.target.value);
+    const searchResult = fuse.search(searchTerm).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
 
-    searchPattern !== "" ? setIsSearching(true) : setIsSearching(false);
+    searchTerm !== "" ? setIsSearching(true) : setIsSearching(false);
   }
 
+  function handleLastSearchClick(lastSearchTerm) {
+    if (inputRef.current) {
+      inputRef.current.value = lastSearchTerm;
+      updateLastSearches(lastSearchTerm);
+      const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
+      setResults(searchResult.map((result) => result.item));
+      setIsSearching(true);
+      console.log("lastSearchTerm: ", lastSearchTerm);
+    }
+  }
   console.log("results: ", results);
   console.log("lastSearches:", lastSearches);
 
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
-  function handleLastSearchClick() {
-    console.log("test");
-    // inputRef.current.event.target.value === "iryna";
-    if (inputRef.current) {
-      inputRef.current = "iryna";
-      console.log("input ref: ", inputRef.current);
-      console.log("key: ", index);
-
-      // let searchBarInput = inputRef.current.value;
-      // searchBarInput.value = { search };
-      // console.log("search input: ", searchBarInput);
-    }
-  }
-
   return (
     <>
-      <StyledLastSearchContainer>
-        <StyledSearchBarContainer tabIndex={0} $isDropdown={isDropdown}>
+      <StyledLastSearchContainer onBlur={handleBlur}>
+        <StyledSearchBarContainer tabIndex={0}>
           <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
             <label htmlFor="search"></label>
             <StyledSearchBarInput
@@ -107,11 +102,10 @@ export default function HomePage() {
               name="search"
               placeholder="Search"
               autoComplete="off"
-              onChange={globalSearch}
+              onChange={handleSearch}
               onKeyDown={handleKeyPress}
-              onBlur={handleBlur}
+              // onBlur={handleBlur}
               onFocus={() => setIsDropdown(true)}
-              value={inputRef.current}
             />
           </StyledSearchBarForm>
           <StyledButton onClick={handleClick}>
@@ -129,7 +123,7 @@ export default function HomePage() {
               {lastSearches?.map((search, index) => (
                 <StyledListItem
                   key={index}
-                  onClick={() => handleLastSearchClick(index)}
+                  onClick={() => handleLastSearchClick(search)}
                 >
                   {" "}
                   <Icon icon="mdi:recent" height="1.3rem" /> {search}
