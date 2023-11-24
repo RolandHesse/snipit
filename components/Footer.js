@@ -11,7 +11,7 @@ export default function Footer() {
         <Icon
           icon="ic:sharp-star"
           width="24"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           stroke="var(--white"
         />
         {"  "}

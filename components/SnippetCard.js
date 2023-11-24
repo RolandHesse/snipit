@@ -8,17 +8,17 @@ export default function SnippetCard({
   name,
   description,
   onToggleFavorite,
-  isFavorite,
+  favorites,
 }) {
   if (!snippetData) return <div>No snippets yet 😭</div>;
-  console.log("Snippet Card", isFavorite);
+  console.log("Snippet Card Favorites", favorites);
 
   return (
     <StyledCard>
       <FavoriteButton
         isList
         onClick={() => onToggleFavorite(snippetData._id)}
-        isFavorite={isFavorite}
+        favorite={favorites.includes(snippetData._id)}
       />
       <StyledLinkComponent href={`/${snippetData._id}`}>
         <CardHeading>{name}</CardHeading>

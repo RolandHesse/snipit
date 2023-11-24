@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { mutate } from "swr";
 
-function SnippetDetailsPage({ onToggleFavorite, isFavorite }) {
+function SnippetDetailsPage({ onToggleFavorite, favorites }) {
   const router = useRouter();
 
   const { id } = router.query;
@@ -30,7 +30,7 @@ function SnippetDetailsPage({ onToggleFavorite, isFavorite }) {
       <SnippetDetails
         onDelete={handleDelete}
         onToggleFavorite={onToggleFavorite}
-        isFavorite={isFavorite}
+        favorites={favorites}
       />
     </StlyedDetailsPage>
   );

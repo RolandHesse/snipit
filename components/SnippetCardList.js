@@ -8,13 +8,7 @@ function ShortDescription(description, maxLength) {
   return description;
 }
 
-export default function SnippetCardList({
-  data,
-  onToggleFavorite,
-  isFavorite,
-}) {
-  console.log("SnippetCardList", isFavorite);
-
+export default function SnippetCardList({ data, onToggleFavorite, favorites }) {
   return (
     <>
       <ListHeading>List of Snippets</ListHeading>
@@ -23,7 +17,7 @@ export default function SnippetCardList({
           <li key={snippet._id}>
             <SnippetCard
               onToggleFavorite={onToggleFavorite}
-              isFavorite={isFavorite}
+              favorites={favorites}
               snippetData={snippet}
               name={snippet.name}
               description={ShortDescription(snippet.description, 100)}

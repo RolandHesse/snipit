@@ -1,8 +1,7 @@
 import { Icon } from "@iconify/react";
 import styled, { css } from "styled-components";
 
-export default function FavoriteButton({ isList, onClick, isFavorite }) {
-  console.log("Favorite Button Test", isFavorite);
+export default function FavoriteButton({ isList, onClick, favorite }) {
   return (
     <StyledFavoriteButton
       $isList={isList}
@@ -10,7 +9,7 @@ export default function FavoriteButton({ isList, onClick, isFavorite }) {
       onClick={onClick}
       aria-label="favorite"
     >
-      {isFavorite ? (
+      {favorite ? (
         <Icon
           icon="ic:sharp-star"
           width="48"

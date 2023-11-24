@@ -1,14 +1,13 @@
 import { StyledPage } from "@/components/Layout";
 import SnippetCardList from "@/components/SnippetCardList";
 
-export default function HomePage({ data, onToggleFavorite, isFavorite }) {
-  console.log("HomepageData", data);
+export default function HomePage({ data, onToggleFavorite, favorites }) {
   return (
     <StyledPage>
       <SnippetCardList
         data={data}
         onToggleFavorite={onToggleFavorite}
-        isFavorite={isFavorite}
+        favorites={favorites}
       />
     </StyledPage>
   );

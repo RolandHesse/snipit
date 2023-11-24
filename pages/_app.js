@@ -5,19 +5,27 @@ import { SWRConfig } from "swr";
 import useSWR from "swr";
 import styled from "styled-components";
 import { useState } from "react";
+// import useLocalStorageState from "use-local-storage-state";
 
 const fetcher = (...args) => fetch(...args).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
   const { data, error, isLoading } = useSWR("api/snippets", fetcher);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [snippetInfo, setSnippetInfo] = [];
 
-  function handleToggleFavorite(idbrokkoli) {
-    setIsFavorite(!isFavorite);
+  const [favorites, setFavorites] = useState([]);
+
+  function handleToggleFavorite(snippetIdBrokkoli) {
+    if (favorites.includes(snippetIdBrokkoli)) {
+      setFavorites(
+        favorites?.filter((favorite) => favorite !== snippetIdBrokkoli)
+      );
+    } else {
+      setFavorites([...favorites, snippetIdBrokkoli]);
+    }
+
     console.log("handle Favorite");
   }
-
+  console.log("favorites app_js", favorites);
   if (error) return <StyledText>Failed to load...🥶 😵‍💫 😨 😩 😢</StyledText>;
   if (isLoading)
     return <StyledText>Wait....wait...wait... still loading...🤓</StyledText>;
@@ -30,7 +38,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         data={data}
         onToggleFavorite={handleToggleFavorite}
-        isFavorite={isFavorite}
+        favorites={favorites}
       />
       <Footer />
     </SWRConfig>

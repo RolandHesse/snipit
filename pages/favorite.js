@@ -1,14 +1,17 @@
-import { ListHeading, StyledPage } from "@/components/Layout";
+import {
+  ListHeading,
+  StyledPage,
+  StyledSnippetList,
+} from "@/components/Layout";
 import LinkLayout from "@/components/LinkLayout";
 import SnippetCard from "@/components/SnippetCard";
 
-function FavoritePage({
-  data,
-  name,
-  description,
-  onHandleFavorite,
-  isFavorite,
-}) {
+function FavoritePage({ data, onToggleFavorite, favorites }) {
+  console.log("Favorite Page", favorites);
+
+  const dataIds = data.map((snippet) => snippet._id);
+  console.log("Data Ids", dataIds);
+
   return (
     <StyledPage>
       <LinkLayout
@@ -17,13 +20,23 @@ function FavoritePage({
         linkIcon="line-md:arrow-left"
       />
       <ListHeading>Favorites</ListHeading>
-      <SnippetCard
-        onHandleFavorite={onHandleFavorite}
-        isFavorite={isFavorite}
-        snippetData={data}
-        name={name}
-        description={description}
-      />
+      <StyledSnippetList>
+        {data
+          ?.filter((snippet) => {
+            snippet._id === favorites;
+          })
+          .map((snippet) => (
+            <li key={snippet._id}>
+              <SnippetCard
+                onToggleFavorite={onToggleFavorite}
+                favorites={favorites}
+                snippetData={snippet}
+                name={snippet.name}
+                description={snippet.description}
+              />
+            </li>
+          ))}
+      </StyledSnippetList>
     </StyledPage>
   );
 }

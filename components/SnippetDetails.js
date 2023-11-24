@@ -9,7 +9,7 @@ import Button from "./Button";
 import LinkLayout from "./LinkLayout";
 import FavoriteButton from "./FavoriteButton";
 
-function SnippetDetails({ onDelete, isFavorite, onToggleFavorite }) {
+function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
   const router = useRouter();
 
   const { id } = router.query;
@@ -23,14 +23,18 @@ function SnippetDetails({ onDelete, isFavorite, onToggleFavorite }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, tags, links } = data;
+  const { name, code, description, tags, links, _id } = data;
 
+  console.log("Details Page _id", _id);
   return (
     <StyledSection>
       <StyledCard>
         <Title>{name}</Title>
         <Heading>Code</Heading>
-        <FavoriteButton onClick={onToggleFavorite} isFavorite={isFavorite} />
+        <FavoriteButton
+          onClick={() => onToggleFavorite(_id)}
+          favorite={favorites.includes(_id)}
+        />
         <CodeContainer>
           <StyledSyntaxHighlighter
             language="javascript"
