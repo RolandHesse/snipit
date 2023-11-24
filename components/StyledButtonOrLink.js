@@ -1,7 +1,6 @@
 import styled from "styled-components";
 export const StyledButtonOrLink = styled.button`
   text-decoration: ${({ $isLink }) => $isLink && "none"};
-
   cursor: pointer;
   font-weight: 600;
   font-size: large;
@@ -13,7 +12,6 @@ export const StyledButtonOrLink = styled.button`
   border-right: 2px solid var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
   border-left: 2px solid #cccccc;
-
   display: inline-flex;
   align-items: center;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -22,7 +20,8 @@ export const StyledButtonOrLink = styled.button`
     font-size: 1.7rem;
   }
   &:hover {
-    background-color: var(--primary-color);
+    background-color: ${({ $backgroundColor }) =>
+      $backgroundColor ? $backgroundColor : "var(--primary-color)"};
     color: white;
 
     .button-icon {
