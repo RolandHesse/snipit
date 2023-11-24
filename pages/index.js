@@ -25,6 +25,7 @@ export default function HomePage() {
   const fuse = new Fuse(data, fuseOptions);
 
   const inputRef = useRef(null);
+  // console.log("inputRef cur val: ", inputRef.current.event.target.value);
 
   function globalSearch(event) {
     handleSearchChange(event);
@@ -58,7 +59,7 @@ export default function HomePage() {
 
   function handleBlur() {
     updateLastSearches(searchTerm);
-    setIsDropdown(false);
+    // setIsDropdown(false);
   }
 
   function handleSearch(event) {
@@ -79,6 +80,20 @@ export default function HomePage() {
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
+  function handleLastSearchClick() {
+    console.log("test");
+    // inputRef.current.event.target.value === "iryna";
+    if (inputRef.current) {
+      inputRef.current = "iryna";
+      console.log("input ref: ", inputRef.current);
+      console.log("key: ", index);
+
+      // let searchBarInput = inputRef.current.value;
+      // searchBarInput.value = { search };
+      // console.log("search input: ", searchBarInput);
+    }
+  }
+
   return (
     <>
       <StyledLastSearchContainer>
@@ -96,6 +111,7 @@ export default function HomePage() {
               onKeyDown={handleKeyPress}
               onBlur={handleBlur}
               onFocus={() => setIsDropdown(true)}
+              value={inputRef.current}
             />
           </StyledSearchBarForm>
           <StyledButton onClick={handleClick}>
@@ -111,7 +127,10 @@ export default function HomePage() {
             <StyledLine></StyledLine>
             <StyledList>
               {lastSearches?.map((search, index) => (
-                <StyledListItem key={index}>
+                <StyledListItem
+                  key={index}
+                  onClick={() => handleLastSearchClick(index)}
+                >
                   {" "}
                   <Icon icon="mdi:recent" height="1.3rem" /> {search}
                 </StyledListItem>
