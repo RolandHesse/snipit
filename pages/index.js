@@ -58,7 +58,7 @@ export default function HomePage() {
 
   function handleBlur() {
     updateLastSearches(searchTerm);
-    // setIsDropdown(false);
+    setIsDropdown(false);
   }
 
   function handleSearch(event) {
@@ -91,6 +91,7 @@ export default function HomePage() {
               id="search"
               name="search"
               placeholder="Search"
+              autoComplete="off"
               onChange={globalSearch}
               onKeyDown={handleKeyPress}
               onBlur={handleBlur}
@@ -107,10 +108,13 @@ export default function HomePage() {
         </StyledSearchBarContainer>
         {isDropdown && (
           <StyledDropdown>
-            {/* <strong>Last Searches:</strong> */}
+            <StyledLine></StyledLine>
             <StyledList>
               {lastSearches?.map((search, index) => (
-                <li key={index}>{search}</li>
+                <StyledListItem key={index}>
+                  {" "}
+                  <Icon icon="mdi:recent" height="1.3rem" /> {search}
+                </StyledListItem>
               ))}
             </StyledList>
           </StyledDropdown>
@@ -124,9 +128,14 @@ export default function HomePage() {
 const StyledLastSearchContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0;
+  border-radius: 0.5rem;
+  background-color: #c1d2d7;
+  margin: 0 1.5rem;
+
   &:focus-within {
     outline: 2px solid var(--primary-color);
-
+    border-radius: 0.5rem;
     transition: outline 0.3s ease;
   }
 `;
@@ -137,19 +146,8 @@ const StyledSearchBarContainer = styled.div`
   grid-template-rows: 100%;
   justify-items: center;
   align-items: center;
-
-  /* border: solid red 1px; */
-
-  margin: 1.5rem 1.5rem 0 1.5rem;
-
   border-radius: 0.5rem;
   background-color: #c1d2d7;
-
-  /* &:focus-within {
-    outline: 2px solid var(--primary-color);
-
-    transition: outline 0.3s ease;
-  } */
 `;
 const StyledSearchBarForm = styled.form`
   height: 100%;
@@ -161,7 +159,7 @@ const StyledSearchBarInput = styled.input`
   border: none;
   height: 100%;
   width: 100%;
-  padding: 1rem 0.5rem;
+  padding: 1rem 1.5rem;
   font-size: 1.2rem;
 `;
 
@@ -172,10 +170,27 @@ const StyledButton = styled.button`
 
 const StyledDropdown = styled.div`
   margin: 0 24px;
-  padding: 0;
+  padding: 0rem 0rem 0.5rem 0rem;
 `;
 
 const StyledList = styled.ul`
   list-style-type: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const StyledListItem = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.5rem;
+`;
+
+const StyledLine = styled.hr`
+  margin: 0;
+  border: none;
+  height: 0.01rem;
+  background-color: var(--primary-color);
 `;
