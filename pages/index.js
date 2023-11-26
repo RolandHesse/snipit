@@ -58,7 +58,7 @@ export default function HomePage() {
 
   function handleBlur() {
     updateLastSearches(searchTerm);
-    // setIsDropdown(false);
+    setIsDropdown(false);
   }
 
   function handleSearch(event) {
@@ -83,15 +83,19 @@ export default function HomePage() {
       console.log("lastSearchTerm: ", lastSearchTerm);
     }
   }
-  console.log("results: ", results);
-  console.log("lastSearches:", lastSearches);
+  
+  // function handleOuterClick(event) {
+  //   if (event.target !== event.currentTarget) {
+  //     setIsDropdown(false)
+  //   }
+  // }
 
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
   return (
     <>
-      <StyledLastSearchContainer onBlur={handleBlur}>
+      <StyledLastSearchContainer onClick={console.log("Du Blödi!")}>
         <StyledSearchBarContainer tabIndex={0}>
           <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
             <label htmlFor="search"></label>
@@ -145,6 +149,7 @@ const StyledLastSearchContainer = styled.div`
   border-radius: 0.5rem;
   background-color: #c1d2d7;
   margin: 0 1.5rem;
+  border: solid red 1px;
 
   &:focus-within {
     outline: 2px solid var(--primary-color);
