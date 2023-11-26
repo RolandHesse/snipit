@@ -95,7 +95,7 @@ export default function HomePage() {
 
   return (
     <>
-      <StyledLastSearchContainer onClick={console.log("Du Blödi!")}>
+      <StyledLastSearchContainer onClick={handleBlur}>
         <StyledSearchBarContainer tabIndex={0}>
           <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
             <label htmlFor="search"></label>
