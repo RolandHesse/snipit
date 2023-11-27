@@ -25,7 +25,6 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
 
   const { name, code, description, tags, links, _id } = data;
 
-  console.log("Details Page _id", _id);
   return (
     <StyledSection>
       <StyledCard>
