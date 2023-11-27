@@ -5,7 +5,6 @@ import { SWRConfig } from "swr";
 import useSWR from "swr";
 import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
-import ConfirmModal from "./ConfirmModal";
 
 const fetcher = (...args) => fetch(...args).then((response) => response.json());
 
