@@ -58,7 +58,7 @@ export default function HomePage() {
 
   function handleBlur() {
     updateLastSearches(searchTerm);
-    setIsDropdown(false);
+    // setIsDropdown(false);
   }
 
   function handleSearch(event) {
@@ -83,7 +83,7 @@ export default function HomePage() {
       console.log("lastSearchTerm: ", lastSearchTerm);
     }
   }
-  
+
   // function handleOuterClick(event) {
   //   if (event.target !== event.currentTarget) {
   //     setIsDropdown(false)
@@ -95,7 +95,7 @@ export default function HomePage() {
 
   return (
     <>
-      <StyledLastSearchContainer onClick={handleBlur}>
+      <StyledLastSearchContainer onBlur={handleBlur}>
         <StyledSearchBarContainer tabIndex={0}>
           <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
             <label htmlFor="search"></label>
@@ -128,6 +128,7 @@ export default function HomePage() {
                 <StyledListItem
                   key={index}
                   onClick={() => handleLastSearchClick(search)}
+                  onKeyDown={() => handleLastSearchClick(search)}
                 >
                   {" "}
                   <Icon icon="mdi:recent" height="1.3rem" /> {search}
