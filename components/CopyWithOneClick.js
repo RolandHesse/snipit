@@ -37,6 +37,8 @@ const StyledButton = styled.button`
           top: 0.3rem;
           right: 1rem;
           color: var(--primary-color);
+          background: white;
+          border: 0.5rem;
         `
       : css`
           bottom: 1rem;
