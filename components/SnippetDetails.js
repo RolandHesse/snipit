@@ -8,6 +8,7 @@ import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import Button from "./Button";
 import LinkLayout from "./LinkLayout";
 import FavoriteButton from "./FavoriteButton";
+import ConfirmModal from "./ConfirmModal";
 
 function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
   const router = useRouter();
@@ -25,7 +26,6 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
 
   const { name, code, description, tags, links, _id } = data;
 
-  console.log("Details Page _id", _id);
   return (
     <StyledSection>
       <StyledCard>

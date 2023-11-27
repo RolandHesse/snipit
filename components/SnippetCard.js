@@ -11,7 +11,6 @@ export default function SnippetCard({
   favorites,
 }) {
   if (!snippetData) return <div>No snippets yet 😭</div>;
-  console.log("Snippet Card Favorites", favorites);
 
   return (
     <StyledCard>
