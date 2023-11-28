@@ -15,13 +15,11 @@ export default function App({ Component, pageProps }) {
     defaultValue: [],
   });
 
-  function handleToggleFavorite(snippetIdBrokkoli) {
-    if (favorites.includes(snippetIdBrokkoli)) {
-      setFavorites(
-        favorites?.filter((favorite) => favorite !== snippetIdBrokkoli)
-      );
+  function handleToggleFavorite(snippetId) {
+    if (favorites.includes(snippetId)) {
+      setFavorites(favorites?.filter((favorite) => favorite !== snippetId));
     } else {
-      setFavorites([...favorites, snippetIdBrokkoli]);
+      setFavorites([...favorites, snippetId]);
     }
   }
 

@@ -21,7 +21,7 @@ export default function Footer() {
   );
 }
 
-const StyledFooter = styled.div`
+const StyledFooter = styled.nav`
   display: flex;
   justify-content: space-evenly;
   position: fixed;

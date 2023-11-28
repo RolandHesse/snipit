@@ -32,7 +32,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         <Heading>Code</Heading>
         <FavoriteButton
           onClick={() => onToggleFavorite(_id)}
-          favorite={favorites.includes(_id)}
+          isFavorite={favorites.includes(_id)}
         />
         <CodeContainer>
           <StyledSyntaxHighlighter
@@ -101,6 +101,7 @@ const StyledCard = styled.div`
   margin: 1rem 0rem;
   padding: 0.1rem 0.5rem;
   border-radius: 1rem;
+  position: relative;
 `;
 
 const StyledButtonDiv = styled.div`
@@ -108,9 +109,7 @@ const StyledButtonDiv = styled.div`
   justify-content: center;
   gap: 1rem;
 `;
-const CodeContainer = styled.div`
-  position: relative;
-`;
+const CodeContainer = styled.div``;
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   overflow-y: auto;

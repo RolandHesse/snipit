@@ -17,7 +17,7 @@ export default function SnippetCard({
       <FavoriteButton
         isList
         onClick={() => onToggleFavorite(snippetData._id)}
-        favorite={favorites.includes(snippetData._id)}
+        isFavorite={favorites.includes(snippetData._id)}
       />
       <StyledLinkComponent href={`/${snippetData._id}`}>
         <CardHeading>{name}</CardHeading>
