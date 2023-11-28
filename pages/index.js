@@ -20,24 +20,15 @@ export default function HomePage() {
     defaultValue: [],
   });
   const [isSearching, setIsSearching] = useState(false);
-  const [isDropdown, setIsDropdown] = useState(false);
+  const [isDropdown, setIsDropdown] = useState(true);
 
   const fuse = new Fuse(data, fuseOptions);
 
   const inputRef = useRef(null);
 
-  // function globalSearch(event) {
-  //   handleSearchChange(event);
-  //   handleSearch(event);
-  // }
-
   function handleClick() {
     inputRef.current.focus();
   }
-
-  // function handleSearchChange(event) {
-  //   setSearchTerm(event.target.value);
-  // }
 
   function updateLastSearches(newTerm) {
     if (newTerm !== "" && newTerm !== lastSearches[0]) {
@@ -56,9 +47,11 @@ export default function HomePage() {
     }
   }
 
-  function handleBlur() {
+  function handleBlur(event) {
     updateLastSearches(searchTerm);
-    // setIsDropdown(false);
+
+    setIsDropdown(false);
+    console.log("hello");
   }
 
   function handleSearch(event) {
@@ -73,7 +66,7 @@ export default function HomePage() {
     searchTerm !== "" ? setIsSearching(true) : setIsSearching(false);
   }
 
-  function handleLastSearchClick(lastSearchTerm) {
+  function handleLastSearchClick(lastSearchTerm, event) {
     if (inputRef.current) {
       inputRef.current.value = lastSearchTerm;
       updateLastSearches(lastSearchTerm);
@@ -84,19 +77,17 @@ export default function HomePage() {
     }
   }
 
-  // function handleOuterClick(event) {
-  //   if (event.target !== event.currentTarget) {
-  //     setIsDropdown(false)
-  //   }
-  // }
-
   if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
   if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
 
   return (
     <>
-      <StyledLastSearchContainer onBlur={handleBlur}>
-        <StyledSearchBarContainer tabIndex={0}>
+      <StyledLastSearchContainer
+        onFocus={() => setIsDropdown(true)}
+        onBlur={handleBlur}
+        tabIndex={0}
+      >
+        <StyledSearchBarContainer>
           <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
             <label htmlFor="search"></label>
             <StyledSearchBarInput
@@ -108,8 +99,6 @@ export default function HomePage() {
               autoComplete="off"
               onChange={handleSearch}
               onKeyDown={handleKeyPress}
-              // onBlur={handleBlur}
-              onFocus={() => setIsDropdown(true)}
             />
           </StyledSearchBarForm>
           <StyledButton onClick={handleClick}>
@@ -124,16 +113,28 @@ export default function HomePage() {
           <StyledDropdown>
             <StyledLine></StyledLine>
             <StyledList>
-              {lastSearches?.map((search, index) => (
-                <StyledListItem
-                  key={index}
-                  onClick={() => handleLastSearchClick(search)}
-                  onKeyDown={() => handleLastSearchClick(search)}
-                >
-                  {" "}
-                  <Icon icon="mdi:recent" height="1.3rem" /> {search}
-                </StyledListItem>
-              ))}
+              {lastSearches
+                ?.filter((search) => {
+                  if (searchTerm === "") {
+                    return true;
+                  }
+                  if (
+                    search.toLowerCase().startsWith(searchTerm.toLowerCase())
+                  ) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })
+                .map((search, index) => (
+                  <StyledListItem
+                    key={index}
+                    onClick={(event) => handleLastSearchClick(search, event)}
+                  >
+                    {" "}
+                    <Icon icon="mdi:recent" height="1.3rem" /> {search}
+                  </StyledListItem>
+                ))}
             </StyledList>
           </StyledDropdown>
         )}
@@ -150,7 +151,6 @@ const StyledLastSearchContainer = styled.div`
   border-radius: 0.5rem;
   background-color: #c1d2d7;
   margin: 0 1.5rem;
-  border: solid red 1px;
 
   &:focus-within {
     outline: 2px solid var(--primary-color);
@@ -189,7 +189,6 @@ const StyledButton = styled.button`
 
 const StyledDropdown = styled.div`
   margin: 0 24px;
-  padding: 0rem 0rem 0.5rem 0rem;
 `;
 
 const StyledList = styled.ul`
@@ -197,7 +196,7 @@ const StyledList = styled.ul`
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.1rem;
 `;
 
 const StyledListItem = styled.li`
@@ -205,6 +204,11 @@ const StyledListItem = styled.li`
   flex-direction: row;
   align-items: flex-end;
   gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 const StyledLine = styled.hr`
