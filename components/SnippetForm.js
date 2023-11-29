@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 function SnippetForm({ onSubmit, formName, defaultData }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -13,6 +15,11 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
   const [links, setLinks] = useState(
     defaultData ? defaultData.links : [{ id: "0", value: "" }]
   );
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  function handleTagChange(selectedOptions) {
+    setSelectedTags(selectedOptions);
+  }
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -41,7 +48,11 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
 
-    const snippetDataPlusLinks = { ...snippetData, links };
+    const snippetDataPlusLinks = {
+      ...snippetData,
+      links,
+      tags: selectedTags.map((tag) => tag.value),
+    };
 
     onSubmit(event, snippetDataPlusLinks);
     setLinks([{ id: "0", value: "" }]);
@@ -59,11 +70,17 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     setLinks(links.filter((link) => link.id !== id));
   }
 
+  const options = [
+    { value: "html", label: "html" },
+    { value: "css", label: "css" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "React", label: "React" },
+  ];
+
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
       <Warning>{warningMessage}</Warning>
-
       <p>
         <Icon icon="tabler:alert-circle" height="2rem" />
         &nbsp;Fields marked with an * are required
@@ -98,7 +115,6 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         placeholder="Description of the code"
         defaultValue={defaultData?.description}
       ></StyledFormElementOfCrime>
-
       {links.length <= 1 ? (
         <>
           <StyledList>
@@ -163,19 +179,28 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
         </>
       )}
       <label htmlFor="tag">Tag:</label>
-
-      <StyledFormElementOfCrime
+      {/* <StyledFormElementOfCrime
         as="select"
         id="tag"
         name="tag"
         placeholder="tag"
+        multiple
         defaultValue={defaultData?.tag}
       >
         <option value=""></option>
         <option value="html">html</option>
         <option value="javaScript">javaScript</option>
         <option value="next">next</option>
-      </StyledFormElementOfCrime>
+        <option value="next">css</option>
+        <option value="next">react</option>
+        <option value="next">python</option>
+      </StyledFormElementOfCrime> */}
+      <CreatableSelect
+        isMulti
+        options={options}
+        value={selectedTags}
+        onChange={handleTagChange}
+      />
       <StyledButtonContainer>
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
         <Button type="reset" buttonName="Reset" />
