@@ -4,10 +4,9 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
-import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
-function SnippetForm({ onSubmit, formName, defaultData }) {
+function SnippetForm({ onSubmit, formName, defaultData, data }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
   const [inputCode, setInputCode] = useState(defaultData?.code || "");
   const [warningMessage, setWarningMessage] = useState("");
@@ -15,11 +14,22 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
   const [links, setLinks] = useState(
     defaultData ? defaultData.links : [{ id: "0", value: "" }]
   );
-  const [selectedTags, setSelectedTags] = useState([]);
+  // const [selectedTags, setSelectedTags] = useState([]);
+  const [tags, setTags] = useState(data ? data.tags : []);
+  const [selectedTags, setSelectedTags] = useState();
+  // data ? data.tags.map((tag) => ({ value: tag, label: tag })) : []
+  console.log("Data", data);
+  console.log("Data Tags", data.tags);
 
   function handleTagChange(selectedOptions) {
     setSelectedTags(selectedOptions);
   }
+
+  const handleCreateTag = async (inputValue) => {
+    const newTag = { value: inputValue, label: inputValue };
+    setTags([...tags, newTag]);
+    setSelectedTags([...selectedTags, newTag]);
+  };
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -56,6 +66,7 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
 
     onSubmit(event, snippetDataPlusLinks);
     setLinks([{ id: "0", value: "" }]);
+    setSelectedTags(selectedOptions);
   }
 
   function handleAddLink() {
@@ -70,12 +81,12 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
     setLinks(links.filter((link) => link.id !== id));
   }
 
-  const options = [
-    { value: "html", label: "html" },
-    { value: "css", label: "css" },
-    { value: "JavaScript", label: "JavaScript" },
-    { value: "React", label: "React" },
-  ];
+  // const options = [
+  //   { value: "html", label: "html" },
+  //   { value: "css", label: "css" },
+  //   { value: "JavaScript", label: "JavaScript" },
+  //   { value: "React", label: "React" },
+  // ];
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
@@ -197,9 +208,10 @@ function SnippetForm({ onSubmit, formName, defaultData }) {
       </StyledFormElementOfCrime> */}
       <CreatableSelect
         isMulti
-        options={options}
+        options={selectedTags}
         value={selectedTags}
         onChange={handleTagChange}
+        onCreateOption={handleCreateTag}
       />
       <StyledButtonContainer>
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
