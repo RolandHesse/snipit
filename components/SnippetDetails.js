@@ -6,9 +6,10 @@ import CopyWithOneClick from "./CopyWithOneClick";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import LinkLayout from "./LinkLayout";
+import FavoriteButton from "./FavoriteButton";
 import ConfirmModal from "./ConfirmModal";
 
-function SnippetDetails({ onDelete }) {
+function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
   const router = useRouter();
 
   const { id } = router.query;
@@ -22,13 +23,17 @@ function SnippetDetails({ onDelete }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, tags, links } = data;
+  const { name, code, description, tags, links, _id } = data;
 
   return (
     <StyledSection>
       <StyledCard>
         <Title>{name}</Title>
         <Heading>Code</Heading>
+        <FavoriteButton
+          onClick={() => onToggleFavorite(_id)}
+          isFavorite={favorites.includes(_id)}
+        />
         <CodeContainer>
           <StyledSyntaxHighlighter
             language="javascript"
@@ -96,6 +101,7 @@ const StyledCard = styled.div`
   margin: 1rem 0rem;
   padding: 0.1rem 0.5rem;
   border-radius: 1rem;
+  position: relative;
 `;
 
 const StyledButtonDiv = styled.div`
@@ -104,7 +110,9 @@ const StyledButtonDiv = styled.div`
   gap: 1rem;
 `;
 const CodeContainer = styled.div`
-  position: relative;
+  padding: 0.7rem 0.001rem 0.001rem 0.001rem;
+  background-color: white;
+  border-radius: 0.5rem;
 `;
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`

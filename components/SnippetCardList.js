@@ -1,6 +1,5 @@
-import styled from "styled-components";
+import { ListHeading, StyledSnippetList } from "./Layout";
 import SnippetCard from "./SnippetCard";
-import Link from "next/link";
 
 function ShortDescription(description, maxLength) {
   if (description?.length > maxLength) {
@@ -9,7 +8,7 @@ function ShortDescription(description, maxLength) {
   return description;
 }
 
-export default function SnippetCardList({ data }) {
+export default function SnippetCardList({ data, onToggleFavorite, favorites }) {
   return (
     <>
       <ListHeading>List of Snippets</ListHeading>
@@ -17,9 +16,11 @@ export default function SnippetCardList({ data }) {
         {data?.map((snippet) => (
           <li key={snippet._id}>
             <SnippetCard
+              onToggleFavorite={onToggleFavorite}
+              favorites={favorites}
               snippetData={snippet}
               name={snippet.name}
-              description={snippet.description}
+              description={ShortDescription(snippet.description, 100)}
             />
           </li>
         ))}
@@ -27,15 +28,3 @@ export default function SnippetCardList({ data }) {
     </>
   );
 }
-
-const ListHeading = styled.h1`
-  font-size: 2rem;
-  color: var(--primary-color);
-  display: flex;
-  justify-content: center;
-`;
-
-const StyledSnippetList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
