@@ -109,7 +109,11 @@ const StyledButtonDiv = styled.div`
   justify-content: center;
   gap: 1rem;
 `;
-const CodeContainer = styled.div``;
+const CodeContainer = styled.div`
+  padding: 0.7rem 0.001rem 0.001rem 0.001rem;
+  background-color: white;
+  border-radius: 0.5rem;
+`;
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   overflow-y: auto;

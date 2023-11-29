@@ -7,8 +7,6 @@ import LinkLayout from "@/components/LinkLayout";
 import SnippetCard from "@/components/SnippetCard";
 
 function FavoritePage({ data, onToggleFavorite, favorites }) {
-  const dataIds = data.map((snippet) => snippet._id);
-
   return (
     <StyledPage>
       <LinkLayout

@@ -15,7 +15,6 @@ export default function SnippetCard({
   return (
     <StyledCard>
       <FavoriteButton
-        isList
         onClick={() => onToggleFavorite(snippetData._id)}
         isFavorite={favorites.includes(snippetData._id)}
       />
