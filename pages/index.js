@@ -20,7 +20,7 @@ export default function HomePage() {
     defaultValue: [],
   });
   const [isSearching, setIsSearching] = useState(false);
-  const [isDropdown, setIsDropdown] = useState(true);
+  const [isDropdown, setIsDropdown] = useState(false);
 
   const fuse = new Fuse(data, fuseOptions);
 
