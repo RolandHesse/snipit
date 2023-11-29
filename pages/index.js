@@ -8,7 +8,7 @@ import { useRef } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 const fuseOptions = {
-  threshold: 0.3,
+  threshold: 0.5,
   keys: ["name", "code", "description", "links", "tag"],
 };
 
@@ -47,11 +47,10 @@ export default function HomePage() {
     }
   }
 
-  function handleBlur(event) {
+  function handleBlur() {
     updateLastSearches(searchTerm);
-
     setIsDropdown(false);
-    console.log("hello");
+    setIsSearching(false);
   }
 
   function handleSearch(event) {
@@ -62,88 +61,88 @@ export default function HomePage() {
     setSearchTerm(event.target.value);
     const searchResult = fuse.search(searchTerm).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
-
     searchTerm !== "" ? setIsSearching(true) : setIsSearching(false);
   }
 
-  function handleLastSearchClick(lastSearchTerm, event) {
+  function handleLastSearchClick(lastSearchTerm) {
     if (inputRef.current) {
       inputRef.current.value = lastSearchTerm;
       updateLastSearches(lastSearchTerm);
       const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
-      setIsSearching(true);
-      console.log("lastSearchTerm: ", lastSearchTerm);
     }
-  }
 
-  if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
-  if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
-
-  return (
-    <>
-      <StyledLastSearchContainer
-        onFocus={() => setIsDropdown(true)}
-        onBlur={handleBlur}
-        tabIndex={0}
-      >
-        <StyledSearchBarContainer>
-          <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
-            <label htmlFor="search"></label>
-            <StyledSearchBarInput
-              ref={inputRef}
-              type="text"
-              id="search"
-              name="search"
-              placeholder="Search"
-              autoComplete="off"
-              onChange={handleSearch}
-              onKeyDown={handleKeyPress}
-            />
-          </StyledSearchBarForm>
-          <StyledButton onClick={handleClick}>
-            <Icon
-              icon="line-md:search"
-              height="2rem"
-              color="var(--primary-color)"
-            />
-          </StyledButton>
-        </StyledSearchBarContainer>
-        {isDropdown && (
-          <StyledDropdown>
-            <StyledLine></StyledLine>
-            <StyledList>
-              {lastSearches
-                ?.filter((search) => {
-                  if (searchTerm === "") {
-                    return true;
-                  }
-                  if (
-                    search.toLowerCase().startsWith(searchTerm.toLowerCase())
-                  ) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                })
-                .map((search, index) => (
-                  <StyledListItem
-                    key={index}
-                    onClick={(event) => handleLastSearchClick(search, event)}
-                  >
-                    {" "}
-                    <Icon icon="mdi:recent" height="1.3rem" /> {search}
-                  </StyledListItem>
-                ))}
-            </StyledList>
-          </StyledDropdown>
+    if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
+    if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
+    return (
+      <>
+        <StyledLastSearchContainer
+          onFocus={() => setIsDropdown(true)}
+          onBlur={handleBlur}
+          tabIndex={0}
+        >
+          <StyledSearchBarContainer>
+            <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
+              <label htmlFor="search"></label>
+              <StyledSearchBarInput
+                ref={inputRef}
+                type="text"
+                id="search"
+                name="search"
+                placeholder="Search"
+                autoComplete="off"
+                onChange={handleSearch}
+                onKeyDown={handleKeyPress}
+              />
+            </StyledSearchBarForm>
+            <StyledButton onClick={handleClick}>
+              <Icon
+                icon="line-md:search"
+                height="2rem"
+                color="var(--primary-color)"
+              />
+            </StyledButton>
+          </StyledSearchBarContainer>
+          {isDropdown && (
+            <StyledDropdown>
+              <StyledLine></StyledLine>
+              <StyledList>
+                {lastSearches
+                  ?.filter((search) => {
+                    if (searchTerm === "") {
+                      return true;
+                    }
+                    if (
+                      search.toLowerCase().startsWith(searchTerm.toLowerCase())
+                    ) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  })
+                  .map((search, index) => (
+                    <StyledListItem
+                      key={index}
+                      onClick={(event) => handleLastSearchClick(search, event)}
+                    >
+                      <Icon icon="mdi:recent" height="1.3rem" /> {search}
+                    </StyledListItem>
+                  ))}
+              </StyledList>
+            </StyledDropdown>
+          )}
+        </StyledLastSearchContainer>
+        {isSearching === true && results.length === 0 ? (
+          <StyledSorryMessage>
+            Sorry, no snippets found... 😢
+          </StyledSorryMessage>
+        ) : (
+          <SnippetCardList data={isSearching === true ? results : data} />
         )}
-      </StyledLastSearchContainer>
-      <SnippetCardList data={isSearching ? results : data} />
-    </>
-  );
+      </>
+    );
+  }
 }
-
 const StyledLastSearchContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -216,4 +215,10 @@ const StyledLine = styled.hr`
   border: none;
   height: 0.01rem;
   background-color: var(--primary-color);
+`;
+
+const StyledSorryMessage = styled.h3`
+  margin: 1.5rem;
+  color: var(--primary-color);
+  text-align: center;
 `;
