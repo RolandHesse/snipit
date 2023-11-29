@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { mutate } from "swr";
 
-
-function SnippetDetailsPage() {
+function SnippetDetailsPage({ onToggleFavorite, favorites }) {
   const router = useRouter();
 
   const { id } = router.query;
@@ -28,7 +27,11 @@ function SnippetDetailsPage() {
         linkName={"Go Back"}
         linkIcon="line-md:arrow-left"
       />
-      <SnippetDetails onDelete={handleDelete} />
+      <SnippetDetails
+        onDelete={handleDelete}
+        onToggleFavorite={onToggleFavorite}
+        favorites={favorites}
+      />
     </StlyedDetailsPage>
   );
 }

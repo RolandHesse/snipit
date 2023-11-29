@@ -1,12 +1,23 @@
 import Link from "next/link";
 import styled from "styled-components";
 import CopyWithOneClick from "./CopyWithOneClick";
+import FavoriteButton from "./FavoriteButton";
 
-export default function SnippetCard({ snippetData, name, description }) {
+export default function SnippetCard({
+  snippetData,
+  name,
+  description,
+  onToggleFavorite,
+  favorites,
+}) {
   if (!snippetData) return <div>No snippets yet 😭</div>;
 
   return (
     <StyledCard>
+      <FavoriteButton
+        onClick={() => onToggleFavorite(snippetData._id)}
+        isFavorite={favorites.includes(snippetData._id)}
+      />
       <StyledLinkComponent href={`/${snippetData._id}`}>
         <CardHeading>{name}</CardHeading>
         <CardDescription>{description}</CardDescription>

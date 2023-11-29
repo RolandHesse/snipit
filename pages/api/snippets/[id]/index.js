@@ -19,7 +19,7 @@ export default async function handler(request, response) {
 
     if (request.method === "PUT") {
       const snippetData = request.body;
-      console.log("snippetData PUT: ", snippetData);
+
       const updatedSnippet = await Snippet.findByIdAndUpdate(id, snippetData, {
         new: true,
       });

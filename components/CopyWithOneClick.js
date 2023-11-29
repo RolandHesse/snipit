@@ -34,9 +34,10 @@ const StyledButton = styled.button`
   ${({ $isDetail }) =>
     $isDetail
       ? css`
-          top: 0.3rem;
-          right: 1rem;
+          top: 7.3rem;
+          right: 1.2rem;
           color: var(--primary-color);
+          border: 0.5rem;
         `
       : css`
           bottom: 1rem;
