@@ -71,77 +71,74 @@ export default function HomePage() {
       const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
     }
-
-    if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
-    if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
-    return (
-      <>
-        <StyledLastSearchContainer
-          onFocus={() => setIsDropdown(true)}
-          onBlur={handleBlur}
-          tabIndex={0}
-        >
-          <StyledSearchBarContainer>
-            <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
-              <label htmlFor="search"></label>
-              <StyledSearchBarInput
-                ref={inputRef}
-                type="text"
-                id="search"
-                name="search"
-                placeholder="Search"
-                autoComplete="off"
-                onChange={handleSearch}
-                onKeyDown={handleKeyPress}
-              />
-            </StyledSearchBarForm>
-            <StyledButton onClick={handleClick}>
-              <Icon
-                icon="line-md:search"
-                height="2rem"
-                color="var(--primary-color)"
-              />
-            </StyledButton>
-          </StyledSearchBarContainer>
-          {isDropdown && (
-            <StyledDropdown>
-              <StyledLine></StyledLine>
-              <StyledList>
-                {lastSearches
-                  ?.filter((search) => {
-                    if (searchTerm === "") {
-                      return true;
-                    }
-                    if (
-                      search.toLowerCase().startsWith(searchTerm.toLowerCase())
-                    ) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  })
-                  .map((search, index) => (
-                    <StyledListItem
-                      key={index}
-                      onClick={(event) => handleLastSearchClick(search, event)}
-                    >
-                      <Icon icon="mdi:recent" height="1.3rem" /> {search}
-                    </StyledListItem>
-                  ))}
-              </StyledList>
-            </StyledDropdown>
-          )}
-        </StyledLastSearchContainer>
-        {isSearching === true && results.length === 0 ? (
-          <StyledSorryMessage>
-            Sorry, no snippets found... 😢
-          </StyledSorryMessage>
-        ) : (
-          <SnippetCardList data={isSearching === true ? results : data} />
-        )}
-      </>
-    );
   }
+  if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
+  if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
+  return (
+    <>
+      <StyledLastSearchContainer
+        onFocus={() => setIsDropdown(true)}
+        onBlur={handleBlur}
+        tabIndex={0}
+      >
+        <StyledSearchBarContainer>
+          <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
+            <label htmlFor="search"></label>
+            <StyledSearchBarInput
+              ref={inputRef}
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Search"
+              autoComplete="off"
+              onChange={handleSearch}
+              onKeyDown={handleKeyPress}
+            />
+          </StyledSearchBarForm>
+          <StyledButton onClick={handleClick}>
+            <Icon
+              icon="line-md:search"
+              height="2rem"
+              color="var(--primary-color)"
+            />
+          </StyledButton>
+        </StyledSearchBarContainer>
+        {isDropdown && (
+          <StyledDropdown>
+            <StyledLine></StyledLine>
+            <StyledList>
+              {lastSearches
+                ?.filter((search) => {
+                  if (searchTerm === "") {
+                    return true;
+                  }
+                  if (
+                    search.toLowerCase().startsWith(searchTerm.toLowerCase())
+                  ) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })
+                .map((search, index) => (
+                  <StyledListItem
+                    key={index}
+                    onClick={(event) => handleLastSearchClick(search, event)}
+                  >
+                    <Icon icon="mdi:recent" height="1.3rem" /> {search}
+                  </StyledListItem>
+                ))}
+            </StyledList>
+          </StyledDropdown>
+        )}
+      </StyledLastSearchContainer>
+      {isSearching === true && results.length === 0 ? (
+        <StyledSorryMessage>Sorry, no snippets found... 😢</StyledSorryMessage>
+      ) : (
+        <SnippetCardList data={isSearching === true ? results : data} />
+      )}
+    </>
+  );
 }
 const StyledLastSearchContainer = styled.div`
   display: flex;
