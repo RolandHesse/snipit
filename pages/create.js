@@ -1,6 +1,8 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/LinkLayout";
 import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
+import styled from "styled-components";
+import { Icon } from "@iconify/react";
 
 function FormPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -26,32 +28,41 @@ function FormPage() {
       }
     } catch (error) {
       console.error("An error occurred:", error);
-      response.status(500).json({ error: "Something went wrong" });
+      response.status(500).json({ error: "😵‍💫 Something went wrong" });
     }
   }
 
   return (
-    <>
-      <BackLink url={"/"} />
+    <StyledCreatePage>
+      <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
       <SnippetForm onSubmit={createSnippet} />
       {submitted && (
-        <div>
-          <span role="img" aria-label="check">
-            ✅
-          </span>
+        <StyledSuccessfullyMessage>
+          <Icon
+            icon="line-md:confirm-circle-twotone"
+            height="5rem"
+            strokeWidth="1rem"
+          />
           Added Snippet successfully!
-        </div>
+        </StyledSuccessfullyMessage>
       )}
-      {error && (
-        <div>
-          <span role="img" aria-label="oh no!">
-            😵‍💫
-          </span>
-          Something went wrong ...
-        </div>
-      )}
-    </>
+    </StyledCreatePage>
   );
 }
 
 export default FormPage;
+
+const StyledSuccessfullyMessage = styled.div`
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  font-size: large;
+  margin-bottom: 1rem;
+`;
+
+const StyledCreatePage = styled.div`
+  margin: 4rem 0 4rem 0;
+  color: var(--primary-color);
+`;

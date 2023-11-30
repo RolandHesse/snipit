@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import SnippetForm from "@/components/SnippetForm";
-
+import styled from "styled-components";
 export default function EditPage() {
   const router = useRouter();
   const { isReady } = router;
@@ -31,10 +31,16 @@ export default function EditPage() {
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
 
   return (
-    <SnippetForm
-      onSubmit={editSnippet}
-      formName={"edit-snippet"}
-      defaultData={snippet}
-    />
+    <StyledEditPage>
+      <SnippetForm
+        onSubmit={editSnippet}
+        formName={"edit-snippet"}
+        defaultData={snippet}
+      />
+    </StyledEditPage>
   );
 }
+
+const StyledEditPage = styled.div`
+  margin: 4rem 0 0 0;
+`;

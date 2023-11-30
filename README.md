@@ -8,6 +8,10 @@ You can [🔗 **use this template on CodeSandbox**](https://codesandbox.io/p/san
 npx -y ghcd@latest neuefische/web-exercises/tree/main/templates/next my-app -i
 ```
 
+## Used Libraries
+
+[Syntax Highligher](https://github.com/react-syntax-highlighter/react-syntax-highlighter)
+
 ## Development
 
 ### Local Development

@@ -1,5 +1,5 @@
+import { StyledPage } from "@/components/Layout";
 import SnippetCardList from "@/components/SnippetCardList";
-import useSWR from "swr";
 import Fuse from "fuse.js";
 import { useState } from "react";
 import styled from "styled-components";
@@ -12,8 +12,7 @@ const fuseOptions = {
   keys: ["name", "code", "description", "links", "tag"],
 };
 
-export default function HomePage() {
-  const { data, error, isLoading } = useSWR("api/snippets");
+export default function HomePage({ data, onToggleFavorite, favorites }) {
   const [results, setResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
@@ -72,10 +71,9 @@ export default function HomePage() {
       setResults(searchResult.map((result) => result.item));
     }
   }
-  if (error) return <p>failed to load...🥶😵‍💫😨😩😢</p>;
-  if (isLoading) return <p>wait....wait...wait... still loading...🤓</p>;
+
   return (
-    <>
+    <StyledPage>
       <StyledLastSearchContainer
         onFocus={() => setIsDropdown(true)}
         onBlur={handleBlur}
@@ -135,9 +133,13 @@ export default function HomePage() {
       {isSearching === true && results.length === 0 ? (
         <StyledSorryMessage>Sorry, no snippets found... 😢</StyledSorryMessage>
       ) : (
-        <SnippetCardList data={isSearching === true ? results : data} />
+        <SnippetCardList
+          data={isSearching === true ? results : data}
+          onToggleFavorite={onToggleFavorite}
+          favorites={favorites}
+        />
       )}
-    </>
+    </StyledPage>
   );
 }
 const StyledLastSearchContainer = styled.div`
