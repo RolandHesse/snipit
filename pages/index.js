@@ -53,28 +53,30 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
     setIsSearching(false);
   }
 
-  async function handleSearch(event) {
+  function handleSearch(event) {
     if (!fuse) {
       return;
     }
 
-    await setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value);
     const searchResult = fuse.search(searchTerm).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
     searchTerm !== "" ? setIsSearching(true) : setIsSearching(false);
+
     console.log("isSearching in handleSearch :", isSearching);
   }
 
   function handleLastSearchClick(lastSearchTerm) {
     if (inputRef.current) {
+      setIsSearching(true);
       inputRef.current.value = lastSearchTerm;
       updateLastSearches(lastSearchTerm);
       const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
-      setIsSearching(true);
     }
   }
-  console.log("isSearching Out of the function :", isSearching);
+  console.log("isSearching out of handleSearch :", isSearching);
+
   return (
     <StyledPage>
       <StyledLastSearchContainer
