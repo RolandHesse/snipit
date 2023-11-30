@@ -14,22 +14,11 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
   const [links, setLinks] = useState(
     defaultData ? defaultData.links : [{ id: "0", value: "" }]
   );
-  // const [selectedTags, setSelectedTags] = useState([]);
-  const [tags, setTags] = useState(data ? data.tags : []);
-  const [selectedTags, setSelectedTags] = useState();
-  // data ? data.tags.map((tag) => ({ value: tag, label: tag })) : []
+  const [tags, setTags] = useState(
+    defaultData ? defaultData.tags : [{ value: "", label: "" }]
+  );
   console.log("Data", data);
   console.log("Data Tags", data.tags);
-
-  function handleTagChange(selectedOptions) {
-    setSelectedTags(selectedOptions);
-  }
-
-  const handleCreateTag = async (inputValue) => {
-    const newTag = { value: inputValue, label: inputValue };
-    setTags([...tags, newTag]);
-    setSelectedTags([...selectedTags, newTag]);
-  };
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -57,16 +46,16 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
     }
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
-
-    const snippetDataPlusLinks = {
+    console.log("FormData", formData);
+    const snippetDataPlusLinksAndTags = {
       ...snippetData,
       links,
-      tags: selectedTags.map((tag) => tag.value),
+      tags,
     };
 
-    onSubmit(event, snippetDataPlusLinks);
+    onSubmit(event, snippetDataPlusLinksAndTags);
     setLinks([{ id: "0", value: "" }]);
-    setSelectedTags(selectedOptions);
+    setTags([{ value: "", label: "" }]);
   }
 
   function handleAddLink() {
@@ -81,12 +70,23 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
     setLinks(links.filter((link) => link.id !== id));
   }
 
+  function handleAddTag() {
+    setTags([...tags, { value: "", label: "" }]);
+  }
+
   // const options = [
   //   { value: "html", label: "html" },
   //   { value: "css", label: "css" },
   //   { value: "JavaScript", label: "JavaScript" },
   //   { value: "React", label: "React" },
   // ];
+  console.log("Creatable", CreatableSelect);
+
+  // function handleKeyPress(event) {
+  //   if (event.key === "Enter") {
+  //     console.log("Testtestets");
+  //   }
+  // }
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
@@ -189,30 +189,17 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
           />
         </>
       )}
-      <label htmlFor="tag">Tag:</label>
-      {/* <StyledFormElementOfCrime
-        as="select"
-        id="tag"
-        name="tag"
-        placeholder="tag"
-        multiple
-        defaultValue={defaultData?.tag}
-      >
-        <option value=""></option>
-        <option value="html">html</option>
-        <option value="javaScript">javaScript</option>
-        <option value="next">next</option>
-        <option value="next">css</option>
-        <option value="next">react</option>
-        <option value="next">python</option>
-      </StyledFormElementOfCrime> */}
+      <label htmlFor="tag">Tags:</label>
       <CreatableSelect
+        // onKeyDown={handleKeyPress}
         isMulti
-        options={selectedTags}
-        value={selectedTags}
-        onChange={handleTagChange}
-        onCreateOption={handleCreateTag}
+        options={tags}
+        // onCreateOption={() => console.log("sanity check")}
+        className="basic-multi-select"
+        classNamePrefix="select"
+        // onChange={(selectedOptions) => setTags(selectedOptions)}
       />
+
       <StyledButtonContainer>
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
         <Button type="reset" buttonName="Reset" />

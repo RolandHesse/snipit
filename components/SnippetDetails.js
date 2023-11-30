@@ -25,6 +25,8 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
 
   const { name, code, description, tags, links, _id } = data;
 
+  console.log("Tags on Details Page", tags);
+
   return (
     <StyledSection>
       <StyledCard>
@@ -65,7 +67,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
           </div>
         ))}
 
-        <Heading>Tag</Heading>
+        <Heading>Tags</Heading>
         <p>{tags}</p>
       </StyledCard>
       <StyledButtonDiv>
