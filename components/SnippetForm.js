@@ -6,7 +6,7 @@ import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
 
-function SnippetForm({ onSubmit, formName, defaultData, data }) {
+function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
   const [inputCode, setInputCode] = useState(defaultData?.code || "");
   const [warningMessage, setWarningMessage] = useState("");
@@ -14,11 +14,9 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
   const [links, setLinks] = useState(
     defaultData ? defaultData.links : [{ id: "0", value: "" }]
   );
-  const [tags, setTags] = useState(
-    defaultData ? defaultData.tags : [{ value: "", label: "" }]
-  );
-  console.log("Data", data);
-  console.log("Data Tags", data.tags);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  console.log("Default Tags", defaultTags);
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -46,16 +44,15 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
     }
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
-    console.log("FormData", formData);
+
     const snippetDataPlusLinksAndTags = {
       ...snippetData,
       links,
-      tags,
+      tags: selectedTags,
     };
 
     onSubmit(event, snippetDataPlusLinksAndTags);
     setLinks([{ id: "0", value: "" }]);
-    setTags([{ value: "", label: "" }]);
   }
 
   function handleAddLink() {
@@ -70,23 +67,21 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
     setLinks(links.filter((link) => link.id !== id));
   }
 
-  function handleAddTag() {
-    setTags([...tags, { value: "", label: "" }]);
+  // const tags = [
+  //   { label: "HTML", value: "html" },
+  //   { label: "CSS", value: "css" },
+  //   { label: "JavaScript", value: "javascript" },
+  // ];
+  // console.log("Tags hardcoded", tags);
+
+  function handleTagChange(defaultTags) {
+    setSelectedTags(defaultTags);
   }
 
-  // const options = [
-  //   { value: "html", label: "html" },
-  //   { value: "css", label: "css" },
-  //   { value: "JavaScript", label: "JavaScript" },
-  //   { value: "React", label: "React" },
-  // ];
-  console.log("Creatable", CreatableSelect);
-
-  // function handleKeyPress(event) {
-  //   if (event.key === "Enter") {
-  //     console.log("Testtestets");
-  //   }
-  // }
+  function handleCreateTag(inputValue) {
+    const newTags = { label: inputValue, value: inputValue.toLowerCase() };
+    setSelectedTags([...selectedTags, newTags]);
+  }
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
@@ -104,7 +99,8 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
         id="name"
         name="name"
         placeholder="Code name"
-        error={isFormValidated && inputName === ""}
+        error={isFormValidated ? inputName : undefined}
+        // error={isFormValidated && inputName === ""}
       />
       <label htmlFor="code">Code*</label>
       <StyledCode
@@ -115,7 +111,8 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
         name="code"
         rows="5"
         placeholder="Your code"
-        error={isFormValidated && inputCode === ""}
+        error={isFormValidated ? inputName : undefined}
+        // error={isFormValidated && inputCode === ""}
       ></StyledCode>
       <label htmlFor="description">Description</label>
       <StyledFormElementOfCrime
@@ -191,13 +188,11 @@ function SnippetForm({ onSubmit, formName, defaultData, data }) {
       )}
       <label htmlFor="tag">Tags:</label>
       <CreatableSelect
-        // onKeyDown={handleKeyPress}
         isMulti
-        options={tags}
-        // onCreateOption={() => console.log("sanity check")}
-        className="basic-multi-select"
-        classNamePrefix="select"
-        // onChange={(selectedOptions) => setTags(selectedOptions)}
+        options={defaultTags}
+        onChange={handleTagChange}
+        onCreateOption={handleCreateTag}
+        value={selectedTags}
       />
 
       <StyledButtonContainer>

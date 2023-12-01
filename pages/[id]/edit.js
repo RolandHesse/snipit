@@ -42,5 +42,5 @@ export default function EditPage() {
 }
 
 const StyledEditPage = styled.div`
-  margin: 4rem 0 0 0;
+  margin: 4rem 0 4rem 0;
 `;

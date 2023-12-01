@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 
-function FormPage(data) {
+function FormPage({ defaultTags }) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
 
@@ -35,7 +35,7 @@ function FormPage(data) {
   return (
     <StyledCreatePage>
       <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
-      <SnippetForm onSubmit={createSnippet} data={data} />
+      <SnippetForm onSubmit={createSnippet} defaultTags={defaultTags} />
       {submitted && (
         <StyledSuccessfullyMessage>
           <Icon

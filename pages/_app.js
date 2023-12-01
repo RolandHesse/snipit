@@ -27,6 +27,20 @@ export default function App({ Component, pageProps }) {
   if (isLoading)
     return <StyledText>Wait....wait...wait... still loading...🤓</StyledText>;
 
+  const defaultTags = data?.reduce((tagsArray, item) => {
+    item.tags?.forEach((tag) => {
+      const existingTag = tagsArray.find(
+        (brokkoli) => brokkoli.label === tag.label
+      );
+      if (!existingTag) {
+        tagsArray.push(tag);
+      }
+    });
+    return tagsArray;
+  }, []);
+
+  console.log("defaultTags app.js ", defaultTags);
+
   return (
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
@@ -36,6 +50,7 @@ export default function App({ Component, pageProps }) {
         data={data}
         onToggleFavorite={handleToggleFavorite}
         favorites={favorites}
+        defaultTags={defaultTags}
       />
       <Footer />
     </SWRConfig>
