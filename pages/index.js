@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useRef } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import { useEffect } from "react";
 
 const fuseOptions = {
   threshold: 0.5,
@@ -50,7 +49,6 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   function handleBlur() {
     updateLastSearches(searchTerm);
     setIsDropdown(false);
-    setIsSearching(false);
   }
 
   function handleSearch(event) {
@@ -62,21 +60,18 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
     const searchResult = fuse.search(searchTerm).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
     searchTerm !== "" ? setIsSearching(true) : setIsSearching(false);
-
-    console.log("isSearching in handleSearch :", isSearching);
   }
 
-  function handleLastSearchClick(lastSearchTerm) {
+  function handleLastSearchClick(event, lastSearchTerm) {
+    event.preventDefault();
+    setIsSearching(true);
     if (inputRef.current) {
-      setIsSearching(true);
       inputRef.current.value = lastSearchTerm;
       updateLastSearches(lastSearchTerm);
       const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
     }
   }
-  console.log("isSearching out of handleSearch :", isSearching);
-
   return (
     <StyledPage>
       <StyledLastSearchContainer
@@ -126,7 +121,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
                 .map((search, index) => (
                   <StyledListItem
                     key={index}
-                    onClick={() => handleLastSearchClick(search)}
+                    onMouseDown={() => handleLastSearchClick(event, search)}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>
