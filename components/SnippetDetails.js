@@ -24,9 +24,8 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
   }
 
   const { name, code, description, tags, links, _id } = data;
-
-  console.log("Tags on Details Page", tags);
-
+  console.log("Data on details Page", data);
+  console.log("Tags Details Page", tags);
   return (
     <StyledSection>
       <StyledCard>
@@ -68,7 +67,9 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         ))}
 
         <Heading>Tags</Heading>
-        <p>{tags}</p>
+        {tags?.map((tagObject) => (
+          <StyledTags key={tagObject.value}>{tagObject.label}</StyledTags>
+        ))}
       </StyledCard>
       <StyledButtonDiv>
         <LinkLayout
@@ -122,4 +123,12 @@ const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   max-height: 200px;
 `;
 
+const StyledTags = styled.div`
+  background-color: var(--white);
+  display: inline-flex;
+  align-content: flex-start;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+`;
 export default SnippetDetails;
