@@ -52,7 +52,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     };
 
     onSubmit(event, snippetDataPlusLinksAndTags);
+    setInputName("");
+    setInputCode("");
     setLinks([{ id: "0", value: "" }]);
+    setSelectedTags([]);
   }
 
   function handleAddLink() {
@@ -99,8 +102,8 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         id="name"
         name="name"
         placeholder="Code name"
-        error={isFormValidated ? inputName : undefined}
-        // error={isFormValidated && inputName === ""}
+        // error={isFormValidated ? inputName : undefined}
+        error={isFormValidated && inputName === ""}
       />
       <label htmlFor="code">Code*</label>
       <StyledCode
@@ -111,8 +114,8 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         name="code"
         rows="5"
         placeholder="Your code"
-        error={isFormValidated ? inputName : undefined}
-        // error={isFormValidated && inputCode === ""}
+        // error={isFormValidated ? inputName : undefined}
+        error={isFormValidated && inputCode === ""}
       ></StyledCode>
       <label htmlFor="description">Description</label>
       <StyledFormElementOfCrime
