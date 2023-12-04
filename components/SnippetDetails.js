@@ -66,7 +66,9 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         ))}
 
         <Heading>Tag</Heading>
-        <p>{tags}</p>
+        {tags?.map((tagObject) => (
+          <StyledTags key={tagObject.value}>{tagObject.label}</StyledTags>
+        ))}
       </StyledCard>
       <StyledButtonDiv>
         <LinkLayout
@@ -120,4 +122,12 @@ const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   max-height: 200px;
 `;
 
+const StyledTags = styled.div`
+  background-color: var(--white);
+  display: inline-flex;
+  align-content: flex-start;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+`;
 export default SnippetDetails;
