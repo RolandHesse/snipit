@@ -30,7 +30,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   }
 
   function updateLastSearches(newTerm) {
-    if (newTerm !== "" && newTerm !== lastSearches[0]) {
+    if (newTerm.trim() !== "" && newTerm !== lastSearches[0]) {
       setLastSearches((prevSearches) =>
         [newTerm, ...prevSearches.filter((term) => term !== newTerm)].slice(
           0,
@@ -103,7 +103,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
         </StyledSearchBarContainer>
         {isDropdown && (
           <StyledDropdown>
-            <StyledLine></StyledLine>
+            <StyledLine />
             <StyledList>
               {lastSearches
                 ?.filter((search) => {
