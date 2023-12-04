@@ -13,12 +13,10 @@ function ConfirmModal({ message, handleFunction, snippetId }) {
 
   function handleModal() {
     setShowModal(!showModal);
-    document.body.style.overflow = "hidden";
   }
 
   function hideModal() {
     setShowModal(!showModal);
-    document.body.style.overflow = "auto";
   }
 
   return (
