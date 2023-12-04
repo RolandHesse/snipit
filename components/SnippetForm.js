@@ -70,13 +70,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     setLinks(links.filter((link) => link.id !== id));
   }
 
-  // const tags = [
-  //   { label: "HTML", value: "html" },
-  //   { label: "CSS", value: "css" },
-  //   { label: "JavaScript", value: "javascript" },
-  // ];
-  // console.log("Tags hardcoded", tags);
-
   function handleTagChange(defaultTags) {
     setSelectedTags(defaultTags);
   }
