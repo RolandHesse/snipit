@@ -125,10 +125,12 @@ const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const StyledTags = styled.div`
   background-color: var(--white);
+  color: var(--primary-color);
   display: inline-flex;
   align-content: flex-start;
   border-radius: 1rem;
   padding: 0.5rem;
+  margin-right: 0.5rem;
   margin-bottom: 1rem;
 `;
 export default SnippetDetails;
