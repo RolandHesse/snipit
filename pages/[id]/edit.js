@@ -30,6 +30,8 @@ export default function EditPage() {
 
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
 
+  console.log("snippet edit page", snippet);
+  console.log("tags edit page", snippet.tags);
   return (
     <StyledEditPage>
       <SnippetForm

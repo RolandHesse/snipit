@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
   const defaultTags = data?.reduce((tagsArray, item) => {
     item.tags?.forEach((tag) => {
       const existingTag = tagsArray.find(
-        (brokkoli) => brokkoli.label === tag.label
+        (singleTag) => singleTag.label === tag.label
       );
       if (!existingTag) {
         tagsArray.push(tag);
@@ -58,7 +58,9 @@ export default function App({ Component, pageProps }) {
 }
 
 const StyledText = styled.p`
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
+  color: red;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 2rem;
   padding: 3rem 2rem;
 `;

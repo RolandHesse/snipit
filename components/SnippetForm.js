@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
+// import { useEffect } from "react";
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -14,9 +15,13 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [links, setLinks] = useState(
     defaultData ? defaultData.links : [{ id: "0", value: "" }]
   );
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState(
+    defaultData ? defaultData.tags : []
+  );
 
-  console.log("Default Tags", defaultTags);
+  // const [tagOptions, setTagOptions] = useState(defaultTags);
+
+  console.log("tag chaos", defaultData.tags);
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -78,6 +83,32 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     const newTags = { label: inputValue, value: inputValue.toLowerCase() };
     setSelectedTags([...selectedTags, newTags]);
   }
+
+  // const handleTagChange = (newValue, actionMeta) => {
+  //   // Update selected tags
+  //   setSelectedTags(newValue);
+
+  //   // Check if a new tag is created
+  //   if (actionMeta.action === "create-option") {
+  //     // Update tag options with the new tag
+  //     setTagOptions([
+  //       ...tagOptions,
+  //       { value: newValue.label, label: newValue.label },
+  //     ]);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (defaultData && defaultData.tags && Array.isArray(defaultData.tags)) {
+  //     const newTags = defaultData.tags.filter(
+  //       (tag) => !tagOptions?.some((option) => option.value === tag)
+  //     );
+  //     setTagOptions([
+  //       ...tagOptions,
+  //       ...newTags.map((tag) => ({ value: tag, label: tag })),
+  //     ]);
+  //   }
+  // }, [defaultData, tagOptions]);
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
