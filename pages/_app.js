@@ -39,8 +39,6 @@ export default function App({ Component, pageProps }) {
     return tagsArray;
   }, []);
 
-  console.log("defaultTags app.js ", defaultTags);
-
   return (
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
