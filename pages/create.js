@@ -22,7 +22,7 @@ function FormPage({ defaultTags }) {
       if (response.ok) {
         setSubmitted(true);
         setError(null);
-        mutate(snippetData);
+        mutate();
         event.target.reset();
         event.target.elements.name.focus();
       } else {

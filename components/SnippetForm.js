@@ -21,7 +21,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
   // const [tagOptions, setTagOptions] = useState(defaultTags);
 
-  console.log("tag chaos", defaultData.tags);
+  // console.log("tag chaos", defaultData.tags);
 
   function handleInputName(event) {
     const value = event.target.value;

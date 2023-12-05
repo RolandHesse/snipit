@@ -9,7 +9,7 @@ import useLocalStorageState from "use-local-storage-state";
 const fetcher = (...args) => fetch(...args).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
-  const { data, error, isLoading } = useSWR("api/snippets", fetcher);
+  const { data, error, isLoading } = useSWR("/api/snippets", fetcher);
 
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
