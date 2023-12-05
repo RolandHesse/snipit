@@ -5,7 +5,6 @@ import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
-// import { useEffect } from "react";
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -96,7 +95,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         id="name"
         name="name"
         placeholder="Code name"
-        // error={isFormValidated ? inputName : undefined}
         error={isFormValidated && inputName === ""}
       />
       <label htmlFor="code">Code*</label>
@@ -108,7 +106,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         name="code"
         rows="5"
         placeholder="Your code"
-        // error={isFormValidated ? inputName : undefined}
         error={isFormValidated && inputCode === ""}
       ></StyledCode>
       <label htmlFor="description">Description</label>
