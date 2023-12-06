@@ -97,7 +97,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         placeholder="Code name"
         error={isFormValidated && inputName === ""}
       />
-      <label htmlFor="code">Code*</label>
       <label htmlFor="language"></label>
       <select id="language" name="language">
         <option value="text">Text</option>
@@ -105,6 +104,9 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         <option value="javascript">JavaScript</option>
         <option value="json">json</option>
       </select>
+
+      <label htmlFor="code">Code*</label>
+
       <StyledCode
         value={inputCode}
         onChange={handleInputCode}

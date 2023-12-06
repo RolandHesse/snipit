@@ -38,9 +38,9 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         />
         <CodeContainer>
           <StyledSyntaxHighlighter
-            language="javascript"
+            language={language}
             style={a11yLight}
-            wrapLongLines
+            // wrapLongLines
             showLineNumbers
           >
             {code}
