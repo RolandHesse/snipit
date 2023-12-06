@@ -23,8 +23,10 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, tags, links, _id } = data;
+  const { name, code, language, description, tags, links, _id } = data;
 
+  console.log("Data", data);
+  console.log("Language", language);
   return (
     <StyledSection>
       <StyledCard>
