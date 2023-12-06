@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
@@ -17,6 +17,8 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [selectedTags, setSelectedTags] = useState(
     defaultData ? defaultData.tags : []
   );
+
+  const formRef = useRef(null);
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -58,12 +60,28 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     setSelectedTags([]);
   }
 
+  function handleReset(event) {
+    event.preventDefault();
+    formRef.current.reset();
+    formRef.current.elements.name.focus();
+    console.log("Sanity check reset button");
+  }
+
   function handleAddLink() {
     setLinks([...links, { id: nanoid(), value: "" }]);
   }
 
   function handleLinkChange(id, value) {
-    setLinks(links.map((link) => (link.id === id ? { ...link, value } : link)));
+    const rawLinks = links.map((link) =>
+      link.id === id ? { ...link, value } : link
+    );
+    setLinks(
+      rawLinks.map((rawLinkObject) =>
+        rawLinkObject.value.startsWith("https://")
+          ? rawLinkObject
+          : { ...rawLinkObject, value: `https://${rawLinkObject.value}` }
+      )
+    );
   }
 
   function handleDelete(id) {
@@ -80,7 +98,11 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   }
 
   return (
-    <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
+    <StyledForm
+      aria-labelledby={formName}
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
       <Warning>{warningMessage}</Warning>
       <p>
@@ -127,7 +149,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   as="input"
                   type="text"
                   id={linkObject.id}
-                  placeholder="www."
+                  placeholder="Enter URL"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -156,7 +178,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   autoFocus
                   type="text"
                   id={linkObject.id}
-                  placeholder="www."
+                  placeholder="Enter URL"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -191,7 +213,11 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
       <StyledButtonContainer>
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
-        <Button type="reset" buttonName="Reset" />
+        <Button
+          type="button"
+          buttonName={defaultData ? "Cancel" : "Reset"}
+          onClick={handleReset}
+        />
       </StyledButtonContainer>
     </StyledForm>
   );

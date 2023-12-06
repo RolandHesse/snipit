@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import SnippetForm from "@/components/SnippetForm";
+import LinkLayout from "@/components/LinkLayout";
 import styled from "styled-components";
 export default function EditPage({ defaultTags }) {
   const router = useRouter();
@@ -32,6 +33,11 @@ export default function EditPage({ defaultTags }) {
 
   return (
     <StyledEditPage>
+      <LinkLayout
+        url={"/"}
+        linkName={"Go Back"}
+        linkIcon="line-md:arrow-left"
+      />
       <SnippetForm
         onSubmit={editSnippet}
         formName={"edit-snippet"}

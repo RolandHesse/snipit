@@ -1,4 +1,4 @@
-import BackLink from "@/components/LinkLayout";
+import LinkLayout from "@/components/LinkLayout";
 import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
 import styled from "styled-components";
@@ -37,7 +37,11 @@ function FormPage({ defaultTags }) {
 
   return (
     <StyledCreatePage>
-      <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
+      <LinkLayout
+        url={"/"}
+        linkName={"Go Back"}
+        linkIcon="line-md:arrow-left"
+      />
       <SnippetForm onSubmit={createSnippet} defaultTags={defaultTags} />
       {submitted && (
         <StyledSuccessfullyMessage>
