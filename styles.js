@@ -11,14 +11,19 @@ export default createGlobalStyle`
   }
 
   :root {
-    --primary-color: #0B4C5F;
+    --primary-color: linear-gradient(89deg, #9B2FC4 0.91%, #0045E8 99.91%);
+    --main-blue:#0045E8;
+    --main-lila:#9B2FC4;
+    --gradient: linear-gradient(90deg, rgba(155,47,196,1) 0%, rgba(0,69,232,1) 100%);
     --white: white;
-    --text-color: #04151B;
+    --text-color: #000000;
     --light-color: #C1D2D7;
   }
 
   body {
     font-family: ${montserratFont.style.fontFamily};
-    padding: 0.5rem; 
+    /* padding: 0.5rem;  */
+    margin: 0;
+    background: var(--gradient)
   }
 `;

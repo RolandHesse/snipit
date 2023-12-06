@@ -32,12 +32,13 @@ const StyledCard = styled.section`
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
-  margin: 1.5rem;
+  margin: 1.5rem 0;
   padding: 2rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: var(--primary-color);
-  color: var(--white);
+  border-radius: 1.5rem;
+  background: var(--white);
+  color: var(--text-color);
   position: relative;
+  box-shadow: 0px 0px 17px 0px rgba(35, 1, 169, 0.38);
 `;
 
 const CardHeading = styled.h2`
@@ -52,5 +53,8 @@ const CardDescription = styled.p`
 
 const StyledLinkComponent = styled(Link)`
   text-decoration: none;
-  color: var(--white);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 `;
