@@ -3,10 +3,12 @@ import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
+import useSWR from "swr";
 
-function FormPage() {
+function FormPage({ defaultTags }) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const { mutate } = useSWR("/api/snippets");
 
   async function createSnippet(event, snippetData) {
     try {
@@ -20,6 +22,7 @@ function FormPage() {
       if (response.ok) {
         setSubmitted(true);
         setError(null);
+        mutate();
         event.target.reset();
         event.target.elements.name.focus();
       } else {
@@ -35,7 +38,7 @@ function FormPage() {
   return (
     <StyledCreatePage>
       <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
-      <SnippetForm onSubmit={createSnippet} />
+      <SnippetForm onSubmit={createSnippet} defaultTags={defaultTags} />
       {submitted && (
         <StyledSuccessfullyMessage>
           <Icon

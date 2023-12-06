@@ -12,7 +12,7 @@ function SnippetDetailsPage({ onToggleFavorite, favorites }) {
   async function handleDelete() {
     try {
       await fetch(`/api/snippets/${id}`, { method: "DELETE" });
-      mutate(`/api/snippets`);
+      mutate("/api/snippets");
       router.push("/");
     } catch (error) {
       console.error("An error occurred:", error);

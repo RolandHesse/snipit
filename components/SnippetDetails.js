@@ -65,7 +65,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
           </div>
         ))}
 
-        <Heading>Tag</Heading>
+        <Heading>Tags</Heading>
         {tags?.map((tagObject) => (
           <StyledTags key={tagObject.value}>{tagObject.label}</StyledTags>
         ))}
@@ -124,10 +124,12 @@ const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
 
 const StyledTags = styled.div`
   background-color: var(--white);
+  color: var(--primary-color);
   display: inline-flex;
   align-content: flex-start;
   border-radius: 1rem;
   padding: 0.5rem;
+  margin-right: 0.5rem;
   margin-bottom: 1rem;
 `;
 export default SnippetDetails;

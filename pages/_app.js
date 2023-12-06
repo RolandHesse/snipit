@@ -9,7 +9,7 @@ import useLocalStorageState from "use-local-storage-state";
 const fetcher = (...args) => fetch(...args).then((response) => response.json());
 
 export default function App({ Component, pageProps }) {
-  const { data, error, isLoading } = useSWR("api/snippets", fetcher);
+  const { data, error, isLoading } = useSWR("/api/snippets", fetcher);
 
   const [favorites, setFavorites] = useLocalStorageState("favorites", {
     defaultValue: [],
@@ -27,6 +27,18 @@ export default function App({ Component, pageProps }) {
   if (isLoading)
     return <StyledText>Wait....wait...wait... still loading...🤓</StyledText>;
 
+  const defaultTags = data?.reduce((tagsArray, item) => {
+    item.tags?.forEach((tag) => {
+      const existingTag = tagsArray.find(
+        (singleTag) => singleTag.label === tag.label
+      );
+      if (!existingTag) {
+        tagsArray.push(tag);
+      }
+    });
+    return tagsArray;
+  }, []);
+
   return (
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
@@ -36,6 +48,7 @@ export default function App({ Component, pageProps }) {
         data={data}
         onToggleFavorite={handleToggleFavorite}
         favorites={favorites}
+        defaultTags={defaultTags}
       />
       <Footer />
     </SWRConfig>
@@ -43,7 +56,9 @@ export default function App({ Component, pageProps }) {
 }
 
 const StyledText = styled.p`
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
+  color: red;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 2rem;
   padding: 3rem 2rem;
 `;
