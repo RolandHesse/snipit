@@ -97,7 +97,27 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         placeholder="Code name"
         error={isFormValidated && inputName === ""}
       />
-      <label htmlFor="code">Code*</label>
+      <label htmlFor="language"></label>
+      <StyledLanguagesContainer>
+        <StyledLanguages
+          id="language"
+          name="language"
+          defaultValue={defaultData?.language}
+        >
+          <option value="text">Text</option>
+          <option value="c">c</option>
+          <option value="css">CSS</option>
+          <option value="java">java</option>
+          <option value="javascript">JavaScript</option>
+          <option value="json">json</option>
+          <option value="markdown">markdown</option>
+          <option value="python">python</option>
+          <option value="shell">shell</option>
+          <option value="typescript">TypeScript</option>
+        </StyledLanguages>
+
+        <label htmlFor="code">Code*</label>
+      </StyledLanguagesContainer>
       <StyledCode
         value={inputCode}
         onChange={handleInputCode}
@@ -208,6 +228,20 @@ const StyledForm = styled.form`
 const StyledInputName = styled.input`
   border: 2px solid ${(props) => (props.error ? "red" : "initial")};
   height: 2rem;
+  border-radius: 0.3rem;
+  background-color: var(--light-color);
+`;
+
+const StyledLanguagesContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin: 0.5rem 0 0.2rem;
+`;
+const StyledLanguages = styled.select`
+  display: flex;
+  align-content: flex-start;
   border-radius: 0.3rem;
   background-color: var(--light-color);
 `;
