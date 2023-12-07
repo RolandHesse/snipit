@@ -25,8 +25,6 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
 
   const { name, code, language, description, tags, links, _id } = data;
 
-  console.log("Data", data);
-  console.log("Language", language);
   return (
     <StyledSection>
       <StyledCard>
@@ -40,7 +38,6 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
           <StyledSyntaxHighlighter
             language={language}
             style={a11yLight}
-            // wrapLongLines
             showLineNumbers
           >
             {code}
