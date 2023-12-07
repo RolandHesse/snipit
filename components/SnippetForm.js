@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
+import { useRouter } from "next/router";
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -17,8 +18,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [selectedTags, setSelectedTags] = useState(
     defaultData ? defaultData.tags : []
   );
-
-  const formRef = useRef(null);
+  const router = useRouter();
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -60,13 +60,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     setSelectedTags([]);
   }
 
-  function handleReset(event) {
-    event.preventDefault();
-    formRef.current.reset();
-    formRef.current.elements.name.focus();
-    console.log("Sanity check reset button");
-  }
-
   function handleAddLink() {
     setLinks([...links, { id: nanoid(), value: "" }]);
   }
@@ -98,11 +91,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   }
 
   return (
-    <StyledForm
-      aria-labelledby={formName}
-      onSubmit={handleSubmit}
-      ref={formRef}
-    >
+    <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
       <Warning>{warningMessage}</Warning>
       <p>
@@ -215,8 +204,12 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
         <Button
           type="button"
-          buttonName={defaultData ? "Cancel" : "Reset"}
-          onClick={handleReset}
+          buttonName="Cancel"
+          onClick={
+            defaultData
+              ? () => router.push(`/${defaultData._id}`)
+              : () => router.push("/")
+          }
         />
       </StyledButtonContainer>
     </StyledForm>

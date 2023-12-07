@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useRef } from "react";
 import useLocalStorageState from "use-local-storage-state";
+import useSWR from "swr";
 
 const fuseOptions = {
   threshold: 0.5,
@@ -20,6 +21,9 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   });
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
+
+  const { mutate } = useSWR("/api/snippets");
+  mutate();
 
   const fuse = new Fuse(data, fuseOptions);
 
