@@ -20,6 +20,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   });
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(-1);
 
   const fuse = new Fuse(data, fuseOptions);
 
@@ -40,11 +41,34 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
     }
   }
 
-  function handleKeyPress(event) {
-    if (event.key === "Enter") {
+  function navigateSearchHistory(direction) {
+    if (direction === "up" && currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    } else if (direction === "down" && currentIndex < lastSearches.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+
+    const selectedSearchTerm =
+      currentIndex !== -1 ? lastSearches[currentIndex] : "";
+    setSearchTerm(selectedSearchTerm);
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "ArrowUp") {
+      navigateSearchHistory("up");
+    }
+    if (event.key === "ArrowDown") {
+      navigateSearchHistory("down");
+    } else if (event.key === "Enter") {
       updateLastSearches(searchTerm);
     }
   }
+
+  // function handleKeyPress(event) {
+  //   if (event.key === "Enter") {
+  //     updateLastSearches(searchTerm);
+  //   }
+  // }
 
   function handleBlur() {
     updateLastSearches(searchTerm);
@@ -90,7 +114,8 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
               placeholder="Search"
               autoComplete="off"
               onChange={handleSearch}
-              onKeyDown={handleKeyPress}
+              // onKeyDown={handleKeyPress}
+              onKeyDown={handleKeyDown}
             />
           </StyledSearchBarForm>
           <StyledButton onClick={handleClick}>
@@ -122,6 +147,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
                   <StyledListItem
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
+                    onKeyDown={handleKeyDown}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>
