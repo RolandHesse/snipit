@@ -1,12 +1,18 @@
 import { StyledButtonOrLink } from "./StyledButtonOrLink";
 import { Icon } from "@iconify/react";
 
-function Button({ onClick, buttonName, buttonIcon, $backgroundColor, type }) {
+function Button({
+  onClick,
+  buttonName,
+  buttonIcon,
+  $backgroundColor,
+  ...props
+}) {
   return (
     <StyledButtonOrLink
       onClick={onClick}
       $backgroundColor={$backgroundColor}
-      type={type}
+      {...props}
     >
       <span role="img" aria-label="hidden">
         <Icon icon={buttonIcon} className="button-icon" />

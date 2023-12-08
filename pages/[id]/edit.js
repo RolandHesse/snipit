@@ -8,26 +8,29 @@ export default function EditPage({ defaultTags }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
-  const { data: snippet, isLoading, error } = useSWR(`/api/snippets/${id}`);
+  const {
+    data: snippet,
+    isLoading,
+    error,
+    mutate,
+  } = useSWR(`/api/snippets/${id}`);
 
   async function editSnippet(event, snippetData) {
-    if (snippetData.name !== "" && snippetData.code !== "") {
-      try {
-        const { id } = router.query;
-        const response = await fetch(`/api/snippets/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(snippetData),
-        });
+    if (snippetData.name && snippetData.code) {
+      const { id } = router.query;
+      const response = await fetch(`/api/snippets/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(snippetData),
+      });
 
-        if (response.ok) {
-          router.push(`/${id}`);
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-        response.status(500).json({ error: "Something went wrong" });
+      if (response.ok) {
+        router.push(`/${id}`);
+      } else {
+        const data = await response.json();
+        setError(data.error);
       }
     }
   }
@@ -38,7 +41,7 @@ export default function EditPage({ defaultTags }) {
     <StyledEditPage>
       <LinkLayout
         url={`/${id}`}
-        linkName={"Go Back"}
+        linkName="Go Back"
         linkIcon="line-md:arrow-left"
       />
       <SnippetForm

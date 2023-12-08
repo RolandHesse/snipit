@@ -40,11 +40,7 @@ function FormPage({ defaultTags }) {
 
   return (
     <StyledCreatePage>
-      <LinkLayout
-        url={"/"}
-        linkName={"Go Back"}
-        linkIcon="line-md:arrow-left"
-      />
+      <LinkLayout url="/" linkName="Go Back" linkIcon="line-md:arrow-left" />
       <SnippetForm onSubmit={createSnippet} defaultTags={defaultTags} />
       {submitted && (
         <StyledSuccessfullyMessage>

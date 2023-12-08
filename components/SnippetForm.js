@@ -136,7 +136,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   as="input"
                   type="text"
                   id={linkObject.id}
-                  placeholder="Enter URL"
+                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -165,7 +165,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   autoFocus
                   type="text"
                   id={linkObject.id}
-                  placeholder="Enter URL"
+                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
