@@ -54,8 +54,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     };
 
     onSubmit(event, snippetDataPlusLinksAndTags);
-    setInputName("");
-    setInputCode("");
     setLinks([{ id: "0", value: "" }]);
     setSelectedTags([]);
   }

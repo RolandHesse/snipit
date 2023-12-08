@@ -4,11 +4,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 function FormPage({ defaultTags }) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const { mutate } = useSWR("/api/snippets");
+  const router = useRouter();
 
   async function createSnippet(event, snippetData) {
     try {
@@ -25,6 +27,7 @@ function FormPage({ defaultTags }) {
         mutate();
         event.target.reset();
         event.target.elements.name.focus();
+        router.push("/");
       } else {
         const data = await response.json();
         setError(data.error);
