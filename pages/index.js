@@ -133,7 +133,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
                   <StyledListItem
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
-                    onKeyDown={handleKeyDown}
+                    onKeyDown={() => handleLastSearchClick(event, search)}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>
