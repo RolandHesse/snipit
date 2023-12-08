@@ -5,12 +5,10 @@ import styled from "styled-components";
 import useSWR from "swr";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
-import { useEffect } from "react";
 
 const notify = () => toast.success("Added snippet successfully.");
 
 function FormPage({ defaultTags }) {
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const { mutate } = useSWR("/api/snippets");
 
@@ -24,7 +22,7 @@ function FormPage({ defaultTags }) {
         body: JSON.stringify(snippetData),
       });
       if (response.ok) {
-        setSubmitted(true);
+        notify();
         setError(null);
         mutate();
         event.target.reset();
@@ -38,12 +36,6 @@ function FormPage({ defaultTags }) {
       response.status(500).json({ error: "😵‍💫 Something went wrong" });
     }
   }
-
-  useEffect(() => {
-    if (submitted) {
-      notify();
-    }
-  }, [submitted]);
 
   return (
     <StyledCreatePage>
