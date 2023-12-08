@@ -8,6 +8,7 @@ function SnippetDetailsPage({ onToggleFavorite, favorites }) {
   const router = useRouter();
 
   const { id } = router.query;
+  console.log(id, "hey")
 
   async function handleDelete() {
     try {

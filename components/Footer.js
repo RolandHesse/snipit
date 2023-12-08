@@ -1,11 +1,15 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/router";
 
 export default function Footer() {
+  const router = useRouter();
+  const { id } = router.query;
+
   return (
     <StyledFooter>
-      <StyledLink href="/create">
+      <StyledLink href="/">
         <Icon
           icon="teenyicons:home-outline"
           //icon="teenyicons:home-solid" wenn auf den button geklickt wird
