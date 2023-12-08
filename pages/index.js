@@ -43,14 +43,17 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
     const selectedSearchTerm =
       currentIndex !== -1 ? lastSearches[currentIndex] : "";
     setSearchTerm(selectedSearchTerm);
+    inputRef.current.value = searchTerm;
   }
+
   function handleKeyDown(event) {
     if (event.key === "ArrowUp") {
       navigateSearchHistory("up");
     }
     if (event.key === "ArrowDown") {
       navigateSearchHistory("down");
-    } else if (event.key === "Enter") {
+    }
+    if (event.key === "Enter") {
       updateLastSearches(searchTerm);
     }
   }
