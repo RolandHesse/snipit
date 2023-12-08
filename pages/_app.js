@@ -69,4 +69,7 @@ const StyledBackground = styled.section`
   background: white;
   width: 100%;
   border-radius: 2rem 2rem 0 0;
+  margin-top: 3.5rem; // Start 3rem down from the top
+  height: calc(100vh); // Fill the rest of the height
+  overflow-y: auto; // Make it scrollable
 `;
