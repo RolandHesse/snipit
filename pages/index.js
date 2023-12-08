@@ -6,12 +6,10 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useRef } from "react";
 import useLocalStorageState from "use-local-storage-state";
-
 const fuseOptions = {
   threshold: 0.5,
   keys: ["name", "code", "description", "links", "tag"],
 };
-
 export default function HomePage({ data, onToggleFavorite, favorites }) {
   const [results, setResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,15 +19,11 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
-
   const fuse = new Fuse(data, fuseOptions);
-
   const inputRef = useRef(null);
-
   function handleClick() {
     inputRef.current.focus();
   }
-
   function updateLastSearches(newTerm) {
     if (newTerm.trim() !== "" && newTerm !== lastSearches[0]) {
       setLastSearches((prevSearches) =>
@@ -40,41 +34,44 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
       );
     }
   }
-
   function navigateSearchHistory(direction) {
     if (direction === "up" && currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     } else if (direction === "down" && currentIndex < lastSearches.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
-
     const selectedSearchTerm =
       currentIndex !== -1 ? lastSearches[currentIndex] : "";
     setSearchTerm(selectedSearchTerm);
   }
-
+  function handleKeyDown(event) {
+    if (event.key === "ArrowUp") {
+      navigateSearchHistory("up");
+    }
+    if (event.key === "ArrowDown") {
+      navigateSearchHistory("down");
+    } else if (event.key === "Enter") {
+      updateLastSearches(searchTerm);
+    }
+  }
   // function handleKeyPress(event) {
   //   if (event.key === "Enter") {
   //     updateLastSearches(searchTerm);
   //   }
   // }
-
   function handleBlur() {
     updateLastSearches(searchTerm);
     setIsDropdown(false);
   }
-
   function handleSearch(event) {
     if (!fuse) {
       return;
     }
-
     setSearchTerm(event.target.value);
     const searchResult = fuse.search(searchTerm).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
     searchTerm !== "" ? setIsSearching(true) : setIsSearching(false);
   }
-
   function handleLastSearchClick(event, lastSearchTerm) {
     event.preventDefault();
     setIsSearching(true);
@@ -85,25 +82,6 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
       setResults(searchResult.map((result) => result.item));
     }
   }
-  function handleKeyDown(event, lastSearchTerm) {
-    // event.preventDefault();
-    if (event.key === "Enter") {
-      setIsSearching(true);
-      if (inputRef.current) {
-        inputRef.current.value = lastSearchTerm;
-        updateLastSearches(lastSearchTerm);
-        const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
-        setResults(searchResult.map((result) => result.item));
-      }
-
-      if (event.key === "ArrowUp") {
-        navigateSearchHistory("up");
-      } else if (event.key === "ArrowDown") {
-        navigateSearchHistory("down");
-      }
-    }
-  }
-
   return (
     <StyledPage>
       <StyledLastSearchContainer
@@ -122,8 +100,8 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
               placeholder="Search"
               autoComplete="off"
               onChange={handleSearch}
-              onKeyDown={() => handleKeyDown(event, searchTerm)}
-              // onKeyDown={() => console.log("SearchBarInput")}
+              // onKeyDown={handleKeyPress}
+              onKeyDown={handleKeyDown}
             />
           </StyledSearchBarForm>
           <StyledButton onClick={handleClick}>
@@ -155,7 +133,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
                   <StyledListItem
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
-                    onKeyDown={() => console.log("Item")}
+                    onKeyDown={handleKeyDown}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>
@@ -165,7 +143,9 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
         )}
       </StyledLastSearchContainer>
       {isSearching === true && results.length === 0 ? (
-        <StyledSorryMessage>Sorry, no snippets found... 😢</StyledSorryMessage>
+        <StyledSorryMessage>
+          Sorry, no snippets found... :weinen:
+        </StyledSorryMessage>
       ) : (
         <SnippetCardList
           data={isSearching === true ? results : data}
@@ -183,14 +163,12 @@ const StyledLastSearchContainer = styled.div`
   border-radius: 0.5rem;
   background-color: #c1d2d7;
   margin: 0 1.5rem;
-
   &:focus-within {
     outline: 2px solid var(--primary-color);
     border-radius: 0.5rem;
     transition: outline 0.3s ease;
   }
 `;
-
 const StyledSearchBarContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 3rem;
@@ -213,16 +191,13 @@ const StyledSearchBarInput = styled.input`
   padding: 1rem 1.5rem;
   font-size: 1.2rem;
 `;
-
 const StyledButton = styled.button`
   border: none;
   background: transparent;
 `;
-
 const StyledDropdown = styled.div`
   margin: 0 24px;
 `;
-
 const StyledList = styled.ul`
   list-style-type: none;
   padding: 0;
@@ -230,7 +205,6 @@ const StyledList = styled.ul`
   flex-direction: column;
   gap: 0.1rem;
 `;
-
 const StyledListItem = styled.li`
   display: flex;
   flex-direction: row;
@@ -242,14 +216,12 @@ const StyledListItem = styled.li`
     font-weight: 600;
   }
 `;
-
 const StyledLine = styled.hr`
   margin: 0;
   border: none;
   height: 0.01rem;
   background-color: var(--primary-color);
 `;
-
 const StyledSorryMessage = styled.h3`
   margin: 1.5rem;
   color: var(--primary-color);
