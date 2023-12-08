@@ -1,13 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Footer() {
-  const router = useRouter();
-  const { id } = router.query;
-
   const [url, setUrl] = useState("home");
 
   return (
@@ -22,7 +18,6 @@ export default function Footer() {
           icon={
             url === "home" ? "teenyicons:home-solid" : "teenyicons:home-outline"
           }
-          //icon="teenyicons:home-solid" wenn auf den button geklickt wird
           width="3rem"
           strokeWidth="1.5"
           stroke="var(--gradient)"
@@ -36,7 +31,6 @@ export default function Footer() {
       >
         <Icon
           icon={url === "create" ? "typcn:plus" : "typcn:plus-outline"}
-          // icon="typcn:plus" wenn auf den button geklickt wird
           width="4rem"
           strokeWidth="1.5"
           // stroke="var(--gradient)"
@@ -51,7 +45,6 @@ export default function Footer() {
       >
         <Icon
           icon={url === "favorite" ? "tabler:star-filled" : "tabler:star"}
-          // icon="tabler:star-filled" wenn auf den button geklickt wird
           width="3rem"
           strokeWidth="1.5"
           stroke="var(--gradient)"
