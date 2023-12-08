@@ -13,7 +13,7 @@ const fuseOptions = {
   keys: ["name", "code", "description", "links", "tag"],
 };
 
-export default function HomePage({ data, onToggleFavorite, favorites }) {
+export default function HomePage({ onToggleFavorite, favorites }) {
   const [results, setResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
@@ -22,8 +22,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
 
-  const { mutate } = useSWR("/api/snippets");
-  mutate();
+  const { data } = useSWR("/api/snippets");
 
   const fuse = new Fuse(data, fuseOptions);
 
