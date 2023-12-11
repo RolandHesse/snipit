@@ -90,7 +90,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
 
   function handleLastSearchEnter(event, lastSearchTerm) {
     // event.preventDefault();
-    console.log("testEvent", event);
+    console.log("test");
     if (event.key === "Enter") {
       console.log("Enter");
       setIsSearching(true);
