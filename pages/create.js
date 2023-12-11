@@ -1,8 +1,9 @@
-import BackLink from "@/components/LinkLayout";
+import LinkLayout from "@/components/LinkLayout";
 import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
 
@@ -11,6 +12,7 @@ const notify = () => toast.success("Added snippet successfully.");
 function FormPage({ defaultTags }) {
   const [error, setError] = useState(null);
   const { mutate } = useSWR("/api/snippets");
+  const router = useRouter();
 
   async function createSnippet(event, snippetData) {
     try {
@@ -27,6 +29,7 @@ function FormPage({ defaultTags }) {
         mutate();
         event.target.reset();
         event.target.elements.name.focus();
+        router.push("/");
       } else {
         const data = await response.json();
         setError(data.error);
@@ -40,7 +43,11 @@ function FormPage({ defaultTags }) {
   return (
     <StyledCreatePage>
       <StyledToaster />
-      <BackLink url={"/"} linkName={"Go Back"} linkIcon="line-md:arrow-left" />
+      <LinkLayout
+        url={"/"}
+        linkName={"Go Back"}
+        linkIcon="line-md:arrow-left"
+      />
       <SnippetForm onSubmit={createSnippet} defaultTags={defaultTags} />
     </StyledCreatePage>
   );

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import SnippetForm from "@/components/SnippetForm";
+import LinkLayout from "@/components/LinkLayout";
 import styled from "styled-components";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
@@ -11,10 +12,15 @@ export default function EditPage({ defaultTags }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
-  const { data: snippet, isLoading, error } = useSWR(`/api/snippets/${id}`);
+  const {
+    data: snippet,
+    isLoading,
+    error,
+    mutate,
+  } = useSWR(`/api/snippets/${id}`);
 
   async function editSnippet(event, snippetData) {
-    try {
+    if (snippetData.name && snippetData.code) {
       const { id } = router.query;
       const response = await fetch(`/api/snippets/${id}`, {
         method: "PUT",
@@ -27,10 +33,10 @@ export default function EditPage({ defaultTags }) {
       if (response.ok) {
         notify();
         router.push(`/${id}`);
+      } else {
+        const data = await response.json();
+        setError(data.error);
       }
-    } catch (error) {
-      console.error("An error occurred:", error);
-      response.status(500).json({ error: "Something went wrong" });
     }
   }
 
@@ -38,6 +44,11 @@ export default function EditPage({ defaultTags }) {
 
   return (
     <StyledEditPage>
+      <LinkLayout
+        url={`/${id}`}
+        linkName="Go Back"
+        linkIcon="line-md:arrow-left"
+      />
       <StyledToaster />
       <SnippetForm
         onSubmit={editSnippet}
@@ -51,4 +62,5 @@ export default function EditPage({ defaultTags }) {
 
 const StyledEditPage = styled.div`
   margin: 4rem 0 4rem 0;
+  color: var(--primary-color);
 `;
