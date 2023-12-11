@@ -3,6 +3,10 @@ import SnippetDetails from "@/components/SnippetDetails";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { mutate } from "swr";
+import toast from "react-hot-toast";
+import StyledToaster from "@/components/StyledToaster";
+
+const notify = () => toast.success("Deleted successfully!");
 
 function SnippetDetailsPage({ onToggleFavorite, favorites }) {
   const router = useRouter();
@@ -13,6 +17,7 @@ function SnippetDetailsPage({ onToggleFavorite, favorites }) {
     try {
       await fetch(`/api/snippets/${id}`, { method: "DELETE" });
       mutate("/api/snippets");
+      notify();
       router.push("/");
     } catch (error) {
       console.error("An error occurred:", error);
@@ -22,6 +27,7 @@ function SnippetDetailsPage({ onToggleFavorite, favorites }) {
 
   return (
     <StlyedDetailsPage>
+      <StyledToaster />
       <LinkLayout
         url={"/"}
         linkName={"Go Back"}

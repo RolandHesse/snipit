@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
+import { useRouter } from "next/router";
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -17,6 +18,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [selectedTags, setSelectedTags] = useState(
     defaultData ? defaultData.tags : []
   );
+  const router = useRouter();
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -52,8 +54,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     };
 
     onSubmit(event, snippetDataPlusLinksAndTags);
-    setInputName("");
-    setInputCode("");
     setLinks([{ id: "0", value: "" }]);
     setSelectedTags([]);
   }
@@ -63,7 +63,16 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   }
 
   function handleLinkChange(id, value) {
-    setLinks(links.map((link) => (link.id === id ? { ...link, value } : link)));
+    const rawLinks = links.map((link) =>
+      link.id === id ? { ...link, value } : link
+    );
+    setLinks(
+      rawLinks.map((rawLinkObject) =>
+        rawLinkObject.value.startsWith("https://")
+          ? rawLinkObject
+          : { ...rawLinkObject, value: `https://${rawLinkObject.value}` }
+      )
+    );
   }
 
   function handleDelete(id) {
@@ -147,7 +156,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   as="input"
                   type="text"
                   id={linkObject.id}
-                  placeholder="www."
+                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -176,7 +185,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   autoFocus
                   type="text"
                   id={linkObject.id}
-                  placeholder="www."
+                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -211,7 +220,15 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
       <StyledButtonContainer>
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
-        <Button type="reset" buttonName="Reset" />
+        <Button
+          type="button"
+          buttonName="Cancel"
+          onClick={
+            defaultData
+              ? () => router.push(`/${defaultData._id}`)
+              : () => router.push("/")
+          }
+        />
       </StyledButtonContainer>
     </StyledForm>
   );

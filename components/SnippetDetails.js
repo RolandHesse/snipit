@@ -55,7 +55,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         {links?.map((linkObject) => (
           <div key={linkObject.id}>
             <Link
-              href={`https://${linkObject.value}`}
+              href={linkObject.value}
               target="_blank"
               rel="noopener noreferrer"
             >
