@@ -90,11 +90,18 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
 
   function handleLastSearchEnter(event, lastSearchTerm) {
     // event.preventDefault();
+    console.log("testEvent", event);
     if (event.key === "Enter") {
-      setSearchTerm(lastSearchTerm);
+      console.log("Enter");
+      setIsSearching(true);
+      inputRef.current.value = lastSearchTerm;
+
+      updateLastSearches(lastSearchTerm);
       const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
-      setIsSearching(true);
+      // setSearchTerm(lastSearchTerm);
+      // const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
+      // setResults(searchResult.map((result) => result.item));
     }
   }
   return (
@@ -148,8 +155,13 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
                   <StyledListItem
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
-                    onKeyDown={() => handleLastSearchEnter(event, search)}
+                    // onKeyDown={() => handleLastSearchEnter(event, search)}
                     tabIndex={0}
+                    onKeyDown={
+                      currentIndex === index
+                        ? handleLastSearchEnter(event, search)
+                        : null
+                    }
                     style={{
                       fontWeight: currentIndex === index ? 600 : "normal",
                     }}
