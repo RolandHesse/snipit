@@ -23,7 +23,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
     return <div>Loading Details View 🤓</div>;
   }
 
-  const { name, code, description, tags, links, _id } = data;
+  const { name, code, language, description, tags, links, _id } = data;
 
   return (
     <StyledSection>
@@ -36,9 +36,8 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         />
         <CodeContainer>
           <StyledSyntaxHighlighter
-            language="javascript"
+            language={language}
             style={a11yLight}
-            wrapLongLines
             showLineNumbers
           >
             {code}

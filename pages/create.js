@@ -2,12 +2,14 @@ import LinkLayout from "@/components/LinkLayout";
 import SnippetForm from "@/components/SnippetForm";
 import { useState } from "react";
 import styled from "styled-components";
-import { Icon } from "@iconify/react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+import StyledToaster from "@/components/StyledToaster";
+
+const notify = () => toast.success("Added snippet successfully.");
 
 function FormPage({ defaultTags }) {
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const { mutate } = useSWR("/api/snippets");
   const router = useRouter();
@@ -22,7 +24,7 @@ function FormPage({ defaultTags }) {
         body: JSON.stringify(snippetData),
       });
       if (response.ok) {
-        setSubmitted(true);
+        notify();
         setError(null);
         mutate();
         event.target.reset();
@@ -40,18 +42,13 @@ function FormPage({ defaultTags }) {
 
   return (
     <StyledCreatePage>
-      <LinkLayout url="/" linkName="Go Back" linkIcon="line-md:arrow-left" />
+      <StyledToaster />
+      <LinkLayout
+        url={"/"}
+        linkName={"Go Back"}
+        linkIcon="line-md:arrow-left"
+      />
       <SnippetForm onSubmit={createSnippet} defaultTags={defaultTags} />
-      {submitted && (
-        <StyledSuccessfullyMessage>
-          <Icon
-            icon="line-md:confirm-circle-twotone"
-            height="5rem"
-            strokeWidth="1rem"
-          />
-          Added Snippet successfully!
-        </StyledSuccessfullyMessage>
-      )}
     </StyledCreatePage>
   );
 }

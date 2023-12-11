@@ -3,6 +3,10 @@ import useSWR from "swr";
 import SnippetForm from "@/components/SnippetForm";
 import LinkLayout from "@/components/LinkLayout";
 import styled from "styled-components";
+import toast from "react-hot-toast";
+import StyledToaster from "@/components/StyledToaster";
+
+const notify = () => toast.success("Updated snippet successfully.");
 
 export default function EditPage({ defaultTags }) {
   const router = useRouter();
@@ -27,6 +31,7 @@ export default function EditPage({ defaultTags }) {
       });
 
       if (response.ok) {
+        notify();
         router.push(`/${id}`);
       } else {
         const data = await response.json();
@@ -44,6 +49,7 @@ export default function EditPage({ defaultTags }) {
         linkName="Go Back"
         linkIcon="line-md:arrow-left"
       />
+      <StyledToaster />
       <SnippetForm
         onSubmit={editSnippet}
         formName={"edit-snippet"}

@@ -7,6 +7,7 @@ import { Icon } from "@iconify/react";
 import { useRef } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import useSWR from "swr";
+import StyledToaster from "@/components/StyledToaster";
 
 const fuseOptions = {
   threshold: 0.5,
@@ -77,6 +78,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
   }
   return (
     <StyledPage>
+      <StyledToaster />
       <StyledLastSearchContainer
         onFocus={() => setIsDropdown(true)}
         onBlur={handleBlur}
