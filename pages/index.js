@@ -21,6 +21,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const fuse = new Fuse(data, fuseOptions);
   const inputRef = useRef(null);
+
   function handleClick() {
     inputRef.current.focus();
   }
@@ -37,13 +38,13 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   function navigateSearchHistory(direction) {
     if (direction === "up" && currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-    } else if (direction === "down" && currentIndex < lastSearches.length - 1) {
+    }
+    if (direction === "down" && currentIndex < lastSearches.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
-    const selectedSearchTerm =
-      currentIndex !== -1 ? lastSearches[currentIndex] : "";
-    setSearchTerm(selectedSearchTerm);
-    inputRef.current.value = searchTerm;
+    // const selectedSearchTerm =
+    //   currentIndex !== -1 ? lastSearches[currentIndex] : "";
+    // setSearchTerm(selectedSearchTerm);
   }
 
   function handleKeyDown(event) {
@@ -53,6 +54,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
     if (event.key === "ArrowDown") {
       navigateSearchHistory("down");
     }
+
     if (event.key === "Enter") {
       updateLastSearches(searchTerm);
     }
@@ -83,6 +85,16 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
       updateLastSearches(lastSearchTerm);
       const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
+    }
+  }
+
+  function handleLastSearchEnter(event, lastSearchTerm) {
+    // event.preventDefault();
+    if (event.key === "Enter") {
+      setSearchTerm(lastSearchTerm);
+      const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
+      setResults(searchResult.map((result) => result.item));
+      setIsSearching(true);
     }
   }
   return (
@@ -136,7 +148,12 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
                   <StyledListItem
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
-                    onKeyDown={() => handleLastSearchClick(event, search)}
+                    onKeyDown={() => handleLastSearchEnter(event, search)}
+                    tabIndex={0}
+                    style={{
+                      fontWeight: currentIndex === index ? 600 : "normal",
+                    }}
+                    // onKeyDown={console.log("Item")}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>
@@ -146,9 +163,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
         )}
       </StyledLastSearchContainer>
       {isSearching === true && results.length === 0 ? (
-        <StyledSorryMessage>
-          Sorry, no snippets found... :weinen:
-        </StyledSorryMessage>
+        <StyledSorryMessage>Sorry, no snippets found... 😭</StyledSorryMessage>
       ) : (
         <SnippetCardList
           data={isSearching === true ? results : data}
@@ -216,6 +231,9 @@ const StyledListItem = styled.li`
   cursor: pointer;
   padding: 0.5rem 0;
   &:hover {
+    font-weight: 600;
+  }
+  &:focus {
     font-weight: 600;
   }
 `;
