@@ -2,6 +2,11 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import SnippetForm from "@/components/SnippetForm";
 import styled from "styled-components";
+import toast from "react-hot-toast";
+import StyledToaster from "@/components/StyledToaster";
+
+const notify = () => toast.success("Updated snippet successfully.");
+
 export default function EditPage({ defaultTags }) {
   const router = useRouter();
   const { isReady } = router;
@@ -20,6 +25,7 @@ export default function EditPage({ defaultTags }) {
       });
 
       if (response.ok) {
+        notify();
         router.push(`/${id}`);
       }
     } catch (error) {
@@ -32,6 +38,7 @@ export default function EditPage({ defaultTags }) {
 
   return (
     <StyledEditPage>
+      <StyledToaster />
       <SnippetForm
         onSubmit={editSnippet}
         formName={"edit-snippet"}
