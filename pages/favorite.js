@@ -6,6 +6,13 @@ import {
 import LinkLayout from "@/components/LinkLayout";
 import SnippetCard from "@/components/SnippetCard";
 
+function ShortDescription(description, maxLength) {
+  if (description?.length > maxLength) {
+    return `${description.slice(0, maxLength)}...`;
+  }
+  return description;
+}
+
 function FavoritePage({ data, onToggleFavorite, favorites }) {
   return (
     <StyledPage>
@@ -27,7 +34,7 @@ function FavoritePage({ data, onToggleFavorite, favorites }) {
                 favorites={favorites}
                 snippetData={snippet}
                 name={snippet.name}
-                description={snippet.description}
+                description={ShortDescription(snippet.description, 60)}
               />
             </li>
           ))}

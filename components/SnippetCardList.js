@@ -20,7 +20,7 @@ export default function SnippetCardList({ data, onToggleFavorite, favorites }) {
               favorites={favorites}
               snippetData={snippet}
               name={snippet.name}
-              description={ShortDescription(snippet.description, 100)}
+              description={ShortDescription(snippet.description, 60)}
             />
           </li>
         ))}
