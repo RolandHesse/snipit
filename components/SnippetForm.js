@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
+import { useRouter } from "next/router";
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -17,6 +18,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [selectedTags, setSelectedTags] = useState(
     defaultData ? defaultData.tags : []
   );
+  const router = useRouter();
 
   function handleInputName(event) {
     const value = event.target.value;
@@ -52,8 +54,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     };
 
     onSubmit(event, snippetDataPlusLinksAndTags);
-    setInputName("");
-    setInputCode("");
     setLinks([{ id: "0", value: "" }]);
     setSelectedTags([]);
   }
@@ -63,7 +63,16 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   }
 
   function handleLinkChange(id, value) {
-    setLinks(links.map((link) => (link.id === id ? { ...link, value } : link)));
+    const rawLinks = links.map((link) =>
+      link.id === id ? { ...link, value } : link
+    );
+    setLinks(
+      rawLinks.map((rawLinkObject) =>
+        rawLinkObject.value.startsWith("https://")
+          ? rawLinkObject
+          : { ...rawLinkObject, value: `https://${rawLinkObject.value}` }
+      )
+    );
   }
 
   function handleDelete(id) {
@@ -97,7 +106,27 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         placeholder="Code name"
         error={isFormValidated && inputName === ""}
       />
-      <label htmlFor="code">Code*</label>
+      <label htmlFor="language"></label>
+      <StyledLanguagesContainer>
+        <StyledLanguages
+          id="language"
+          name="language"
+          defaultValue={defaultData?.language}
+        >
+          <option value="text">Text</option>
+          <option value="c">c</option>
+          <option value="css">CSS</option>
+          <option value="java">java</option>
+          <option value="javascript">JavaScript</option>
+          <option value="json">json</option>
+          <option value="markdown">markdown</option>
+          <option value="python">python</option>
+          <option value="shell">shell</option>
+          <option value="typescript">TypeScript</option>
+        </StyledLanguages>
+
+        <label htmlFor="code">Code*</label>
+      </StyledLanguagesContainer>
       <StyledCode
         value={inputCode}
         onChange={handleInputCode}
@@ -127,7 +156,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   as="input"
                   type="text"
                   id={linkObject.id}
-                  placeholder="www."
+                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -156,7 +185,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   autoFocus
                   type="text"
                   id={linkObject.id}
-                  placeholder="www."
+                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -191,7 +220,15 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
       <StyledButtonContainer>
         <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
-        <Button type="reset" buttonName="Reset" />
+        <Button
+          type="button"
+          buttonName="Cancel"
+          onClick={
+            defaultData
+              ? () => router.push(`/${defaultData._id}`)
+              : () => router.push("/")
+          }
+        />
       </StyledButtonContainer>
     </StyledForm>
   );
@@ -208,6 +245,20 @@ const StyledForm = styled.form`
 const StyledInputName = styled.input`
   border: 2px solid ${(props) => (props.error ? "red" : "initial")};
   height: 2rem;
+  border-radius: 0.3rem;
+  background-color: var(--light-color);
+`;
+
+const StyledLanguagesContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin: 0.5rem 0 0.2rem;
+`;
+const StyledLanguages = styled.select`
+  display: flex;
+  align-content: flex-start;
   border-radius: 0.3rem;
   background-color: var(--light-color);
 `;

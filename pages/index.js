@@ -6,13 +6,15 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useRef } from "react";
 import useLocalStorageState from "use-local-storage-state";
+import useSWR from "swr";
+import StyledToaster from "@/components/StyledToaster";
 
 const fuseOptions = {
   threshold: 0.5,
   keys: ["name", "code", "description", "links", "tag"],
 };
 
-export default function HomePage({ data, onToggleFavorite, favorites }) {
+export default function HomePage({ onToggleFavorite, favorites }) {
   const [results, setResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
@@ -20,6 +22,8 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   });
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
+
+  const { data } = useSWR("/api/snippets");
 
   const fuse = new Fuse(data, fuseOptions);
 
@@ -74,6 +78,7 @@ export default function HomePage({ data, onToggleFavorite, favorites }) {
   }
   return (
     <StyledPage>
+      <StyledToaster />
       <StyledLastSearchContainer
         onFocus={() => setIsDropdown(true)}
         onBlur={handleBlur}
