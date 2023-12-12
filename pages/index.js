@@ -15,11 +15,15 @@ const fuseOptions = {
 };
 
 export default function HomePage({ onToggleFavorite, favorites }) {
+  // define state variable which stores search results
   const [results, setResults] = useState([]);
+  // define state variable which stores current search term; gets updated onChange
   const [searchTerm, setSearchTerm] = useState("");
+  // define state variable which stores last five search terms; gets updated when updateLastSearches is called
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
     defaultValue: [],
   });
+  // boolean state variable which is set to true as soon as the user starts typing into the search bar
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -29,11 +33,12 @@ export default function HomePage({ onToggleFavorite, favorites }) {
   const fuse = new Fuse(data, fuseOptions);
   const inputRef = useRef(null);
 
+  // set the focus on StyledSearchBarInput when user clicks the Search-Icon
   function handleClick() {
     inputRef.current.focus();
   }
   function updateLastSearches(newTerm) {
-    if (newTerm.trim() !== "" && newTerm !== lastSearches[0]) {
+    if (newTerm.trim() !== "") {
       setLastSearches((prevSearches) =>
         [newTerm, ...prevSearches.filter((term) => term !== newTerm)].slice(
           0,
@@ -61,9 +66,15 @@ export default function HomePage({ onToggleFavorite, favorites }) {
     if (event.key === "ArrowDown") {
       navigateSearchHistory("down");
     }
-
     if (event.key === "Enter") {
       updateLastSearches(searchTerm);
+    }
+    if (event.key === "Enter" && currentIndex !== -1) {
+      setIsSearching(true);
+      setSearchTerm(lastSearches[currentIndex]);
+      inputRef.current.value = searchTerm;
+      const searchResult = fuse.search(searchTerm).slice(0, 10);
+      setResults(searchResult.map((result) => result.item));
     }
   }
   // function handleKeyPress(event) {
@@ -96,16 +107,24 @@ export default function HomePage({ onToggleFavorite, favorites }) {
   }
 
   function handleLastSearchEnter(event, lastSearchTerm) {
-    // event.preventDefault();
-    console.log("test");
     if (event.key === "Enter") {
-      console.log("Enter");
+      event.preventDefault();
+      console.log("test");
       setIsSearching(true);
-      inputRef.current.value = lastSearchTerm;
+      if (inputRef.current) {
+        inputRef.current.value = lastSearchTerm;
+        updateLastSearches(lastSearchTerm);
+        const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
+        setResults(searchResult.map((result) => result.item));
+      }
 
-      updateLastSearches(lastSearchTerm);
-      const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
-      setResults(searchResult.map((result) => result.item));
+      // console.log("Enter");
+      // setIsSearching(true);
+      // inputRef.current.value = lastSearchTerm;
+
+      // updateLastSearches(lastSearchTerm);
+      // const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
+      // setResults(searchResult.map((result) => result.item));
       // setSearchTerm(lastSearchTerm);
       // const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       // setResults(searchResult.map((result) => result.item));
@@ -164,14 +183,16 @@ export default function HomePage({ onToggleFavorite, favorites }) {
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
                     // onKeyDown={() => handleLastSearchEnter(event, search)}
+                    onMouseEnter={() => setCurrentIndex(index)}
+                    onMouseLeave={() => setCurrentIndex(-1)}
                     tabIndex={0}
-                    onKeyDown={
-                      currentIndex === index
-                        ? handleLastSearchEnter(event, search)
-                        : null
-                    }
+                    // onKeyDown={
+                    //   currentIndex === index
+                    //     ? () => handleLastSearchEnter(event, search)
+                    //     : null
+                    // }
                     style={{
-                      fontWeight: currentIndex === index ? 600 : "normal",
+                      fontWeight: currentIndex === index ? 600 : "",
                     }}
                     // onKeyDown={console.log("Item")}
                   >
@@ -253,9 +274,9 @@ const StyledListItem = styled.li`
   &:hover {
     font-weight: 600;
   }
-  &:focus {
+  /* &:focus {
     font-weight: 600;
-  }
+  } */
 `;
 const StyledLine = styled.hr`
   margin: 0;
