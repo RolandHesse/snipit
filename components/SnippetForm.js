@@ -5,6 +5,8 @@ import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -240,4 +242,9 @@ const Warning = styled.p`
 
 const StyledList = styled.ul`
   list-style: none;
+`;
+
+const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
+  overflow-y: auto;
+  max-height: 200px;
 `;
