@@ -167,9 +167,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
                     onMouseEnter={() => setCurrentIndex(index)}
                     onMouseLeave={() => setCurrentIndex(-1)}
                     tabIndex={0}
-                    style={{
-                      fontWeight: currentIndex === index ? 600 : "",
-                    }}
+                    $highlighted={currentIndex === index}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>

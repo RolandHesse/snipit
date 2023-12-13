@@ -41,14 +41,12 @@ export const StyledSearchBarContainer = styled.div`
   background-color: #c1d2d7;
 `;
 export const StyledSearchBarForm = styled.form`
-  height: 100%;
   width: 100%;
 `;
 export const StyledSearchBarInput = styled.input`
   outline: none;
   background-color: transparent;
   border: none;
-  height: 100%;
   width: 100%;
   padding: 1rem 1.5rem;
   font-size: 1.2rem;
@@ -58,7 +56,7 @@ export const StyledButton = styled.button`
   background: transparent;
 `;
 export const StyledDropdown = styled.div`
-  margin: 0 24px;
+  margin: 0 1.5rem;
 `;
 export const StyledList = styled.ul`
   list-style-type: none;
@@ -74,6 +72,7 @@ export const StyledListItem = styled.li`
   gap: 0.5rem;
   cursor: pointer;
   padding: 0.5rem 0;
+  font-weight: ${(props) => (props.$highlighted ? 600 : "")};
 `;
 export const StyledLine = styled.hr`
   margin: 0;
