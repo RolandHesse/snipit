@@ -1,8 +1,8 @@
 # /ˈsnɪp.ɪt/
 
-This app provides developers with a unified platform to efficiently store, organize, and retrieve code snippets, cheatsheets, and guides, streamlining their coding workflow and promoting best practices and code reusability.
+This app provides developers with a unified platform to efficiently store, organize, and retrieve code snippets, streamlining their coding workflow and promoting best practices and code reusability.
 
-It was created as capstone project in the [neue fische](https://www.neuefische.de/) bootcamp for webdevelopment, 19.05. - 19.12.2023 by [Iryna](https://github.com/nvhsk), [Nadja](https://github.com/NadjaKanunnikow), [Peet](https://github.com/PeetThesing) & [Roland](https://github.com/RolandHesse).
+It was created as capstone project in the [neue fische](https://www.neuefische.de/) bootcamp for webdevelopment, 19.06. - 19.12.2023 by [Iryna](https://github.com/nvhsk), [Nadja](https://github.com/NadjaKanunnikow), [Peet](https://github.com/PeetThesing) & [Roland](https://github.com/RolandHesse).
 
 ## Thanks to these libraries
 

@@ -7,7 +7,13 @@ import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
 
-const notify = () => toast.success("Added snippet successfully.");
+const notify = () =>
+  toast.success("Added snippet successfully.", {
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
+  });
 
 function FormPage({ defaultTags }) {
   const [error, setError] = useState(null);

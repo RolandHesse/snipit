@@ -6,9 +6,20 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
 
-const notify = () => toast.success("Updated snippet successfully.");
+const notify = () =>
+  toast.success("Updated snippet successfully.", {
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
+  });
 const notifyError = () =>
-  toast("Okay, you just want everything to stay the same. Cool cool.");
+  toast("Okay, you just want everything to stay the same. Cool, cool.", {
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
+  });
 
 export default function EditPage({ defaultTags }) {
   const router = useRouter();
@@ -36,15 +47,7 @@ export default function EditPage({ defaultTags }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: isDataChanged ? snippetData.name : currentSnippetData.name,
-          code: isDataChanged ? snippetData.code : currentSnippetData.code,
-          description: isDataChanged
-            ? snippetData.description
-            : currentSnippetData.description,
-          links: isDataChanged ? snippetData.links : currentSnippetData.links,
-          tags: isDataChanged ? snippetData.tags : currentSnippetData.tags,
-        }),
+        body: JSON.stringify(snippetData),
       });
 
       if (response.ok) {

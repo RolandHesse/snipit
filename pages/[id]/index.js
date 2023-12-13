@@ -6,13 +6,19 @@ import { mutate } from "swr";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
 
-const notify = () => toast.success("Deleted successfully!");
+const notify = () =>
+  toast.success("Deleted successfully!", {
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
+  });
 
 function SnippetDetailsPage({ onToggleFavorite, favorites }) {
   const router = useRouter();
 
   const { id } = router.query;
-  console.log(id, "hey")
+  console.log(id, "hey");
 
   async function handleDelete() {
     try {
