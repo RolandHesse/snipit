@@ -5,8 +5,6 @@ import { Icon } from "@iconify/react";
 import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { useRouter } from "next/router";
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
@@ -56,8 +54,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     };
 
     onSubmit(event, snippetDataPlusLinksAndTags);
-    setLinks([{ id: "0", value: "" }]);
-    setSelectedTags([]);
+    if (!defaultData) {
+      setLinks([{ id: "0", value: "" }]);
+      setSelectedTags([]);
+    }
   }
 
   function handleAddLink() {
@@ -268,9 +268,6 @@ const StyledCode = styled.textarea`
   border: 2px solid ${(props) => (props.error ? "red" : "initial")};
   height: 10rem;
   border-radius: 0.3rem;
-  background-color: var(--primary-color);
-
-  color: var(--white);
 `;
 
 const StyledFormElementOfCrime = styled.textarea`
@@ -293,9 +290,4 @@ const Warning = styled.p`
 
 const StyledList = styled.ul`
   list-style: none;
-`;
-
-const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
-  overflow-y: auto;
-  max-height: 200px;
 `;
