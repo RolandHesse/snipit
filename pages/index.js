@@ -17,7 +17,7 @@ const fuseOptions = {
 export default function HomePage({ onToggleFavorite, favorites }) {
   // define state variable which stores search results
   const [results, setResults] = useState([]);
-  // define state variable which stores current search term; gets updated onChange
+  // define state variable which stores current search term
   const [searchTerm, setSearchTerm] = useState("");
   // define state variable which stores last five search terms; gets updated when updateLastSearches is called
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
@@ -37,6 +37,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
   function handleClick() {
     inputRef.current.focus();
   }
+
   function updateLastSearches(newTerm) {
     if (newTerm.trim() !== "") {
       setLastSearches((prevSearches) =>
@@ -47,6 +48,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
       );
     }
   }
+
   function navigateSearchHistory(direction) {
     if (direction === "up" && currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
@@ -54,9 +56,6 @@ export default function HomePage({ onToggleFavorite, favorites }) {
     if (direction === "down" && currentIndex < lastSearches.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
-    // const selectedSearchTerm =
-    //   currentIndex !== -1 ? lastSearches[currentIndex] : "";
-    // setSearchTerm(selectedSearchTerm);
   }
 
   function handleKeyDown(event) {
@@ -72,20 +71,18 @@ export default function HomePage({ onToggleFavorite, favorites }) {
     if (event.key === "Enter" && currentIndex !== -1) {
       setIsSearching(true);
       setSearchTerm(lastSearches[currentIndex]);
-      inputRef.current.value = searchTerm;
-      const searchResult = fuse.search(searchTerm).slice(0, 10);
+      const searchTermFromDropDown = lastSearches[currentIndex];
+      inputRef.current.value = searchTermFromDropDown;
+      const searchResult = fuse.search(searchTermFromDropDown).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
     }
   }
-  // function handleKeyPress(event) {
-  //   if (event.key === "Enter") {
-  //     updateLastSearches(searchTerm);
-  //   }
-  // }
+
   function handleBlur() {
     updateLastSearches(searchTerm);
     setIsDropdown(false);
   }
+
   function handleSearch(event) {
     if (!fuse) {
       return;
@@ -95,6 +92,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
     setResults(searchResult.map((result) => result.item));
     searchTerm !== "" ? setIsSearching(true) : setIsSearching(false);
   }
+
   function handleLastSearchClick(event, lastSearchTerm) {
     event.preventDefault();
     setIsSearching(true);
@@ -103,31 +101,6 @@ export default function HomePage({ onToggleFavorite, favorites }) {
       updateLastSearches(lastSearchTerm);
       const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
       setResults(searchResult.map((result) => result.item));
-    }
-  }
-
-  function handleLastSearchEnter(event, lastSearchTerm) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      console.log("test");
-      setIsSearching(true);
-      if (inputRef.current) {
-        inputRef.current.value = lastSearchTerm;
-        updateLastSearches(lastSearchTerm);
-        const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
-        setResults(searchResult.map((result) => result.item));
-      }
-
-      // console.log("Enter");
-      // setIsSearching(true);
-      // inputRef.current.value = lastSearchTerm;
-
-      // updateLastSearches(lastSearchTerm);
-      // const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
-      // setResults(searchResult.map((result) => result.item));
-      // setSearchTerm(lastSearchTerm);
-      // const searchResult = fuse.search(lastSearchTerm).slice(0, 10);
-      // setResults(searchResult.map((result) => result.item));
     }
   }
   return (
@@ -149,7 +122,6 @@ export default function HomePage({ onToggleFavorite, favorites }) {
               placeholder="Search"
               autoComplete="off"
               onChange={handleSearch}
-              // onKeyDown={handleKeyPress}
               onKeyDown={handleKeyDown}
             />
           </StyledSearchBarForm>
@@ -182,19 +154,12 @@ export default function HomePage({ onToggleFavorite, favorites }) {
                   <StyledListItem
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
-                    // onKeyDown={() => handleLastSearchEnter(event, search)}
                     onMouseEnter={() => setCurrentIndex(index)}
                     onMouseLeave={() => setCurrentIndex(-1)}
                     tabIndex={0}
-                    // onKeyDown={
-                    //   currentIndex === index
-                    //     ? () => handleLastSearchEnter(event, search)
-                    //     : null
-                    // }
                     style={{
                       fontWeight: currentIndex === index ? 600 : "",
                     }}
-                    // onKeyDown={console.log("Item")}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>
@@ -271,12 +236,6 @@ const StyledListItem = styled.li`
   gap: 0.5rem;
   cursor: pointer;
   padding: 0.5rem 0;
-  &:hover {
-    font-weight: 600;
-  }
-  /* &:focus {
-    font-weight: 600;
-  } */
 `;
 const StyledLine = styled.hr`
   margin: 0;
