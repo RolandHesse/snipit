@@ -13,6 +13,7 @@ export default function Footer() {
         onClick={() => {
           setUrl("home");
         }}
+        aria-label="Home"
       >
         <Icon
           icon={
@@ -28,11 +29,13 @@ export default function Footer() {
         onClick={() => {
           setUrl("create");
         }}
+        aria-label="Create new snippet"
       >
         <Icon
           icon={url === "create" ? "typcn:plus" : "typcn:plus-outline"}
           width="4rem"
           strokeWidth="1.5"
+
           // stroke="var(--gradient)"
           // fill="var(--gradient)"
         />
@@ -42,6 +45,7 @@ export default function Footer() {
         onClick={() => {
           setUrl("favorite");
         }}
+        aria-label="My favorites"
       >
         <Icon
           icon={url === "favorite" ? "tabler:star-filled" : "tabler:star"}
