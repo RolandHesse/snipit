@@ -66,6 +66,6 @@ const StyledSuccessfullyMessage = styled.div`
 `;
 
 const StyledCreatePage = styled.div`
-  margin: 4rem 0 4rem 0;
+  margin: 2rem 2rem 4rem 2rem;
   color: var(--primary-color);
 `;

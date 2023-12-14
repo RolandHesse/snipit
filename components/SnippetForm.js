@@ -35,10 +35,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
     if (inputName === "" || inputCode === "") {
       setWarningMessage(
-        <span>
+        <StyledWarningMessage>
           <Icon icon="tabler:alert-circle-filled" height="2rem" /> Please fill
           in the required field
-        </span>
+        </StyledWarningMessage>
       );
       setIsFormValidated(true);
     } else {
@@ -92,20 +92,22 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
       <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
       <Warning>{warningMessage}</Warning>
-      <p>
+      <StyledWarningMessage>
         <Icon icon="tabler:alert-circle" height="2rem" />
         &nbsp;Fields marked with an * are required
-      </p>
-      <label htmlFor="name">Name*</label>
-      <StyledInputName
-        value={inputName}
-        onChange={handleInputName}
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Code name"
-        error={isFormValidated && inputName === ""}
-      />
+      </StyledWarningMessage>
+      <StyledFormInput>
+        <label htmlFor="name">Name*</label>
+        <StyledInputName
+          value={inputName}
+          onChange={handleInputName}
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Code name"
+          error={isFormValidated && inputName === ""}
+        />
+      </StyledFormInput>
       <label htmlFor="language"></label>
       <StyledLanguagesContainer>
         <StyledLanguages
@@ -219,7 +221,11 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
       />
 
       <StyledButtonContainer>
-        <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
+        <Button
+          type="submit"
+          buttonName={defaultData ? "Update" : "Submit"}
+          style={{ background: "var(--main-blue)", color: "white" }}
+        />
         <Button
           type="button"
           buttonName="Cancel"
@@ -240,6 +246,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   font-weight: 500;
+  gap: 0.3rem;
 `;
 
 const StyledInputName = styled.input`
@@ -287,8 +294,21 @@ const StyledButtonContainer = styled.div`
 
 const Warning = styled.p`
   color: red;
+  margin: 0;
 `;
 
 const StyledList = styled.ul`
   list-style: none;
+`;
+
+const StyledWarningMessage = styled.p`
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+`;
+
+const StyledFormInput = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

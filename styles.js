@@ -17,7 +17,7 @@ export default createGlobalStyle`
     --gradient: linear-gradient(90deg, rgba(155,47,196,1) 0%, rgba(0,69,232,1) 100%);
     --white: white;
     --text-color: #000000;
-    --light-color: #C1D2D7;
+    --light-color: #DEE7FF;
   }
 
   body {
