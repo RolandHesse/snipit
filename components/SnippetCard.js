@@ -14,14 +14,14 @@ export default function SnippetCard({
 
   return (
     <StyledCard>
-      <FavoriteButton
-        onClick={() => onToggleFavorite(snippetData._id)}
-        isFavorite={favorites.includes(snippetData._id)}
-      />
       <StyledLinkComponent href={`/${snippetData._id}`}>
         <CardHeading>{name}</CardHeading>
         <CardDescription>{description}</CardDescription>
       </StyledLinkComponent>
+      <FavoriteButton
+        onClick={() => onToggleFavorite(snippetData._id)}
+        isFavorite={favorites.includes(snippetData._id)}
+      />
       <CopyWithOneClick codeData={snippetData.code} iconColor="var(--white)" />
     </StyledCard>
   );

@@ -58,10 +58,11 @@ export default function App({ Component, pageProps }) {
 }
 
 const StyledText = styled.p`
-  /* color: var(--primary-color); */
-  color: red;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: black;
+  border-radius: 10%;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 2rem;
+  font-weight: 600;
   padding: 3rem 2rem;
 `;
 

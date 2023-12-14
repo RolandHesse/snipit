@@ -6,6 +6,12 @@ import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
 import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+
+const notify = () =>
+  toast.error("Please fill in the required fields.", {
+    ariaProps: { role: "status", "aria-live": "assertive" },
+  });
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
@@ -34,12 +40,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     event.preventDefault();
 
     if (inputName === "" || inputCode === "") {
-      setWarningMessage(
-        <span>
-          <Icon icon="tabler:alert-circle-filled" height="2rem" /> Please fill
-          in the required field
-        </span>
-      );
+      setWarningMessage(notify());
       setIsFormValidated(true);
     } else {
       setWarningMessage("");
@@ -96,7 +97,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         {" "}
         {defaultData ? "Update Snippet" : "Add new Snippet"}
       </h2>
-      <Warning>{warningMessage}</Warning>
       <p tabIndex={0}>
         <Icon icon="tabler:alert-circle" height="2rem" />
         &nbsp;Fields marked with an * are required

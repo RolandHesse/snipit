@@ -28,8 +28,8 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
   return (
     <StyledSection>
       <StyledCard>
-        <Title>{name}</Title>
-        <Heading>Code</Heading>
+        <Title tabIndex={0}>{name}</Title>
+        <Heading tabIndex={0}>Code</Heading>
         <FavoriteButton
           onClick={() => onToggleFavorite(_id)}
           isFavorite={favorites.includes(_id)}
@@ -39,6 +39,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
             language={language}
             style={a11yLight}
             showLineNumbers
+            tabIndex={0}
           >
             {code}
           </StyledSyntaxHighlighter>
@@ -48,10 +49,10 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
             iconColor="var(--primary-color)"
           />
         </CodeContainer>
-        <Heading>Description</Heading>
-        <p>{description}</p>
+        <Heading tabIndex={0}>Description</Heading>
+        <p tabIndex={0}>{description}</p>
 
-        <Heading>Further Resources</Heading>
+        <Heading tabIndex={0}>Further Resources</Heading>
         {links?.map((linkObject) => (
           <div key={linkObject.id}>
             <Link
@@ -64,9 +65,11 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
           </div>
         ))}
 
-        <Heading>Tags</Heading>
+        <Heading tabIndex={0}>Tags</Heading>
         {tags?.map((tagObject) => (
-          <StyledTags key={tagObject.value}>{tagObject.label}</StyledTags>
+          <StyledTags tabIndex={0} key={tagObject.value}>
+            {tagObject.label}
+          </StyledTags>
         ))}
       </StyledCard>
       <StyledButtonDiv>
