@@ -58,7 +58,7 @@ const StyledFooter = styled.nav`
   left: 0;
   right: 0;
   bottom: 0;
-  color: var(--gradient);
+  color: var(--main-lila);
   height: 3rem;
   background: var(--white);
   width: 100%;
@@ -71,7 +71,7 @@ const StyledFooter = styled.nav`
   box-shadow: 0px 0px 15.8px 0px rgba(0, 0, 0, 0.25);
 `;
 const StyledLink = styled(Link)`
-  fill: var(--gradient);
+  fill: var(--main-lila);
   text-decoration: none;
   font-size: 1.5rem;
 `;

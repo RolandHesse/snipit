@@ -104,7 +104,7 @@ const StyledSection = styled.section`
 const StyledCard = styled.div`
   background-color: var(--light-color);
   margin: 1rem 0rem;
-  padding: 0.1rem 0.5rem;
+  padding: 0.1rem 1.3rem;
   border-radius: 1rem;
   position: relative;
 `;

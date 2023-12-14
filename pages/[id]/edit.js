@@ -81,6 +81,6 @@ export default function EditPage({ defaultTags }) {
 }
 
 const StyledEditPage = styled.div`
-  margin: 4rem 0 4rem 0;
+  margin: 2rem 2rem 6rem 2rem;
   color: var(--primary-color);
 `;

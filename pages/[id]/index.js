@@ -52,5 +52,5 @@ function SnippetDetailsPage({ onToggleFavorite, favorites }) {
 export default SnippetDetailsPage;
 
 const StlyedDetailsPage = styled.div`
-  margin: 3.6rem 0 0 0;
+    margin: 2rem 1rem 6rem 1rem;
 `;

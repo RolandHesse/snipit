@@ -94,10 +94,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         {" "}
         {defaultData ? "Update Snippet" : "Add new Snippet"}
       </h2>
-      <p tabIndex={0}>
+      <StyledRequiredMessage tabIndex={0}>
         <Icon icon="tabler:alert-circle" height="2rem" />
         &nbsp;Fields marked with an * are required
-      </p>
+      </StyledRequiredMessage>
       <label htmlFor="name">Name*</label>
       <StyledInputName
         tabIndex={0}
@@ -152,7 +152,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         <>
           <StyledList>
             {links.map((linkObject) => (
-              <li key={linkObject.id}>
+              <StyledListItem key={linkObject.id}>
                 <label htmlFor={linkObject.id}>Link: </label>
                 <StyledFormElementOfCrime
                   tabIndex={0}
@@ -164,7 +164,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                     handleLinkChange(linkObject.id, event.target.value)
                   }
                 />
-              </li>
+              </StyledListItem>
             ))}
           </StyledList>
           <SmallButton
@@ -178,7 +178,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         <>
           <StyledList>
             {links.map((linkObject) => (
-              <li key={linkObject.id}>
+              <StyledListItem key={linkObject.id}>
                 <label htmlFor={linkObject.id}>Link: </label>
                 <StyledFormElementOfCrime
                   as="input"
@@ -197,7 +197,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   buttonIcon={"mynaui:trash"}
                   ariaLabel={"delete"}
                 />
-              </li>
+              </StyledListItem>
             ))}
           </StyledList>
           <SmallButton
@@ -206,6 +206,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
             buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
             ariaLabel={"hidden"}
+            className="smallButtonMargin"
           />
         </>
       )}
@@ -252,7 +253,8 @@ const StyledForm = styled.form`
 const StyledInputName = styled.input`
   border: 2px solid ${(props) => (props.error ? "red" : "initial")};
   height: 2rem;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
   background-color: var(--light-color);
 `;
 
@@ -266,20 +268,22 @@ const StyledLanguagesContainer = styled.div`
 const StyledLanguages = styled.select`
   display: flex;
   align-content: flex-start;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   background-color: var(--light-color);
 `;
 const StyledCode = styled.textarea`
   border: 2px solid ${(props) => (props.error ? "red" : "initial")};
   height: 10rem;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
 `;
 
 const StyledFormElementOfCrime = styled.textarea`
   height: 2rem;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   background-color: var(--light-color);
   border: none;
+  width: 100%;
 `;
 
 const StyledButtonContainer = styled.div`
@@ -296,16 +300,23 @@ const Warning = styled.p`
 
 const StyledList = styled.ul`
   list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+const StyledListItem = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
 `;
 
-const StyledWarningMessage = styled.p`
+const StyledRequiredMessage = styled.p`
   display: flex;
   align-items: center;
   font-size: 0.9rem;
   margin: 0 0 1rem 0;
-`;
-
-const StyledFormInput = styled.div`
-  display: flex;
-  flex-direction: column;
+  font-weight: 600;
 `;

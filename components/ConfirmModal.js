@@ -38,7 +38,12 @@ function ConfirmModal({ message, handleFunction, snippetId }) {
                 buttonName="Confirm"
                 $backgroundColor="red"
               />
-              <Button type="button" onClick={hideModal} buttonName="Cancel" />
+              <Button
+                type="button"
+                onClick={hideModal}
+                buttonName="Cancel"
+                style={{ background: "var(--main-blue)", color: "white" }}
+              />
             </StyledButtonContainer>
           </StyledModal>
         </StyledBackdrop>
@@ -63,21 +68,24 @@ const StyledBackdrop = styled.div`
 
 const StyledModal = styled.article`
   max-width: 70dvw;
-  padding: 1rem;
+  padding: 1.2rem;
   color: var(--primary-color);
   background-color: var(--white);
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   border: solid var(--primary-color) 1px;
 `;
 
 const StyledModalMessage = styled.h3`
   color: var(--primary-color);
   text-align: center;
+  margin: 0 0 1rem 0;
 `;
 
 const StyledButtonContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 `;
 
 export default ConfirmModal;

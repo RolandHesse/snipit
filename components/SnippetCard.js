@@ -98,7 +98,8 @@ const StyledTagList = styled.ul`
 
 const StyledTagListEntry = styled.li`
   border-radius: 1rem;
-  padding: 0.2rem 0.4rem 0.2rem 0.3rem;
+  padding: 0.2rem 0.6rem;
+  margin: 0 0.1rem;
   text-align: center;
-  box-shadow: 0px 0px 17px 0px rgba(35, 1, 169, 0.38);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25) inset;
 `;

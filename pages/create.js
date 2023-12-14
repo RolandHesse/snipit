@@ -72,6 +72,6 @@ const StyledSuccessfullyMessage = styled.div`
 `;
 
 const StyledCreatePage = styled.div`
-  margin: 2rem 2rem 4rem 2rem;
+  margin: 2rem 2rem 6rem 2rem;
   color: var(--primary-color);
 `;
