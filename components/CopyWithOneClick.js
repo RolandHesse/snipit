@@ -15,9 +15,10 @@ export default function CopyWithOneClick({ iconColor, codeData, isDetail }) {
   return (
     <StyledButton $isDetail={isDetail} type="button" onClick={handleClick}>
       <Icon
-        icon={isCopied ? "mingcute:check-fill" : "fa-regular:copy"}
-        color={iconColor}
+        icon={isCopied ? "mingcute:check-fill" : "ci:copy"}
+        color="var(--main-lila)"
         aria-label={isCopied ? "code copied" : "copy code"}
+        width={isDetail ? "16" : "48"}
       />
       {isDetail && (isCopied ? "code copied" : "copy code")}
     </StyledButton>
@@ -27,6 +28,8 @@ export default function CopyWithOneClick({ iconColor, codeData, isDetail }) {
 const StyledButton = styled.button`
   position: absolute;
   background: transparent;
+  color: var(--main-lila);
+  /* border: solid red 1px; */
   border: none;
   display: flex;
   align-items: center;
@@ -34,10 +37,8 @@ const StyledButton = styled.button`
   ${({ $isDetail }) =>
     $isDetail
       ? css`
-          top: 7.3rem;
-          right: 1.2rem;
-          color: var(--primary-color);
-          border: 0.5rem;
+          top: 0.3rem;
+          right: 0.3rem;
         `
       : css`
           bottom: 1rem;
