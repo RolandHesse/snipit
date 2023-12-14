@@ -87,6 +87,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
 const Title = styled.h2`
   font-size: 1.5rem;
   color: var(--primary-color);
+  max-width: 90%;
 `;
 
 const Heading = styled.h3`
@@ -114,6 +115,7 @@ const CodeContainer = styled.div`
   padding: 0.7rem 0.001rem 0.001rem 0.001rem;
   background-color: white;
   border-radius: 0.5rem;
+  position: relative;
 `;
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`

@@ -25,6 +25,8 @@ export default function HomePage({ onToggleFavorite, favorites }) {
 
   const { data } = useSWR("/api/snippets");
 
+  console.log("data: ", data);
+
   const fuse = new Fuse(data, fuseOptions);
 
   const inputRef = useRef(null);
