@@ -6,12 +6,13 @@ export const StyledButtonOrLink = styled.button`
   font-size: large;
   color: var(--primary-color);
   background-color: var(--light-color);
-  padding: 0.3rem 0.6rem;
-  border-radius: 0.5rem;
-  border-top: 2px solid #cccccc;
+  padding: 0.5rem 2rem;
+  border-radius: 5rem;
+  border: 2px solid var(--main-blue);
+/* border-top: 2px solid #cccccc;
   border-right: 2px solid var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
-  border-left: 2px solid #cccccc;
+  border-left: 2px solid #cccccc; */
   display: inline-flex;
   align-items: center;
   transition: background-color 0.3s ease, color 0.3s ease;

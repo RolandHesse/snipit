@@ -16,7 +16,6 @@ const notify = () =>
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
   const [inputCode, setInputCode] = useState(defaultData?.code || "");
-  const [warningMessage, setWarningMessage] = useState("");
   const [isFormValidated, setIsFormValidated] = useState(false);
   const [links, setLinks] = useState(
     defaultData ? defaultData.links : [{ id: "0", value: "" }]
@@ -38,13 +37,11 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-
     if (inputName === "" || inputCode === "") {
-      setWarningMessage(notify());
+      notify();
       setIsFormValidated(true);
-    } else {
-      setWarningMessage("");
     }
+
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
 
@@ -224,7 +221,11 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
       />
 
       <StyledButtonContainer>
-        <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
+        <Button
+          type="submit"
+          buttonName={defaultData ? "Update" : "Submit"}
+          style={{ background: "var(--main-blue)", color: "white" }}
+        />
         <Button
           type="button"
           buttonName="Cancel"
@@ -245,6 +246,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   font-weight: 500;
+  gap: 0.3rem;
 `;
 
 const StyledInputName = styled.input`
@@ -289,8 +291,21 @@ const StyledButtonContainer = styled.div`
 
 const Warning = styled.p`
   color: red;
+  margin: 0;
 `;
 
 const StyledList = styled.ul`
   list-style: none;
+`;
+
+const StyledWarningMessage = styled.p`
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+`;
+
+const StyledFormInput = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

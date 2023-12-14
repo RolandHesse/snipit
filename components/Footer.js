@@ -1,11 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
-
+import useLocalStorageState from "use-local-storage-state";
 export default function Footer() {
-  const [url, setUrl] = useState("home");
-
+  const [url, setUrl] = useLocalStorageState("url", { defaultValue: "home" });
   return (
     <StyledFooter>
       <StyledLink
@@ -16,12 +14,8 @@ export default function Footer() {
         aria-label="Home"
       >
         <Icon
-          icon={
-            url === "home" ? "teenyicons:home-solid" : "teenyicons:home-outline"
-          }
-          width="3rem"
-          strokeWidth="1.5"
-          stroke="var(--gradient)"
+          icon={url === "home" ? "typcn:home" : "typcn:home-outline"}
+          width="3.5rem"
         />
       </StyledLink>
       <StyledLink
@@ -33,31 +27,29 @@ export default function Footer() {
       >
         <Icon
           icon={url === "create" ? "typcn:plus" : "typcn:plus-outline"}
-          width="4rem"
-          strokeWidth="1.5"
-
-          // stroke="var(--gradient)"
-          // fill="var(--gradient)"
+          width="3.5rem"
         />
       </StyledLink>
       <StyledLink
         href="/favorite"
+        s
         onClick={() => {
           setUrl("favorite");
         }}
         aria-label="My favorites"
       >
         <Icon
-          icon={url === "favorite" ? "tabler:star-filled" : "tabler:star"}
-          width="3rem"
-          strokeWidth="1.5"
-          stroke="var(--gradient)"
+          icon={
+            url === "favorite"
+              ? "typcn:star-full-outline"
+              : "typcn:star-outline"
+          }
+          width="3.5rem"
         />
       </StyledLink>
     </StyledFooter>
   );
 }
-
 const StyledFooter = styled.nav`
   display: flex;
   align-items: center;
