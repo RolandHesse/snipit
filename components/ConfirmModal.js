@@ -25,10 +25,11 @@ function ConfirmModal({ message, handleFunction, snippetId }) {
         onClick={handleModal}
         buttonName="Delete"
         buttonIcon="line-md:remove"
+        aria-label="Delete Snippet"
       />
       {showModal && (
         <StyledBackdrop onClick={handleOuterClick}>
-          <StyledModal>
+          <StyledModal aria-live="assertive">
             <StyledModalMessage>{message}</StyledModalMessage>
             <StyledButtonContainer>
               <Button

@@ -7,9 +7,9 @@ function StyledToaster() {
         style: {
           border: "1px solid var(--primary-color)",
           padding: "16px",
-          color: "var(--text-color)",
+          color: "var(--white)",
           fontWeight: 600,
-          background: "var(--light-color)",
+          background: "var(--main-blue)",
         },
       }}
     />

@@ -21,7 +21,7 @@ function FavoritePage({ data, onToggleFavorite, favorites }) {
         linkName={"Go Back"}
         linkIcon="line-md:arrow-left"
       />
-      <ListHeading>Favorites</ListHeading>
+      <ListHeading tabIndex={0}>Favorites</ListHeading>
       <StyledSnippetList>
         {data
           ?.filter((snippet) =>

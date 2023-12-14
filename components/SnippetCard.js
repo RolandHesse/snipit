@@ -44,11 +44,7 @@ export default function SnippetCard({
 
 const StyledCard = styled.section`
   display: flex;
-  /* flex-direction: column; */
-  /* align-items: flex-start; */
-  /* gap: 1rem; */
   margin: 1.5rem 0;
-  /* padding: 2rem 1.5rem; */
   padding: 2rem 1rem 1.5rem 1.5rem;
   border-radius: 1.5rem;
   background: var(--white);
@@ -62,7 +58,6 @@ const StyledTextWraper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* border: solid red 1px; */
   height: 100%;
   max-width: 80%;
   margin: 0;
@@ -102,7 +97,6 @@ const StyledTagList = styled.ul`
 `;
 
 const StyledTagListEntry = styled.li`
-  /* background-color: rgba(154, 48, 197, 0.5); */
   border-radius: 1rem;
   padding: 0.2rem 0.4rem 0.2rem 0.3rem;
   text-align: center;

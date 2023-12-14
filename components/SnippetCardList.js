@@ -11,7 +11,7 @@ function ShortDescription(description, maxLength) {
 export default function SnippetCardList({ data, onToggleFavorite, favorites }) {
   return (
     <>
-      <ListHeading>List of Snippets</ListHeading>
+      <ListHeading tabIndex={0}>List of Snippets</ListHeading>
       <StyledSnippetList>
         {data?.map((snippet) => (
           <li key={snippet._id}>

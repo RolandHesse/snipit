@@ -11,12 +11,10 @@ export default function Footer() {
         onClick={() => {
           setUrl("home");
         }}
+        aria-label="Home"
       >
         <Icon
           icon={url === "home" ? "typcn:home" : "typcn:home-outline"}
-          // icon={
-          //   url === "home" ? "teenyicons:home-solid" : "teenyicons:home-outline"
-          // }
           width="3.5rem"
         />
       </StyledLink>
@@ -25,13 +23,9 @@ export default function Footer() {
         onClick={() => {
           setUrl("create");
         }}
+        aria-label="Create new snippet"
       >
         <Icon
-          // icon={
-          //   url === "create"
-          //     ? "teenyicons:plus-circle-solid"
-          //     : "teenyicons:plus-circle-outline"
-          // }
           icon={url === "create" ? "typcn:plus" : "typcn:plus-outline"}
           width="3.5rem"
         />
@@ -42,6 +36,7 @@ export default function Footer() {
         onClick={() => {
           setUrl("favorite");
         }}
+        aria-label="My favorites"
       >
         <Icon
           icon={
@@ -49,12 +44,6 @@ export default function Footer() {
               ? "typcn:star-full-outline"
               : "typcn:star-outline"
           }
-          // icon={
-          //   url === "favorite"
-          //     ? "teenyicons:star-solid"
-          //     : "teenyicons:star-outline"
-          // }
-          // icon={url === "favorite" ? "tabler:star-filled" : "tabler:star"}
           width="3.5rem"
         />
       </StyledLink>
