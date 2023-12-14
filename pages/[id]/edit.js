@@ -12,12 +12,7 @@ export default function EditPage({ defaultTags }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
-  const {
-    data: snippet,
-    isLoading,
-    error,
-    mutate,
-  } = useSWR(`/api/snippets/${id}`);
+  const { data: snippet, isLoading, error } = useSWR(`/api/snippets/${id}`);
 
   async function editSnippet(event, snippetData) {
     if (snippetData.name && snippetData.code) {
