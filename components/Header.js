@@ -4,7 +4,9 @@ import styled from "styled-components";
 function Header() {
   return (
     <Link href={`/`}>
-      <Logo>/ˈsnıp.ıt/</Logo>
+      <Logo aria-label="Snip it Logo">
+        <span aria-hidden="true">/ˈsnıp.ıt/</span>
+      </Logo>
     </Link>
   );
 }

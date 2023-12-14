@@ -92,24 +92,27 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
-      <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
+      <h2 tabIndex={0}>
+        {" "}
+        {defaultData ? "Update Snippet" : "Add new Snippet"}
+      </h2>
       <Warning>{warningMessage}</Warning>
-      <p>
+      <p tabIndex={0}>
         <Icon icon="tabler:alert-circle" height="2rem" />
         &nbsp;Fields marked with an * are required
       </p>
       <label htmlFor="name">Name*</label>
       <StyledInputName
+        tabIndex={0}
         value={inputName}
         onChange={handleInputName}
         type="text"
         id="name"
         name="name"
-        placeholder="Code name"
         error={isFormValidated && inputName === ""}
       />
       <label htmlFor="language"></label>
-      <StyledLanguagesContainer>
+      <StyledLanguagesContainer aria-label="Choose code language" tabIndex={0}>
         <StyledLanguages
           id="language"
           name="language"
@@ -130,22 +133,22 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         <label htmlFor="code">Code*</label>
       </StyledLanguagesContainer>
       <StyledCode
+        tabIndex={0}
         value={inputCode}
         onChange={handleInputCode}
         type="text"
         id="code"
         name="code"
         rows="5"
-        placeholder="Your code"
         error={isFormValidated && inputCode === ""}
       ></StyledCode>
       <label htmlFor="description">Description</label>
       <StyledFormElementOfCrime
+        tabIndex={0}
         type="text"
         id="description"
         name="description"
         rows="5"
-        placeholder="Description of the code"
         defaultValue={defaultData?.description}
       ></StyledFormElementOfCrime>
       {links.length <= 1 ? (
@@ -155,10 +158,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
               <li key={linkObject.id}>
                 <label htmlFor={linkObject.id}>Link: </label>
                 <StyledFormElementOfCrime
+                  tabIndex={0}
                   as="input"
                   type="text"
                   id={linkObject.id}
-                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -172,7 +175,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
             onClick={handleAddLink}
             buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
-            ariaLabel={"hidden"}
           />
         </>
       ) : (
@@ -187,7 +189,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   autoFocus
                   type="text"
                   id={linkObject.id}
-                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -211,7 +212,9 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
           />
         </>
       )}
-      <label htmlFor="tag">Tags:</label>
+      <label htmlFor="tag" tabIndex={0}>
+        Tags:
+      </label>
       <CreatableSelect
         isMulti
         options={defaultTags}

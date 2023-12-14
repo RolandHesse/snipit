@@ -3,8 +3,8 @@ import { Icon } from "@iconify/react";
 
 function SmallButton({ type, onClick, buttonName, buttonIcon, ariaLabel }) {
   return (
-    <StyledButton type={type} onClick={onClick}>
-      <span role="img" aria-label={ariaLabel}>
+    <StyledButton type={type} onClick={onClick} aria-label={ariaLabel}>
+      <span role="img" aria-hidden="true">
         <Icon icon={buttonIcon} className="button-icon" />{" "}
       </span>
       {buttonName}
