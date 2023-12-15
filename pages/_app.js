@@ -25,9 +25,19 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  if (error) return <StyledText>Failed to load...🥶 😵‍💫 😨 😩 😢</StyledText>;
+  if (error)
+    return (
+      <StyledText>
+        Failed to load...<span aria-hidden="true">🥶 😵‍💫 😨 😩 😢</span>
+      </StyledText>
+    );
   if (isLoading)
-    return <StyledText>Wait....wait...wait... still loading...🤓</StyledText>;
+    return (
+      <StyledText>
+        Wait....wait...wait... still loading...
+        <span aria-hidden="true">🤓</span>
+      </StyledText>
+    );
 
   const defaultTags = data?.reduce((tagsArray, item) => {
     item.tags?.forEach((tag) => {

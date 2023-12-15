@@ -121,7 +121,6 @@ export default function HomePage({ onToggleFavorite, favorites }) {
       <StyledLastSearchContainer
         onFocus={() => setIsDropdown(true)}
         onBlur={handleBlur}
-        tabIndex={0}
       >
         <StyledSearchBarContainer>
           <StyledSearchBarForm onSubmit={(event) => event.preventDefault()}>
@@ -131,7 +130,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
               type="text"
               id="search"
               name="search"
-              placeholder="Search"
+              placeholder="search snippets"
               autoComplete="off"
               onChange={handleSearch}
               onKeyDown={handleKeyDown}
@@ -146,9 +145,9 @@ export default function HomePage({ onToggleFavorite, favorites }) {
           </StyledButton>
         </StyledSearchBarContainer>
         {isDropdown && (
-          <StyledDropdown>
+          <StyledDropdown aria-label="last searches">
             <StyledLine />
-            <StyledList>
+            <StyledList role="list" aria-live="polite">
               {lastSearches
                 ?.filter((search) => {
                   if (searchTerm === "") {
@@ -165,6 +164,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
                 .map((search, index) => (
                   <StyledListItem
                     key={index}
+                    aria-selected={currentIndex === index ? "true" : "false"}
                     onMouseDown={() => handleLastSearchClick(event, search)}
                     onMouseEnter={() => setCurrentIndex(index)}
                     onMouseLeave={() => setCurrentIndex(-1)}
