@@ -16,6 +16,7 @@ export default function Footer() {
         <Icon
           icon={url === "home" ? "typcn:home" : "typcn:home-outline"}
           width="3.5rem"
+          color="var(--main-lila)"
         />
       </StyledLink>
       <StyledLink
@@ -28,6 +29,7 @@ export default function Footer() {
         <Icon
           icon={url === "create" ? "typcn:plus" : "typcn:plus-outline"}
           width="3.5rem"
+          color="var(--main-lila)"
         />
       </StyledLink>
       <StyledLink
@@ -45,6 +47,7 @@ export default function Footer() {
               : "typcn:star-outline"
           }
           width="3.5rem"
+          color="var(--main-lila)"
         />
       </StyledLink>
     </StyledFooter>
@@ -58,7 +61,6 @@ const StyledFooter = styled.nav`
   left: 0;
   right: 0;
   bottom: 0;
-  color: var(--main-lila);
   height: 3rem;
   background: var(--white);
   width: 100%;
@@ -71,7 +73,6 @@ const StyledFooter = styled.nav`
   box-shadow: 0px 0px 15.8px 0px rgba(0, 0, 0, 0.25);
 `;
 const StyledLink = styled(Link)`
-  fill: var(--main-lila);
   text-decoration: none;
   font-size: 1.5rem;
 `;
