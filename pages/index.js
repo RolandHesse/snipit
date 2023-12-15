@@ -2,41 +2,56 @@ import { StyledPage } from "@/components/Layout";
 import SnippetCardList from "@/components/SnippetCardList";
 import Fuse from "fuse.js";
 import { useState } from "react";
-import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import { useRef } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import useSWR from "swr";
 import StyledToaster from "@/components/StyledToaster";
-
+import {
+  StyledLastSearchContainer,
+  StyledSearchBarContainer,
+  StyledSearchBarForm,
+  StyledSearchBarInput,
+  StyledButton,
+  StyledDropdown,
+  StyledList,
+  StyledListItem,
+  StyledLine,
+  StyledSorryMessage,
+} from "@/components/Layout";
 const fuseOptions = {
   threshold: 0.5,
   keys: ["name", "code", "description", "links", "tag"],
 };
 
 export default function HomePage({ onToggleFavorite, favorites }) {
+  // define state variable which stores search results
   const [results, setResults] = useState([]);
+  // define state variable which stores current search term
   const [searchTerm, setSearchTerm] = useState("");
+  // define state variable which stores last five search terms; gets updated when updateLastSearches is called
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
     defaultValue: [],
   });
+  // boolean state variable which is set to true as soon as the user starts typing into the search bar
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(-1);
 
   const { data } = useSWR("/api/snippets");
 
   console.log("data: ", data);
 
   const fuse = new Fuse(data, fuseOptions);
-
   const inputRef = useRef(null);
 
+  // set the focus on StyledSearchBarInput when user clicks the Search-Icon
   function handleClick() {
     inputRef.current.focus();
   }
 
   function updateLastSearches(newTerm) {
-    if (newTerm.trim() !== "" && newTerm !== lastSearches[0]) {
+    if (newTerm.trim() !== "") {
       setLastSearches((prevSearches) =>
         [newTerm, ...prevSearches.filter((term) => term !== newTerm)].slice(
           0,
@@ -46,9 +61,32 @@ export default function HomePage({ onToggleFavorite, favorites }) {
     }
   }
 
-  function handleKeyPress(event) {
+  function navigateSearchHistory(direction) {
+    if (direction === "up" && currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+    if (direction === "down" && currentIndex < lastSearches.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "ArrowUp") {
+      navigateSearchHistory("up");
+    }
+    if (event.key === "ArrowDown") {
+      navigateSearchHistory("down");
+    }
     if (event.key === "Enter") {
       updateLastSearches(searchTerm);
+    }
+    if (event.key === "Enter" && currentIndex !== -1) {
+      setIsSearching(true);
+      setSearchTerm(lastSearches[currentIndex]);
+      const searchTermFromDropDown = lastSearches[currentIndex];
+      inputRef.current.value = searchTermFromDropDown;
+      const searchResult = fuse.search(searchTermFromDropDown).slice(0, 10);
+      setResults(searchResult.map((result) => result.item));
     }
   }
 
@@ -61,7 +99,6 @@ export default function HomePage({ onToggleFavorite, favorites }) {
     if (!fuse) {
       return;
     }
-
     setSearchTerm(event.target.value);
     const searchResult = fuse.search(searchTerm).slice(0, 10);
     setResults(searchResult.map((result) => result.item));
@@ -97,7 +134,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
               placeholder="Search"
               autoComplete="off"
               onChange={handleSearch}
-              onKeyDown={handleKeyPress}
+              onKeyDown={handleKeyDown}
             />
           </StyledSearchBarForm>
           <StyledButton onClick={handleClick}>
@@ -129,6 +166,10 @@ export default function HomePage({ onToggleFavorite, favorites }) {
                   <StyledListItem
                     key={index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
+                    onMouseEnter={() => setCurrentIndex(index)}
+                    onMouseLeave={() => setCurrentIndex(-1)}
+                    tabIndex={0}
+                    $highlighted={currentIndex === index}
                   >
                     <Icon icon="mdi:recent" height="1.3rem" /> {search}
                   </StyledListItem>
@@ -138,7 +179,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
         )}
       </StyledLastSearchContainer>
       {isSearching === true && results.length === 0 ? (
-        <StyledSorryMessage>Sorry, no snippets found... 😢</StyledSorryMessage>
+        <StyledSorryMessage>Sorry, no snippets found... 😭</StyledSorryMessage>
       ) : (
         <SnippetCardList
           data={isSearching === true ? results : data}
@@ -149,85 +190,3 @@ export default function HomePage({ onToggleFavorite, favorites }) {
     </StyledPage>
   );
 }
-const StyledLastSearchContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  border-radius: 3rem;
-  background-color: var(--white);
-
-  &:focus-within {
-    outline: 2px solid var(--primary-color);
-    border-radius: 3rem;
-    transition: outline 0.3s ease;
-    box-shadow: 0px 0px 17px 0px rgba(35, 1, 169, 0.38);
-  }
-`;
-
-const StyledSearchBarContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3rem;
-  grid-template-rows: 100%;
-  justify-items: center;
-  align-items: center;
-  border-radius: 3rem;
-  border: 3px solid var(--main-lila);
-  background-color: var(--white);
-`;
-
-const StyledSearchBarForm = styled.form`
-  height: 100%;
-  width: 100%;
-`;
-const StyledSearchBarInput = styled.input`
-  outline: none;
-  background-color: transparent;
-  border: none;
-  height: 100%;
-  width: 100%;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.2rem;
-`;
-
-const StyledButton = styled.button`
-  border: none;
-  background: transparent;
-`;
-
-const StyledDropdown = styled.div`
-  margin: 0 24px;
-`;
-
-const StyledList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-`;
-
-const StyledListItem = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 0.5rem;
-  cursor: pointer;
-  padding: 0.5rem 0;
-  &:hover {
-    font-weight: 600;
-  }
-`;
-
-const StyledLine = styled.hr`
-  margin: 0;
-  border: none;
-  height: 0.01rem;
-  background-color: var(--primary-color);
-`;
-
-const StyledSorryMessage = styled.h3`
-  margin: 1.5rem;
-  color: var(--primary-color);
-  text-align: center;
-`;
