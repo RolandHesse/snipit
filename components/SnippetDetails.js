@@ -136,4 +136,5 @@ const StyledTags = styled.div`
   margin-right: 0.5rem;
   margin-bottom: 1rem;
 `;
+
 export default SnippetDetails;

@@ -55,7 +55,6 @@ export default function App({ Component, pageProps }) {
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <Header />
-
       <Component
         {...pageProps}
         data={data}
@@ -77,14 +76,4 @@ const StyledText = styled.p`
   font-weight: 600;
   padding: 3rem 2rem;
   text-align: center;
-`;
-
-const StyledBackground = styled.section`
-  background: white;
-  width: 100%;
-  border-radius: 2rem 2rem 0 0;
-  margin-top: 3.5rem; // Start 3rem down from the top
-  height: 100%; // Fill the rest of the height
-  /* height: calc(100vh); // Fill the rest of the height: ; */
-  overflow-y: auto; // Make it scrollable
 `;
