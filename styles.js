@@ -24,6 +24,6 @@ export default createGlobalStyle`
     font-family: ${montserratFont.style.fontFamily};
     /* padding: 0.5rem;  */
     margin: 0;
-    background: var(--gradient)
+    /* background: var(--gradient) */
   }
 `;

@@ -55,16 +55,15 @@ export default function App({ Component, pageProps }) {
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <Header />
-      <StyledBackground>
-        <Component
-          {...pageProps}
-          data={data}
-          onToggleFavorite={handleToggleFavorite}
-          favorites={favorites}
-          defaultTags={defaultTags}
-        />
-        <Footer />
-      </StyledBackground>
+
+      <Component
+        {...pageProps}
+        data={data}
+        onToggleFavorite={handleToggleFavorite}
+        favorites={favorites}
+        defaultTags={defaultTags}
+      />
+      <Footer />
     </SWRConfig>
   );
 }
@@ -85,6 +84,7 @@ const StyledBackground = styled.section`
   width: 100%;
   border-radius: 2rem 2rem 0 0;
   margin-top: 3.5rem; // Start 3rem down from the top
-  height: calc(100vh); // Fill the rest of the height
+  height: 100%; // Fill the rest of the height
+  /* height: calc(100vh); // Fill the rest of the height: ; */
   overflow-y: auto; // Make it scrollable
 `;
