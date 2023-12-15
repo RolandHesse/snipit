@@ -4,25 +4,25 @@ import styled from "styled-components";
 function Header() {
   return (
     <Link href={`/`}>
-      <Logo aria-label="Snip it Logo">
-        <span aria-hidden="true">/ˈsnıp.ıt/</span>
-      </Logo>
+      <StyledHeader aria-label="Snip it Logo">
+        <StyledH1 aria-hidden="true">/ˈsnıp.ıt/</StyledH1>
+      </StyledHeader>
     </Link>
   );
 }
 
 export default Header;
 
-const Logo = styled.h1`
-  display: flex;
+const StyledHeader = styled.div`
   position: fixed;
-  color: var(--white);
-  background-color: var(--gradient);
-  justify-content: center;
-  margin: 0 0 1rem 0;
-  padding: 0.5rem 0.7rem 0.7rem 0.7rem;
-  top: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
+  text-align: center;
   z-index: 1;
+  top: 0;
+  margin: 0;
+  background: var(--gradient);
+`;
+
+const StyledH1 = styled.h1`
+  color: var(--white);
 `;

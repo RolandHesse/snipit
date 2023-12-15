@@ -23,7 +23,7 @@ export default createGlobalStyle`
   body {
     font-family: ${montserratFont.style.fontFamily};
     /* padding: 0.5rem;  */
-    margin: 0;
+    margin: 6rem 0 0 0;
     background: var(--gradient)
   }
 `;
