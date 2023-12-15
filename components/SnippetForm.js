@@ -219,6 +219,16 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         onChange={handleTagChange}
         onCreateOption={handleCreateTag}
         value={selectedTags}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 0,
+          colors: {
+            ...theme.colors,
+            text: "orangered",
+            primary25: "hotpink",
+            primary: "black",
+          },
+        })}
       />
 
       <StyledButtonContainer>
