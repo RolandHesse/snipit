@@ -24,7 +24,7 @@ export default function SnippetCard({
           <CardDescription>{description}</CardDescription>
         </StyledLinkComponent>
         <StyledTagList>
-          {tags.map((tag) => (
+          {tags?.map((tag) => (
             <StyledTagListEntry key={snippetData._id}>
               {tag.value}
             </StyledTagListEntry>
