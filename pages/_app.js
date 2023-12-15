@@ -55,13 +55,15 @@ export default function App({ Component, pageProps }) {
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <Header />
-      <Component
-        {...pageProps}
-        data={data}
-        onToggleFavorite={handleToggleFavorite}
-        favorites={favorites}
-        defaultTags={defaultTags}
-      />
+      <StyledBackground>
+        <Component
+          {...pageProps}
+          data={data}
+          onToggleFavorite={handleToggleFavorite}
+          favorites={favorites}
+          defaultTags={defaultTags}
+        />
+      </StyledBackground>
       <Footer />
     </SWRConfig>
   );
@@ -76,4 +78,12 @@ const StyledText = styled.p`
   font-weight: 600;
   padding: 3rem 2rem;
   text-align: center;
+`;
+
+const StyledBackground = styled.section`
+  background: white;
+  width: 100%;
+  border-radius: 2rem 2rem 0 0;
+  z-index: 50;
+  padding: 1rem 0;
 `;
