@@ -40,8 +40,6 @@ export default function HomePage({ onToggleFavorite, favorites }) {
 
   const { data } = useSWR("/api/snippets");
 
-  console.log("data: ", data);
-
   const fuse = new Fuse(data, fuseOptions);
   const inputRef = useRef(null);
 
@@ -164,7 +162,7 @@ export default function HomePage({ onToggleFavorite, favorites }) {
                 .map((search, index) => (
                   <StyledListItem
                     key={index}
-                    aria-selected={currentIndex === index ? "true" : "false"}
+                    aria-selected={currentIndex === index}
                     onMouseDown={() => handleLastSearchClick(event, search)}
                     onMouseEnter={() => setCurrentIndex(index)}
                     onMouseLeave={() => setCurrentIndex(-1)}

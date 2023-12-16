@@ -7,8 +7,6 @@ export default function FavoriteButton({ onClick, isFavorite, isDetail }) {
       <Icon
         icon="iconamoon:star-fill"
         width="48"
-        // stroke={isFavorite ? "var(--white)" : "var(--primary-color)"}
-        // strokeWidth="1.5"
         color={isFavorite ? "var(--main-lila)" : "var(--light-color)"}
       />
     </StyledFavoriteButton>
@@ -32,5 +30,3 @@ const StyledFavoriteButton = styled.button`
           right: 1rem;
         `}
 `;
-
-

@@ -232,11 +232,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
       />
 
       <StyledButtonContainer>
-        <Button
-          type="submit"
-          buttonName={defaultData ? "Update" : "Submit"}
-          style={{ background: "var(--main-blue)", color: "white" }}
-        />
+        <Button type="submit" buttonName={defaultData ? "Update" : "Submit"} />
         <Button
           type="button"
           buttonName="Cancel"

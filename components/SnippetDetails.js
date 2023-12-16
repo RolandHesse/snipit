@@ -77,6 +77,8 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
           url={`/${id}/edit`}
           linkName="Edit"
           linkIcon="line-md:edit"
+          $backgroundColor="var(--main-blue)"
+          $color="white"
         />
         <ConfirmModal
           message={`Are you sure you want to delete the snippet "${name}"?`}

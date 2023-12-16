@@ -1,7 +1,7 @@
 import { ListHeading, StyledSnippetList } from "./Layout";
 import SnippetCard from "./SnippetCard";
 
-function ShortDescription(description, maxLength) {
+function shortDescription(description, maxLength) {
   if (description?.length > maxLength) {
     return `${description.slice(0, maxLength)}...`;
   }
@@ -20,7 +20,7 @@ export default function SnippetCardList({ data, onToggleFavorite, favorites }) {
               favorites={favorites}
               snippetData={snippet}
               name={snippet.name}
-              description={ShortDescription(snippet.description, 60)}
+              description={shortDescription(snippet.description, 60)}
               tags={snippet.tags}
             />
           </li>

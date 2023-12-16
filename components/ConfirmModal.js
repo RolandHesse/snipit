@@ -38,12 +38,7 @@ function ConfirmModal({ message, handleFunction, snippetId }) {
                 buttonName="Confirm"
                 $backgroundColor="red"
               />
-              <Button
-                type="button"
-                onClick={hideModal}
-                buttonName="Cancel"
-                style={{ background: "var(--main-blue)", color: "white" }}
-              />
+              <Button type="button" onClick={hideModal} buttonName="Cancel" />
             </StyledButtonContainer>
           </StyledModal>
         </StyledBackdrop>

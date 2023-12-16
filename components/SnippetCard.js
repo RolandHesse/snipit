@@ -12,10 +12,6 @@ export default function SnippetCard({
   favorites,
 }) {
   if (!snippetData) return <div>No snippets yet 😭</div>;
-
-  console.log("snippetData: ", snippetData);
-  console.log("tags: ", tags);
-
   return (
     <StyledCard>
       <StyledTextWraper>
