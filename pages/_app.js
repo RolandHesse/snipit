@@ -27,13 +27,13 @@ export default function App({ Component, pageProps }) {
 
   if (error)
     return (
-      <StyledText>
+      <StyledText tabIndex={0}>
         Failed to load...<span aria-hidden="true">🥶 😵‍💫 😨 😩 😢</span>
       </StyledText>
     );
   if (isLoading)
     return (
-      <StyledText>
+      <StyledText tabIndex={0}>
         Wait....wait...wait... still loading...
         <span aria-hidden="true">🤓</span>
       </StyledText>
