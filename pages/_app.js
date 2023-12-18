@@ -83,7 +83,7 @@ const StyledText = styled.p`
 const StyledBackground = styled.section`
   background: white;
   width: 100%;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: 2rem;
   z-index: 50;
   padding: 1rem 0;
 `;
