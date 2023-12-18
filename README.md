@@ -1,37 +1,48 @@
 # /ˈsnɪp.ɪt/
 
-This app provides developers with a unified platform to efficiently store, organize, and retrieve code snippets, streamlining their coding workflow and promoting best practices and code reusability.
+This app provides developers with a unified platform to efficiently store, organize, and retrieve code snippets, cheat sheets and more, streamlining their coding workflow and promoting code reusability. Engineered with accessibility at its core, our platform adheres to WCAG criteria, ensuring an inclusive and seamless experience.
 
-It was created as capstone project in the [neue fische](https://www.neuefische.de/) bootcamp for webdevelopment, 19.06. - 19.12.2023 by [Iryna](https://github.com/nvhsk), [Nadja](https://github.com/NadjaKanunnikow), [Peet](https://github.com/PeetThesing) & [Roland](https://github.com/RolandHesse).
+The app was created within the capstone phase of our web development bootcamp at [neue fische](https://www.neuefische.de/).
 
-## Thanks to these libraries
+## Team
 
-[Syntax Highligher](https://github.com/react-syntax-highlighter/react-syntax-highlighter)
+<a href="https://github.com/nvhsk"><img src="https://avatars.githubusercontent.com/u/119431403?v=4" height="30px" width="auto" style="border-radius:50%"></a>
+<a href="https://github.com/NadjaKanunnikow"><img src="https://avatars.githubusercontent.com/u/136720547?v=4" height="30px" width="auto" style="border-radius:50%"></a>
+<a href="https://github.com/PeetThesing"><img src="https://avatars.githubusercontent.com/u/87306048?v=4" height="30px" width="auto" style="border-radius:50%"></a>
+<a href="https://github.com/RolandHesse"><img src="https://avatars.githubusercontent.com/u/136967950?v=4" height="30px" width="auto" style="border-radius:50%"></a>
+
+## Tech Stack
+
+[React](https://react.dev/)
+
+[Next.js](https://nextjs.org/)
+
+[Styled Components](https://styled-components.com/docs)
+
+[Node.js](https://nodejs.org/en)
+
+[MongoDB Atlas](https://www.mongodb.com/)
+
+[Mongoose](https://mongoosejs.com/)
+
+[useSWR](https://swr.vercel.app/)
+
+[React Syntax Highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter)
 
 [React Select](https://react-select.com/home)
 
 [React Hot Toast](https://react-hot-toast.com/)
 
-[fuse.js](https://www.fusejs.io/)
+[Fuse.js](https://www.fusejs.io/)
 
-[nanoid](https://www.npmjs.com/package/nanoid)
+[NanoID](https://www.npmjs.com/package/nanoid)
 
 [Iconify](https://iconify.design/)
 
-## Template
+## How to Use ℹ️
 
-This project was created from the neue fische `next` template.
-
-You can [🔗 **use this template on CodeSandbox**](https://codesandbox.io/p/sandbox/github/neuefische/web-exercises/tree/main/templates/next?file=/README.md) or locally by running this command in your Terminal:
-
-```bash
-npx -y ghcd@latest neuefische/web-exercises/tree/main/templates/next my-app -i
-```
-
-## Development
-
-### Local Development
-
-To work locally, please install the dependencies using `npm i` first.
-
-Run `npm run dev` to start a development server and open the displayed URL in a browser.
+1. Clone the repository.
+2. Set up a MongoDB database.
+3. Configure environment variables.
+4. Install dependencies with `npm install`.
+5. Run the app locally with `npm run dev`.
