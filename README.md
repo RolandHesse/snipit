@@ -6,7 +6,11 @@ The app was created within the capstone phase of our web development bootcamp at
 
 ## Team
 
+<<<<<<< HEAD
 <img src="https://avatars.githubusercontent.com/u/119431403?v=4" height="30px" width="auto" style="border-radius:50%">
+=======
+<a href="https://github.com/nvhsk"><img src="https://avatars.githubusercontent.com/u/119431403?v=4" height="30px" width="auto" style="border-radius:50%"></a>
+>>>>>>> 2cf45f5 (udpate README.md again)
 <a href="https://github.com/NadjaKanunnikow"><img src="https://avatars.githubusercontent.com/u/136720547?v=4" height="30px" width="auto" style="border-radius:50%"></a>
 <a href="https://github.com/PeetThesing"><img src="https://avatars.githubusercontent.com/u/87306048?v=4" height="30px" width="auto" style="border-radius:50%"></a>
 <a href="https://github.com/RolandHesse"><img src="https://avatars.githubusercontent.com/u/136967950?v=4" height="30px" width="auto" style="border-radius:50%"></a>
