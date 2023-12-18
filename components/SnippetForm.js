@@ -63,6 +63,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   }
 
   function handleLinkChange(id, value) {
+    if (value.trim() === "") {
+      return;
+    }
+
     const rawLinks = links.map((link) =>
       link.id === id ? { ...link, value } : link
     );
@@ -221,12 +225,14 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         value={selectedTags}
         theme={(theme) => ({
           ...theme,
-          borderRadius: 0,
+          borderRadius: 10,
           colors: {
             ...theme.colors,
             text: "orangered",
-            primary25: "hotpink",
-            primary: "black",
+            primary25: "var(--light-color)",
+            primary: "var(--main-blue)",
+            neutral0: "var(--light-color)",
+            neutral10: "var(--white)",
           },
         })}
       />
