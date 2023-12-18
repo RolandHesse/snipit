@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 export const StyledPage = styled.div`
-  margin: 3.5rem 0;
+  padding: 1.5rem;
+  padding-bottom: 4rem;
 `;
 
 export const ListHeading = styled.h2`
   font-size: 2rem;
+  font-style: italic;
   color: var(--primary-color);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const StyledSnippetList = styled.ul`
@@ -16,48 +18,56 @@ export const StyledSnippetList = styled.ul`
   padding: 0;
 `;
 
-/// >>>>>>>> STYLES FOR INDEX.JS <<<<<<<<///
-
 export const StyledLastSearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0;
-  border-radius: 0.5rem;
-  background-color: #c1d2d7;
-  margin: 0 1.5rem;
+  margin: 0;
+  border-radius: 3rem;
+  background-color: var(--white);
+
   &:focus-within {
     outline: 2px solid var(--primary-color);
-    border-radius: 0.5rem;
+    border-radius: 3rem;
     transition: outline 0.3s ease;
+    box-shadow: 0px 0px 17px 0px rgba(35, 1, 169, 0.38);
   }
 `;
+
 export const StyledSearchBarContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 3rem;
   grid-template-rows: 100%;
   justify-items: center;
   align-items: center;
-  border-radius: 0.5rem;
-  background-color: #c1d2d7;
+  border-radius: 3rem;
+  border: 3px solid var(--main-lila);
+  background-color: var(--white);
 `;
+
 export const StyledSearchBarForm = styled.form`
+  height: 100%;
   width: 100%;
 `;
 export const StyledSearchBarInput = styled.input`
   outline: none;
   background-color: transparent;
   border: none;
+  height: 100%;
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   font-size: 1.2rem;
 `;
+
 export const StyledButton = styled.button`
   border: none;
   background: transparent;
 `;
+
 export const StyledDropdown = styled.div`
   margin: 0 1.5rem;
 `;
+
 export const StyledList = styled.ul`
   list-style-type: none;
   padding: 0;
@@ -74,6 +84,7 @@ export const StyledListItem = styled.li`
   padding: 0.5rem 0;
   font-weight: ${(props) => (props.$highlighted ? 600 : "")};
 `;
+
 export const StyledLine = styled.hr`
   margin: 0;
   border: none;

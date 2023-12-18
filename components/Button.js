@@ -14,7 +14,7 @@ function Button({
       $backgroundColor={$backgroundColor}
       {...props}
     >
-      <span role="img" aria-label="hidden">
+      <span role="img" aria-hidden="true">
         <Icon icon={buttonIcon} className="button-icon" />
       </span>
       {buttonName}

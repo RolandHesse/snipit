@@ -6,7 +6,20 @@ import styled from "styled-components";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
 
-const notify = () => toast.success("Updated snippet successfully.");
+const notify = () =>
+  toast.success("Updated snippet successfully.", {
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
+  });
+const notifyError = () =>
+  toast("Okay, you just want everything to stay the same. Cool, cool.", {
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
+  });
 
 export default function EditPage({ defaultTags }) {
   const router = useRouter();
@@ -15,6 +28,18 @@ export default function EditPage({ defaultTags }) {
   const { data: snippet, isLoading, error } = useSWR(`/api/snippets/${id}`);
 
   async function editSnippet(event, snippetData) {
+    const currentSnippetResponse = await fetch(`/api/snippets/${id}`);
+    const currentSnippetData = await currentSnippetResponse.json();
+
+    const isDataChanged =
+      currentSnippetData.name !== snippetData.name ||
+      currentSnippetData.code !== snippetData.code ||
+      currentSnippetData.description !== snippetData.description ||
+      JSON.stringify(currentSnippetData.links) !==
+        JSON.stringify(snippetData.links) ||
+      JSON.stringify(currentSnippetData.tags) !==
+        JSON.stringify(snippetData.tags);
+
     if (snippetData.name && snippetData.code) {
       const { id } = router.query;
       const response = await fetch(`/api/snippets/${id}`, {
@@ -26,7 +51,7 @@ export default function EditPage({ defaultTags }) {
       });
 
       if (response.ok) {
-        notify();
+        isDataChanged ? notify() : notifyError();
         router.push(`/${id}`);
       } else {
         const data = await response.json();
@@ -56,6 +81,6 @@ export default function EditPage({ defaultTags }) {
 }
 
 const StyledEditPage = styled.div`
-  margin: 4rem 0 4rem 0;
+  margin: 2rem 2rem 6rem 2rem;
   color: var(--primary-color);
 `;

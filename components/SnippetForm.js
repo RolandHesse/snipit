@@ -6,11 +6,16 @@ import SmallButton from "./SmallButton";
 import { nanoid } from "nanoid";
 import CreatableSelect from "react-select/creatable";
 import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+
+const notify = () =>
+  toast.error("Please fill in the required fields.", {
+    ariaProps: { role: "status", "aria-live": "assertive" },
+  });
 
 function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   const [inputName, setInputName] = useState(defaultData?.name || "");
   const [inputCode, setInputCode] = useState(defaultData?.code || "");
-  const [warningMessage, setWarningMessage] = useState("");
   const [isFormValidated, setIsFormValidated] = useState(false);
   const [links, setLinks] = useState(
     defaultData ? defaultData.links : [{ id: "0", value: "" }]
@@ -32,18 +37,11 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-
     if (inputName === "" || inputCode === "") {
-      setWarningMessage(
-        <span>
-          <Icon icon="tabler:alert-circle-filled" height="2rem" /> Please fill
-          in the required field
-        </span>
-      );
+      notify();
       setIsFormValidated(true);
-    } else {
-      setWarningMessage("");
     }
+
     const formData = new FormData(event.target);
     const snippetData = Object.fromEntries(formData);
 
@@ -54,8 +52,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
     };
 
     onSubmit(event, snippetDataPlusLinksAndTags);
-    setLinks([{ id: "0", value: "" }]);
-    setSelectedTags([]);
+    if (!defaultData) {
+      setLinks([{ id: "0", value: "" }]);
+      setSelectedTags([]);
+    }
   }
 
   function handleAddLink() {
@@ -63,6 +63,10 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
   }
 
   function handleLinkChange(id, value) {
+    if (value.trim() === "") {
+      return;
+    }
+
     const rawLinks = links.map((link) =>
       link.id === id ? { ...link, value } : link
     );
@@ -90,24 +94,26 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
 
   return (
     <StyledForm aria-labelledby={formName} onSubmit={handleSubmit}>
-      <h2> {defaultData ? "Update Snippet" : "Add new Snippet"}</h2>
-      <Warning>{warningMessage}</Warning>
-      <p>
+      <h2 tabIndex={0}>
+        {" "}
+        {defaultData ? "Update Snippet" : "Add new Snippet"}
+      </h2>
+      <StyledRequiredMessage tabIndex={0}>
         <Icon icon="tabler:alert-circle" height="2rem" />
         &nbsp;Fields marked with an * are required
-      </p>
+      </StyledRequiredMessage>
       <label htmlFor="name">Name*</label>
       <StyledInputName
+        tabIndex={0}
         value={inputName}
         onChange={handleInputName}
         type="text"
         id="name"
         name="name"
-        placeholder="Code name"
         error={isFormValidated && inputName === ""}
       />
       <label htmlFor="language"></label>
-      <StyledLanguagesContainer>
+      <StyledLanguagesContainer aria-label="Choose code language" tabIndex={0}>
         <StyledLanguages
           id="language"
           name="language"
@@ -128,41 +134,41 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
         <label htmlFor="code">Code*</label>
       </StyledLanguagesContainer>
       <StyledCode
+        tabIndex={0}
         value={inputCode}
         onChange={handleInputCode}
         type="text"
         id="code"
         name="code"
         rows="5"
-        placeholder="Your code"
         error={isFormValidated && inputCode === ""}
       ></StyledCode>
       <label htmlFor="description">Description</label>
       <StyledFormElementOfCrime
+        tabIndex={0}
         type="text"
         id="description"
         name="description"
         rows="5"
-        placeholder="Description of the code"
         defaultValue={defaultData?.description}
       ></StyledFormElementOfCrime>
       {links.length <= 1 ? (
         <>
           <StyledList>
             {links.map((linkObject) => (
-              <li key={linkObject.id}>
+              <StyledListItem key={linkObject.id}>
                 <label htmlFor={linkObject.id}>Link: </label>
                 <StyledFormElementOfCrime
+                  tabIndex={0}
                   as="input"
                   type="text"
                   id={linkObject.id}
-                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
                   }
                 />
-              </li>
+              </StyledListItem>
             ))}
           </StyledList>
           <SmallButton
@@ -170,14 +176,13 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
             onClick={handleAddLink}
             buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
-            ariaLabel={"hidden"}
           />
         </>
       ) : (
         <>
           <StyledList>
             {links.map((linkObject) => (
-              <li key={linkObject.id}>
+              <StyledListItem key={linkObject.id}>
                 <label htmlFor={linkObject.id}>Link: </label>
                 <StyledFormElementOfCrime
                   as="input"
@@ -185,7 +190,6 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   autoFocus
                   type="text"
                   id={linkObject.id}
-                  placeholder="https://example.com/"
                   defaultValue={linkObject.value}
                   onChange={(event) =>
                     handleLinkChange(linkObject.id, event.target.value)
@@ -197,7 +201,7 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
                   buttonIcon={"mynaui:trash"}
                   ariaLabel={"delete"}
                 />
-              </li>
+              </StyledListItem>
             ))}
           </StyledList>
           <SmallButton
@@ -206,16 +210,31 @@ function SnippetForm({ onSubmit, formName, defaultData, defaultTags }) {
             buttonIcon={"simple-line-icons:plus"}
             buttonName={"Add another link"}
             ariaLabel={"hidden"}
+            className="smallButtonMargin"
           />
         </>
       )}
-      <label htmlFor="tag">Tags:</label>
+      <label htmlFor="tag" tabIndex={0}>
+        Tags:
+      </label>
       <CreatableSelect
         isMulti
         options={defaultTags}
         onChange={handleTagChange}
         onCreateOption={handleCreateTag}
         value={selectedTags}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 10,
+          colors: {
+            ...theme.colors,
+            text: "orangered",
+            primary25: "var(--light-color)",
+            primary: "var(--main-blue)",
+            neutral0: "var(--light-color)",
+            neutral10: "var(--white)",
+          },
+        })}
       />
 
       <StyledButtonContainer>
@@ -240,12 +259,14 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   font-weight: 500;
+  gap: 0.3rem;
 `;
 
 const StyledInputName = styled.input`
   border: 2px solid ${(props) => (props.error ? "red" : "initial")};
   height: 2rem;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
   background-color: var(--light-color);
 `;
 
@@ -259,23 +280,22 @@ const StyledLanguagesContainer = styled.div`
 const StyledLanguages = styled.select`
   display: flex;
   align-content: flex-start;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   background-color: var(--light-color);
 `;
 const StyledCode = styled.textarea`
   border: 2px solid ${(props) => (props.error ? "red" : "initial")};
   height: 10rem;
-  border-radius: 0.3rem;
-  background-color: var(--primary-color);
-
-  color: var(--white);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
 `;
 
 const StyledFormElementOfCrime = styled.textarea`
   height: 2rem;
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   background-color: var(--light-color);
   border: none;
+  width: 100%;
 `;
 
 const StyledButtonContainer = styled.div`
@@ -287,8 +307,28 @@ const StyledButtonContainer = styled.div`
 
 const Warning = styled.p`
   color: red;
+  margin: 0;
 `;
 
 const StyledList = styled.ul`
   list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+const StyledListItem = styled.li`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+`;
+
+const StyledRequiredMessage = styled.p`
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+  font-weight: 600;
 `;

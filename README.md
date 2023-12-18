@@ -1,41 +1,49 @@
-# New Next Project
+# /ˈsnɪp.ɪt/
 
-This project was created from the neue fische `next` template.
+This app provides developers with a unified platform to efficiently store, organize, and retrieve code snippets, cheat sheets and more, streamlining their coding workflow and promoting code reusability. Engineered with accessibility at its core, our platform adheres to WCAG criteria, ensuring an inclusive and seamless experience.
 
-You can [🔗 **use this template on CodeSandbox**](https://codesandbox.io/p/sandbox/github/neuefische/web-exercises/tree/main/templates/next?file=/README.md) or locally by running this command in your Terminal:
+The app was created within the capstone phase of our web development bootcamp at [neue fische](https://www.neuefische.de/).
 
-```bash
-npx -y ghcd@latest neuefische/web-exercises/tree/main/templates/next my-app -i
-```
+## Team
 
-## Used Libraries
+<a href="https://github.com/nvhsk">
+<img src="https://avatars.githubusercontent.com/u/119431403?v=4" height="30px" width="auto" style="border-radius:50%">
+<a href="https://github.com/NadjaKanunnikow"><img src="https://avatars.githubusercontent.com/u/136720547?v=4" height="30px" width="auto" style="border-radius:50%"></a>
+<a href="https://github.com/PeetThesing"><img src="https://avatars.githubusercontent.com/u/87306048?v=4" height="30px" width="auto" style="border-radius:50%"></a>
+<a href="https://github.com/RolandHesse"><img src="https://avatars.githubusercontent.com/u/136967950?v=4" height="30px" width="auto" style="border-radius:50%"></a>
 
-[Syntax Highligher](https://github.com/react-syntax-highlighter/react-syntax-highlighter)
+## Tech Stack
 
-## Development
+[React](https://react.dev/)
 
-### Local Development
+[Next.js](https://nextjs.org/)
 
-To work locally, please install the dependencies using `npm i` first.
+[Styled Components](https://styled-components.com/docs)
 
-Run `npm run dev` to start a development server and open the displayed URL in a browser.
+[Node.js](https://nodejs.org/en)
 
-Use `npm run test` to run the tests.
+[MongoDB Atlas](https://www.mongodb.com/)
 
-### CodeSandbox Cloud
+[Mongoose](https://mongoosejs.com/)
 
-Select the "Preview: 3000" tab to view this project.
+[useSWR](https://swr.vercel.app/)
 
-Select the "Tests: logs" tab to view the tests.
+[React Syntax Highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter)
 
-> The `npm run dev` and `npm run test` scripts run automatically.
+[React Select](https://react-select.com/home)
 
-### Scripts
+[React Hot Toast](https://react-hot-toast.com/)
 
-You can use the following commands:
+[Fuse.js](https://www.fusejs.io/)
 
-- `npm run dev` to start a development server
-- `npm run build` to build the project
-- `npm run start` to start a production server
-- `npm run test` to run the tests
-- `npm run lint` to run the linter
+[NanoID](https://www.npmjs.com/package/nanoid)
+
+[Iconify](https://iconify.design/)
+
+## How to Use ℹ️
+
+1. Clone the repository.
+2. Set up a MongoDB database.
+3. Configure environment variables.
+4. Install dependencies with `npm install`.
+5. Run the app locally with `npm run dev`.

@@ -6,13 +6,18 @@ import { mutate } from "swr";
 import toast from "react-hot-toast";
 import StyledToaster from "@/components/StyledToaster";
 
-const notify = () => toast.success("Deleted successfully!");
+const notify = () =>
+  toast.success("Deleted successfully!", {
+    ariaProps: {
+      role: "status",
+      "aria-live": "polite",
+    },
+  });
 
 function SnippetDetailsPage({ onToggleFavorite, favorites }) {
   const router = useRouter();
 
   const { id } = router.query;
-
   async function handleDelete() {
     try {
       await fetch(`/api/snippets/${id}`, { method: "DELETE" });
@@ -45,5 +50,5 @@ function SnippetDetailsPage({ onToggleFavorite, favorites }) {
 export default SnippetDetailsPage;
 
 const StlyedDetailsPage = styled.div`
-  margin: 3.6rem 0 0 0;
+  margin: 2rem 1rem 6rem 1rem;
 `;

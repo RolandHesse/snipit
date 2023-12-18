@@ -7,37 +7,69 @@ export default function SnippetCard({
   snippetData,
   name,
   description,
+  tags,
   onToggleFavorite,
   favorites,
 }) {
   if (!snippetData) return <div>No snippets yet 😭</div>;
-
   return (
     <StyledCard>
-      <FavoriteButton
-        onClick={() => onToggleFavorite(snippetData._id)}
-        isFavorite={favorites.includes(snippetData._id)}
-      />
-      <StyledLinkComponent href={`/${snippetData._id}`}>
-        <CardHeading>{name}</CardHeading>
-        <CardDescription>{description}</CardDescription>
-      </StyledLinkComponent>
-      <CopyWithOneClick codeData={snippetData.code} iconColor="var(--white)" />
+      <StyledTextWraper>
+        <StyledLinkComponent href={`/${snippetData._id}`}>
+          <CardHeading>{name}</CardHeading>
+          <CardDescription>{description}</CardDescription>
+        </StyledLinkComponent>
+        <StyledTagList>
+          {tags?.map((tag) => (
+            <StyledTagListEntry key={snippetData._id}>
+              {tag.value}
+            </StyledTagListEntry>
+          ))}
+        </StyledTagList>
+      </StyledTextWraper>
+      <StyledButttonWrapper>
+        <FavoriteButton
+          onClick={() => onToggleFavorite(snippetData._id)}
+          isFavorite={favorites.includes(snippetData._id)}
+        />
+        <CopyWithOneClick codeData={snippetData.code} />
+      </StyledButttonWrapper>
     </StyledCard>
   );
 }
 
 const StyledCard = styled.section`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  margin: 1.5rem;
-  padding: 2rem 1.5rem;
-  border-radius: 0.5rem;
-  background-color: var(--primary-color);
-  color: var(--white);
+  margin: 1.5rem 0;
+  padding: 2rem 1rem 1.5rem 1.5rem;
+  border-radius: 1.5rem;
+  background: var(--white);
+  color: var(--text-color);
   position: relative;
+  box-shadow: 0px 0px 17px 0px rgba(35, 1, 169, 0.38);
+  min-height: 8rem;
+`;
+
+const StyledTextWraper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  max-width: 80%;
+  margin: 0;
+  padding: 0;
+`;
+
+const StyledButttonWrapper = styled.div`
+  min-height: 6rem;
+`;
+
+const StyledLinkComponent = styled(Link)`
+  text-decoration: none;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 `;
 
 const CardHeading = styled.h2`
@@ -50,7 +82,20 @@ const CardDescription = styled.p`
   margin: 0;
 `;
 
-const StyledLinkComponent = styled(Link)`
-  text-decoration: none;
-  color: var(--white);
+const StyledTagList = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const StyledTagListEntry = styled.li`
+  border-radius: 1rem;
+  padding: 0.2rem 0.6rem;
+  margin: 0 0.1rem;
+  text-align: center;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25) inset;
 `;

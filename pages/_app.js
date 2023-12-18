@@ -5,6 +5,8 @@ import { SWRConfig } from "swr";
 import useSWR from "swr";
 import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
+import { Montserrat } from "@next/font/google";
+const montserratFont = Montserrat({ subsets: ["latin"] });
 
 const fetcher = (...args) => fetch(...args).then((response) => response.json());
 
@@ -23,9 +25,19 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  if (error) return <StyledText>Failed to load...🥶 😵‍💫 😨 😩 😢</StyledText>;
+  if (error)
+    return (
+      <StyledText tabIndex={0}>
+        Failed to load...<span aria-hidden="true">🥶 😵‍💫 😨 😩 😢</span>
+      </StyledText>
+    );
   if (isLoading)
-    return <StyledText>Wait....wait...wait... still loading...🤓</StyledText>;
+    return (
+      <StyledText tabIndex={0}>
+        Wait....wait...wait... still loading...
+        <span aria-hidden="true">🤓</span>
+      </StyledText>
+    );
 
   const defaultTags = data?.reduce((tagsArray, item) => {
     item.tags?.forEach((tag) => {
@@ -43,22 +55,35 @@ export default function App({ Component, pageProps }) {
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <Header />
-      <Component
-        {...pageProps}
-        data={data}
-        onToggleFavorite={handleToggleFavorite}
-        favorites={favorites}
-        defaultTags={defaultTags}
-      />
+      <StyledBackground>
+        <Component
+          {...pageProps}
+          data={data}
+          onToggleFavorite={handleToggleFavorite}
+          favorites={favorites}
+          defaultTags={defaultTags}
+        />
+      </StyledBackground>
       <Footer />
     </SWRConfig>
   );
 }
 
 const StyledText = styled.p`
-  /* color: var(--primary-color); */
-  color: red;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: white;
+  font-family: ${montserratFont.style.fontFamily};
+  background: linear-gradient(89deg, #9b2fc4 0.91%, #0045e8 99.91%);
+  border-radius: 5rem;
   font-size: 2rem;
+  font-weight: 600;
   padding: 3rem 2rem;
+  text-align: center;
+`;
+
+const StyledBackground = styled.section`
+  background: white;
+  width: 100%;
+  border-radius: 2rem;
+  z-index: 50;
+  padding: 1rem 0;
 `;

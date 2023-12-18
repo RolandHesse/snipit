@@ -28,8 +28,8 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
   return (
     <StyledSection>
       <StyledCard>
-        <Title>{name}</Title>
-        <Heading>Code</Heading>
+        <Title tabIndex={0}>{name}</Title>
+        <Heading tabIndex={0}>Code</Heading>
         <FavoriteButton
           onClick={() => onToggleFavorite(_id)}
           isFavorite={favorites.includes(_id)}
@@ -39,6 +39,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
             language={language}
             style={a11yLight}
             showLineNumbers
+            tabIndex={0}
           >
             {code}
           </StyledSyntaxHighlighter>
@@ -48,25 +49,27 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
             iconColor="var(--primary-color)"
           />
         </CodeContainer>
-        <Heading>Description</Heading>
-        <p>{description}</p>
+        <Heading tabIndex={0}>Description</Heading>
+        <p tabIndex={0}>{description}</p>
 
-        <Heading>Further Resources</Heading>
+        <Heading tabIndex={0}>Further Resources</Heading>
         {links?.map((linkObject) => (
           <div key={linkObject.id}>
-            <Link
+            <StyledDetailsLink
               href={linkObject.value}
               target="_blank"
               rel="noopener noreferrer"
             >
               {linkObject.value}
-            </Link>
+            </StyledDetailsLink>
           </div>
         ))}
 
-        <Heading>Tags</Heading>
+        <Heading tabIndex={0}>Tags</Heading>
         {tags?.map((tagObject) => (
-          <StyledTags key={tagObject.value}>{tagObject.label}</StyledTags>
+          <StyledTags tabIndex={0} key={tagObject.value}>
+            {tagObject.label}
+          </StyledTags>
         ))}
       </StyledCard>
       <StyledButtonDiv>
@@ -74,6 +77,8 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
           url={`/${id}/edit`}
           linkName="Edit"
           linkIcon="line-md:edit"
+          $backgroundColor="var(--main-blue)"
+          $color="white"
         />
         <ConfirmModal
           message={`Are you sure you want to delete the snippet "${name}"?`}
@@ -87,6 +92,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
 const Title = styled.h2`
   font-size: 1.5rem;
   color: var(--primary-color);
+  max-width: 90%;
 `;
 
 const Heading = styled.h3`
@@ -100,7 +106,7 @@ const StyledSection = styled.section`
 const StyledCard = styled.div`
   background-color: var(--light-color);
   margin: 1rem 0rem;
-  padding: 0.1rem 0.5rem;
+  padding: 0.1rem 1.3rem;
   border-radius: 1rem;
   position: relative;
 `;
@@ -114,11 +120,16 @@ const CodeContainer = styled.div`
   padding: 0.7rem 0.001rem 0.001rem 0.001rem;
   background-color: white;
   border-radius: 0.5rem;
+  position: relative;
 `;
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   overflow-y: auto;
   max-height: 200px;
+`;
+
+const StyledDetailsLink = styled(Link)`
+  word-break: break-all;
 `;
 
 const StyledTags = styled.div`
@@ -131,4 +142,5 @@ const StyledTags = styled.div`
   margin-right: 0.5rem;
   margin-bottom: 1rem;
 `;
+
 export default SnippetDetails;
