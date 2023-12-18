@@ -55,13 +55,13 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         <Heading tabIndex={0}>Further Resources</Heading>
         {links?.map((linkObject) => (
           <div key={linkObject.id}>
-            <Link
+            <StyledDetailsLink
               href={linkObject.value}
               target="_blank"
               rel="noopener noreferrer"
             >
               {linkObject.value}
-            </Link>
+            </StyledDetailsLink>
           </div>
         ))}
 
@@ -126,6 +126,10 @@ const CodeContainer = styled.div`
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   overflow-y: auto;
   max-height: 200px;
+`;
+
+const StyledDetailsLink = styled(Link)`
+  word-break: break-all;
 `;
 
 const StyledTags = styled.div`

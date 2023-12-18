@@ -5,7 +5,7 @@ function StyledToaster() {
     <Toaster
       toastOptions={{
         style: {
-          border: "1px solid var(--primary-color)",
+          border: "3px solid var(--main-lila)",
           padding: "16px",
           color: "var(--white)",
           fontWeight: 600,
