@@ -7,7 +7,15 @@ export default function FavoriteButton({ onClick, isFavorite, isDetail }) {
       <Icon
         icon="iconamoon:star-fill"
         width="48"
-        color={isFavorite ? "var(--main-lila)" : "var(--light-color)"}
+        color={
+          isDetail
+            ? isFavorite
+              ? "var(--main-lila)"
+              : "white"
+            : isFavorite
+            ? "var(--main-lila)"
+            : "var(--light-color)"
+        }
       />
     </StyledFavoriteButton>
   );

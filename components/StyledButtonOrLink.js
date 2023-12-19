@@ -16,7 +16,8 @@ export const StyledButtonOrLink = styled.button`
     margin-right: 0.5rem;
     font-size: 1.7rem;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${({ $backgroundColor }) =>
       $backgroundColor ? $backgroundColor : "var(--main-blue)"};
     color: white;
