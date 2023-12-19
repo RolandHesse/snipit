@@ -33,6 +33,7 @@ function SnippetDetails({ onDelete, favorites, onToggleFavorite }) {
         <FavoriteButton
           onClick={() => onToggleFavorite(_id)}
           isFavorite={favorites.includes(_id)}
+          isDetail
         />
         <CodeContainer>
           <StyledSyntaxHighlighter
